@@ -1,4 +1,4 @@
-package Controll;
+package controle;
 
 public class ExploradorDeArquivos {
 }
