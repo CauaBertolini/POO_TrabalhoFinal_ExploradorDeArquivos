@@ -1,4 +1,4 @@
-package Model;
+package modelo;
 
 public abstract class Midia {
     private String local;
