@@ -1,4 +1,6 @@
-package modelo;
+package modelo.midias;
+
+import modelo.Pessoa;
 
 import java.util.ArrayList;
 
