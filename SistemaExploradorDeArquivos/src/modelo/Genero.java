@@ -11,7 +11,7 @@ public abstract class Genero {
 
     public void setNome(String nome) throws StringVaziaExcecao {
         if (nome == null || nome.isBlank()) {
-            throw new StringVaziaExcecao("Nome");
+            throw new CampoVazioOuNuloExcecao();
         }
     }
 
