@@ -1,6 +1,7 @@
 package modelo;
 
-import excecao.StringVaziaExcecao;
+import excecao.CampoMenorOuIgualAZeroExcecao;
+import excecao.CampoVazioOuNuloExcecao;
 
 public abstract class Midia {
     private String local;
@@ -9,7 +10,7 @@ public abstract class Midia {
     private double duracao;
 
 
-    public Midia(String local, String titulo, float tamanho,  double duracao) throws StringVaziaExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String local, String titulo, float tamanho,  double duracao) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         setLocal(local);
         setTitulo(titulo);
         setTamanho(tamanho);
@@ -21,9 +22,9 @@ public abstract class Midia {
         return local;
     }
 
-    public void setLocal(String local) throws StringVaziaExcecao {
+    public void setLocal(String local) throws CampoVazioOuNuloExcecao {
         if (local == null || local.isEmpty()) {
-            throw new StringVaziaExcecao();
+            throw new CampoVazioOuNuloExcecao();
         }this.local = local;
     }
 
@@ -33,7 +34,7 @@ public abstract class Midia {
 
     public void setTitulo(String titulo) {
         if (titulo == null || titulo.isEmpty()) {
-            throw new StringVaziaExcecao();
+            throw new CampoVazioOuNuloExcecao();
         }this.titulo = titulo;
     }
 

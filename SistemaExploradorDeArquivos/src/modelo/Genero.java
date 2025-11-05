@@ -1,11 +1,11 @@
 package modelo;
 
-import excecao.StringVaziaExcecao;
+import excecao.CampoVazioOuNuloExcecao;
 
 public abstract class Genero {
     private String nome;
 
-    public Genero(String nome) throws StringVaziaExcecao {
+    public Genero(String nome) throws CampoVazioOuNuloExcecao {
         setNome(nome);
     }
 
