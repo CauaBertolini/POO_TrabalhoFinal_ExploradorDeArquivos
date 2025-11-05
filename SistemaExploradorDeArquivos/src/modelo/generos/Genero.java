@@ -1,4 +1,4 @@
-package modelo;
+package modelo.generos;
 
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
