@@ -5,15 +5,18 @@ import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
 import modelo.generos.GeneroMusical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Musica extends Midia {
 
     private String artista;
-    private GeneroMusical generoMusical;
+    private List<GeneroMusical> generosMusical;
 
     public Musica(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, String artista, GeneroMusical generoMusical) {
         super(local, titulo, tamanho, duracao, eTipoArquivo);
+        this.generosMusical = new ArrayList<>();
         setArtista(artista);
-        setGeneroMusical(generoMusical);
     }
 
     public String getArtista() {
@@ -26,15 +29,26 @@ public class Musica extends Midia {
         }
     }
 
-    public GeneroMusical getGeneroMusical(){
-        return generoMusical;
-    }
-
-    public void setGeneroMusical(GeneroMusical generoMusical) {
-        if (generoMusical == null) {
+    public void adicionarGenero(GeneroMusical generoCinema) {
+        if (generoCinema == null) {
             throw new CampoVazioOuNuloExcecao();
         }
-        this.generoMusical = generoMusical;
+        generosMusical.add(generoCinema);
+    }
+
+    public void removerGenero(GeneroMusical generoCinema) {
+        if (generoCinema == null) {
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generosMusical.remove(generoCinema);
+    }
+
+    public String listarGenerosMusical() {
+        String generos = "";
+        for (GeneroMusical genero : generosMusical) {
+            generos += genero.getNome() + ", ";
+        }
+        return generos;
     }
 
 }
