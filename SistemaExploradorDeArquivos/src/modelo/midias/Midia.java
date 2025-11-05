@@ -1,5 +1,6 @@
 package modelo.midias;
 
+import enumerador.ETipoArquivo;
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
@@ -9,13 +10,15 @@ public abstract class Midia {
     private String titulo;
     private float tamanho;
     private double duracao;
+    private ETipoArquivo tipoArquivo;
 
 
-    public Midia(String local, String titulo, float tamanho,  double duracao) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String local, String titulo, float tamanho,  double duracao, ETipoArquivo tipoArquivo) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         setLocal(local);
         setTitulo(titulo);
         setTamanho(tamanho);
         setDuracao(duracao);
+        setTipoArquivo(tipoArquivo);
     }
 
 
@@ -57,5 +60,16 @@ public abstract class Midia {
         if (!Utilitario.campoMenorOuIgualAZeroExcecao(duracao)) {
             this.duracao = duracao;
         }
+    }
+
+    public ETipoArquivo getTipoArquivo() {
+        return tipoArquivo;
+    }
+
+    public void setTipoArquivo(ETipoArquivo tipoArquivo) {
+        if (tipoArquivo == null) {
+            throw new CampoVazioOuNuloExcecao();
+        }
+        this.tipoArquivo = tipoArquivo;
     }
 }
