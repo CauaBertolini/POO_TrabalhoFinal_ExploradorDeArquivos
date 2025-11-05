@@ -1,4 +1,6 @@
-package modelo;
+package modelo.midias;
+
+import modelo.Idioma;
 
 public class Filme extends Midia {
     private Idioma idioma;

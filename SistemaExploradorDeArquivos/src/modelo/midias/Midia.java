@@ -1,4 +1,4 @@
-package modelo;
+package modelo.midias;
 
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
