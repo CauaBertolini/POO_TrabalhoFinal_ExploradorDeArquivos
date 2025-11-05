@@ -10,8 +10,8 @@ public abstract class Genero {
     }
 
     public void setNome(String nome) throws CampoVazioOuNuloExcecao {
-        if (nome == null || nome.isBlank()) {
-            throw new CampoVazioOuNuloExcecao();
+        if (!Utilitario.campoEstaVazioOuNulo(nome)) {
+            this.nome = nome.trim();
         }
     }
 
