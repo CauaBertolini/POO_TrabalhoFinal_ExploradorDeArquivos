@@ -9,7 +9,7 @@ public abstract class Genero {
         setNome(nome);
     }
 
-    public void setNome(String nome) throws StringVaziaExcecao {
+    public void setNome(String nome) throws CampoVazioOuNuloExcecao {
         if (nome == null || nome.isBlank()) {
             throw new CampoVazioOuNuloExcecao();
         }
