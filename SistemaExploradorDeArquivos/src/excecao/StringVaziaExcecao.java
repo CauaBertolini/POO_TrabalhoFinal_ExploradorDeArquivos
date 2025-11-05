@@ -1,7 +1,7 @@
 package excecao;
 
 public class StringVaziaExcecao extends RuntimeException {
-    public StringVaziaExcecao(String message) {
-        super(message+", não pode estar vazio");
+    public StringVaziaExcecao() {
+        super("Campo não pode estar vazio");
     }
 }
