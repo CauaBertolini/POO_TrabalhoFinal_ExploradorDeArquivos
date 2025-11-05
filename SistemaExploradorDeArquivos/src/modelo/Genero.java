@@ -1,17 +1,17 @@
 package modelo;
 
-import excecao.StringVaziaExcecao;
+import excecao.CampoVazioOuNuloExcecao;
 
 public abstract class Genero {
     private String nome;
 
-    public Genero(String nome) throws StringVaziaExcecao {
+    public Genero(String nome) throws CampoVazioOuNuloExcecao {
         setNome(nome);
     }
 
-    public void setNome(String nome) throws StringVaziaExcecao {
+    public void setNome(String nome) throws CampoVazioOuNuloExcecao {
         if (nome == null || nome.isBlank()) {
-            throw new StringVaziaExcecao("Nome");
+            throw new CampoVazioOuNuloExcecao();
         }
     }
 

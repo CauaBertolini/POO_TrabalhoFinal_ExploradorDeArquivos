@@ -1,6 +1,8 @@
 package modelo;
 
-import excecao.StringVaziaExcecao;
+import excecao.CampoMenorOuIgualAZeroExcecao;
+import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
 
 public abstract class Midia {
     private String local;
@@ -9,7 +11,7 @@ public abstract class Midia {
     private double duracao;
 
 
-    public Midia(String local, String titulo, float tamanho,  double duracao) throws StringVaziaExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String local, String titulo, float tamanho,  double duracao) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         setLocal(local);
         setTitulo(titulo);
         setTamanho(tamanho);
@@ -21,20 +23,20 @@ public abstract class Midia {
         return local;
     }
 
-    public void setLocal(String local) throws StringVaziaExcecao {
-        if (local == null || local.isEmpty()) {
-            throw new StringVaziaExcecao();
-        }this.local = local;
+    public void setLocal(String local) throws CampoVazioOuNuloExcecao {
+        if (!Utilitario.campoEstaVazioOuNulo(local)) {
+            this.local = local.trim();
+        }
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        if (titulo == null || titulo.isEmpty()) {
-            throw new StringVaziaExcecao();
-        }this.titulo = titulo;
+    public void setTitulo(String titulo) throws CampoVazioOuNuloExcecao {
+        if (!Utilitario.campoEstaVazioOuNulo(titulo)) {
+            this.titulo = titulo.trim();
+        }
     }
 
     public float getTamanho() {
@@ -42,9 +44,9 @@ public abstract class Midia {
     }
 
     public void setTamanho(float tamanho) throws CampoMenorOuIgualAZeroExcecao {
-        if (tamanho <= 0) {
-            throw new CampoMenorOuIgualAZeroExcecao();
-        }this.tamanho = tamanho;
+        if (!Utilitario.campoMenorOuIgualAZeroExcecao(tamanho)) {
+            this.tamanho = tamanho;
+        }
     }
 
     public double getDuracao() {
@@ -52,8 +54,8 @@ public abstract class Midia {
     }
 
     public void setDuracao(double duracao) throws CampoMenorOuIgualAZeroExcecao {
-        if (duracao <= 0) {
-            throw new CampoMenorOuIgualAZeroExcecao();
-        }this.duracao = duracao;
+        if (!Utilitario.campoMenorOuIgualAZeroExcecao(duracao)) {
+            this.duracao = duracao;
+        }
     }
 }
