@@ -2,6 +2,7 @@ package modelo;
 
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
 
 public abstract class Midia {
     private String local;
@@ -23,19 +24,19 @@ public abstract class Midia {
     }
 
     public void setLocal(String local) throws CampoVazioOuNuloExcecao {
-        if (local == null || local.isEmpty()) {
-            throw new CampoVazioOuNuloExcecao();
-        }this.local = local;
+        if (!Utilitario.campoEstaVazioOuNulo(local)) {
+            this.local = local.trim();
+        }
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        if (titulo == null || titulo.isEmpty()) {
-            throw new CampoVazioOuNuloExcecao();
-        }this.titulo = titulo;
+    public void setTitulo(String titulo) throws CampoVazioOuNuloExcecao {
+        if (!Utilitario.campoEstaVazioOuNulo(titulo)) {
+            this.titulo = titulo.trim();
+        }
     }
 
     public float getTamanho() {
@@ -43,9 +44,9 @@ public abstract class Midia {
     }
 
     public void setTamanho(float tamanho) throws CampoMenorOuIgualAZeroExcecao {
-        if (tamanho <= 0) {
-            throw new CampoMenorOuIgualAZeroExcecao();
-        }this.tamanho = tamanho;
+        if (!Utilitario.campoMenorOuIgualAZeroExcecao(tamanho)) {
+            this.tamanho = tamanho;
+        }
     }
 
     public double getDuracao() {
@@ -53,8 +54,8 @@ public abstract class Midia {
     }
 
     public void setDuracao(double duracao) throws CampoMenorOuIgualAZeroExcecao {
-        if (duracao <= 0) {
-            throw new CampoMenorOuIgualAZeroExcecao();
-        }this.duracao = duracao;
+        if (!Utilitario.campoMenorOuIgualAZeroExcecao(duracao)) {
+            this.duracao = duracao;
+        }
     }
 }

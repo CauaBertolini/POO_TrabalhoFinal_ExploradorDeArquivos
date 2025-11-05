@@ -2,7 +2,7 @@ package excecao;
 
 public class Utilitario {
 
-    public boolean campoEstaVazioOuNulo (String campo) throws CampoVazioOuNuloExcecao {
+    public static boolean campoEstaVazioOuNulo (String campo) throws CampoVazioOuNuloExcecao {
         if (campo.isEmpty() || campo == null) {
             throw new CampoVazioOuNuloExcecao();
         } else {
@@ -10,12 +10,27 @@ public class Utilitario {
         }
     }
 
-    public boolean campoMenorOuIgualAZeroExcecao (int campo) throws CampoMenorOuIgualAZeroExcecao {
+    public static boolean campoMenorOuIgualAZeroExcecao (int campo) throws CampoMenorOuIgualAZeroExcecao {
         if (campo <= 0) {
             throw new CampoMenorOuIgualAZeroExcecao();
         } else {
             return false;
         }
+    }
 
+    public static boolean campoMenorOuIgualAZeroExcecao (double campo) throws CampoMenorOuIgualAZeroExcecao {
+        if (campo <= 0) {
+            throw new CampoMenorOuIgualAZeroExcecao();
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean campoMenorOuIgualAZeroExcecao (float campo) throws CampoMenorOuIgualAZeroExcecao {
+        if (campo <= 0) {
+            throw new CampoMenorOuIgualAZeroExcecao();
+        } else {
+            return false;
+        }
     }
 }
