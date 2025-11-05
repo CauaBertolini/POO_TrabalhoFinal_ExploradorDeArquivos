@@ -31,4 +31,8 @@ public class Salvamento {
             return false;
         }
     }
+
+    public boolean gerarArquivo() {
+        return  true;
+    }
 }

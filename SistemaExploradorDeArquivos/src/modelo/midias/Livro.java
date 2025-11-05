@@ -1,27 +1,25 @@
 package modelo.midias;
 
-import modelo.Pessoa;
+import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
 
 import java.util.ArrayList;
 
 public class Livro extends Midia {
 
-    private ArrayList<Pessoa> autores;
+    private String autor;
 
     public Livro(String local, String titulo, float tamanho,  double duracao) {
         super(local, titulo, tamanho, duracao);
     }
 
-
-    public void adicionarAutor() {
-
+    public void setAutor(String autor) throws CampoVazioOuNuloExcecao {
+        if (!Utilitario.campoEstaVazioOuNulo(autor)) {
+            this.autor = autor;
+        }
     }
 
-    public void removerAutor() {
-
-    }
-
-    public ArrayList<Pessoa> listarAutores() {
-        return autores;
+    public String getAutor() {
+        return autor;
     }
 }

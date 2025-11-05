@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
-      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/generos/Genero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/GeneroCinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/generos/GeneroCinema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/GeneroLiterario.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/generos/GeneroLiterario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/GeneroMusical.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/generos/GeneroMusical.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Pessoa.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +94,7 @@
       <updated>1762252879516</updated>
       <workItem from="1762252881536" duration="1150000" />
       <workItem from="1762339202728" duration="5715000" />
-      <workItem from="1762348437694" duration="3274000" />
+      <workItem from="1762348437694" duration="6692000" />
     </task>
     <task id="LOCAL-00001" summary="Ciração das classes Pessoa e Idioma">
       <option name="closed" value="true" />
@@ -182,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762343595711</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Aplicação da classe Utilitario.java ás validações de Midia.java">
+      <option name="closed" value="true" />
+      <created>1762351809778</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1762351809778</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
