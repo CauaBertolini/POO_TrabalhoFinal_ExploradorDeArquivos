@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="Ciração das classes Pessoa e Idioma.java">
-      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/CampoMenorOuIgualAZeroExcecao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/CampoVazioOuNuloExcecao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/Utilitario.java" afterDir="false" />
+    <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/StringVaziaExcecao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Filme.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Genero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Midia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Pessoa.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1762252879516</updated>
       <workItem from="1762252881536" duration="1150000" />
-      <workItem from="1762339202728" duration="1276000" />
+      <workItem from="1762339202728" duration="2797000" />
     </task>
     <task id="LOCAL-00001" summary="Ciração das classes Pessoa e Idioma">
       <option name="closed" value="true" />
@@ -127,7 +122,31 @@
       <option name="project" value="LOCAL" />
       <updated>1762339863525</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Ciração das classes Pessoa e Idioma.java">
+      <option name="closed" value="true" />
+      <created>1762340492561</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1762340492561</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Aplicação da classe Utilitario.java ás validações de Midia.java">
+      <option name="closed" value="true" />
+      <created>1762341247915</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1762341247915</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Criação de Getters and Setters Pessoa">
+      <option name="closed" value="true" />
+      <created>1762341713400</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1762341713400</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,10 +165,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ciração das classes Pessoa e Idioma" />
-    <MESSAGE value="Ciração das classes Pessoa e Idioma.java" />
     <MESSAGE value="Remoção de Parâmetro obsoleto" />
     <MESSAGE value="Correção de Nome" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correção de Nome" />
+    <MESSAGE value="Ciração das classes Pessoa e Idioma.java" />
+    <MESSAGE value="Aplicação da classe Utilitario.java ás validações de Midia.java" />
+    <MESSAGE value="Criação de Getters and Setters Pessoa" />
+    <option name="LAST_COMMIT_MESSAGE" value="Criação de Getters and Setters Pessoa" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

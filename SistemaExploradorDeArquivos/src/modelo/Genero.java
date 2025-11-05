@@ -1,6 +1,7 @@
 package modelo;
 
 import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
 
 public abstract class Genero {
     private String nome;
@@ -10,8 +11,8 @@ public abstract class Genero {
     }
 
     public void setNome(String nome) throws CampoVazioOuNuloExcecao {
-        if (nome == null || nome.isBlank()) {
-            throw new CampoVazioOuNuloExcecao();
+        if (!Utilitario.campoEstaVazioOuNulo(nome)) {
+            this.nome = nome.trim();
         }
     }
 
