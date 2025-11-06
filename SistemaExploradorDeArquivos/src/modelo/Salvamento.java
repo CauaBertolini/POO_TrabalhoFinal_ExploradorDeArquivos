@@ -35,11 +35,5 @@ public class Salvamento {
         }
     }
 
-    public boolean alterarMidia(Midia midia) {
-        return false;
-    }
 
-    public boolean gerarArquivo() {
-        return  true;
-    }
 }
