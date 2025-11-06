@@ -29,6 +29,19 @@ public abstract class Midia {
         setTipoArquivo(tipoArquivo);
     }
 
+    public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null){
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generos.add(genero);
+    }
+
+    public void removerGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null){
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generos.remove(genero);
+    }
 
     public String getLocal() {
         return local;
