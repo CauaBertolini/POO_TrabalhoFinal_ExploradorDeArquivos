@@ -4,47 +4,60 @@ import enumerador.ETipoArquivo;
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
-import modelo.generos.Genero;
+import modelo.Genero;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Midia {
     private String local;
-    private String titulo;
+    private String nome;
     private float tamanho;
     private double duracao;
     private ETipoArquivo tipoArquivo;
     private List<Genero> generos;
 
 
-    public Midia(String local, String titulo, float tamanho,  double duracao, ETipoArquivo tipoArquivo) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String nome, String caminho, ETipoArquivo eTipoArquivo, double duracao, float tamanho) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         generos = new ArrayList<>();
-        setLocal(local);
-        setTitulo(titulo);
-        setTamanho(tamanho);
+        setNome(nome);
+        setCaminho(caminho);
+        setTipoArquivo(eTipoArquivo);
         setDuracao(duracao);
-        setTipoArquivo(tipoArquivo);
+        setTamanho(tamanho);
     }
 
+    public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null){
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generos.add(genero);
+    }
+
+    public void removerGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null){
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generos.remove(genero);
+    }
 
     public String getLocal() {
         return local;
     }
 
-    public void setLocal(String local) throws CampoVazioOuNuloExcecao {
+    public void setCaminho(String local) throws CampoVazioOuNuloExcecao {
         if (!Utilitario.campoEstaVazioOuNulo(local)) {
             this.local = local.trim();
         }
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTitulo(String titulo) throws CampoVazioOuNuloExcecao {
+    public void setNome(String titulo) throws CampoVazioOuNuloExcecao {
         if (!Utilitario.campoEstaVazioOuNulo(titulo)) {
-            this.titulo = titulo.trim();
+            this.nome = titulo.trim();
         }
     }
 
@@ -77,19 +90,5 @@ public abstract class Midia {
             throw new CampoVazioOuNuloExcecao();
         }
         this.tipoArquivo = tipoArquivo;
-    }
-
-    public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
-        if (genero == null){
-            throw new CampoVazioOuNuloExcecao();
-        }
-        generos.add(genero);
-    }
-
-    public void removerGenero(Genero genero) throws CampoVazioOuNuloExcecao {
-        if (genero == null){
-            throw new CampoVazioOuNuloExcecao();
-        }
-        generos.remove(genero);
     }
 }

@@ -1,8 +1,10 @@
 package controle;
 
+import enumerador.ETipoArquivo;
+import enumerador.ETipoGenero;
+import modelo.Idioma;
 import modelo.Salvamento;
-import modelo.generos.Genero;
-import modelo.generos.GeneroCinema;
+import modelo.Genero;
 import modelo.midias.Filme;
 import modelo.midias.Midia;
 
@@ -13,14 +15,17 @@ import java.io.ObjectOutputStream;
 public class ExploradorDeArquivos {
         Salvamento sv = new Salvamento();
 
-        Genero gen1 = new GeneroCinema("Romance");
+        Genero gen1;
 
         public boolean criarNovaMidia() {
+
             // coleta parâmetros via JavaSwing
             String nome = "Vídeo X";
-            float tamanho = 43.5f;
             String local = BuscadorDeCaminho.getCaminhoAreaDeTrabalho();
+            float tamanho = 43.5f;
             double duracao = 32.3;
+            Idioma idioma = new Idioma();
+            Genero gen1 = new Genero("Romance", ETipoGenero.CINEMA);
 
             String caminhoAbsoluto = local + nome + ".tpoo";
 
@@ -29,7 +34,7 @@ public class ExploradorDeArquivos {
             //Com base no tipo selecionado, segue-se para a parte respectiva.
 
             try {
-                novaMidia = new Filme(caminhoAbsoluto, nome, tamanho, duracao);
+                novaMidia = new Filme(caminhoAbsoluto, nome, tamanho, duracao, ETipoArquivo.MP4, gen1 ,idioma );
                 sv.incluirMidia(novaMidia);
 
                 File f = new File(caminhoAbsoluto);
