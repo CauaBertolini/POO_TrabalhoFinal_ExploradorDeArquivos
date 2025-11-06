@@ -1,4 +1,4 @@
-package modelo.generos;
+package modelo;
 
 import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
@@ -8,8 +8,9 @@ public class Genero {
     private String nome;
     private ETipoGenero eTipoGenero;
 
-    public Genero(String nome) throws CampoVazioOuNuloExcecao {
+    public Genero(String nome, ETipoGenero tipoGenero) throws CampoVazioOuNuloExcecao {
         setNome(nome);
+        seteTipoGenero(tipoGenero);
     }
 
     public void setNome(String nome) throws CampoVazioOuNuloExcecao {
@@ -22,7 +23,7 @@ public class Genero {
         return nome;
     }
 
-    public ETipoGenero geteTipoGenero() {
+    public ETipoGenero getETipoGenero() {
         return eTipoGenero;
     }
 
