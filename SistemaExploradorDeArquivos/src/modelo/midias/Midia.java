@@ -20,8 +20,10 @@ public abstract class Midia {
 
     public Midia(String local, String titulo, float tamanho,  double duracao, ETipoArquivo tipoArquivo) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         generos = new ArrayList<>();
-        setLocal(local);
-        setTitulo(titulo);
+        setNome(nome);
+        setCaminho(caminho);
+        setTipoArquivo(eTipoArquivo);
+        setDuracao(duracao);
         setTamanho(tamanho);
         setDuracao(duracao);
         setTipoArquivo(tipoArquivo);
