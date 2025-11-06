@@ -4,6 +4,10 @@ import enumerador.ETipoArquivo;
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
+import modelo.generos.Genero;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Midia {
     private String local;
@@ -11,9 +15,11 @@ public abstract class Midia {
     private float tamanho;
     private double duracao;
     private ETipoArquivo tipoArquivo;
+    private List<Genero> generos;
 
 
     public Midia(String local, String titulo, float tamanho,  double duracao, ETipoArquivo tipoArquivo) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+        generos = new ArrayList<>();
         setLocal(local);
         setTitulo(titulo);
         setTamanho(tamanho);
@@ -66,10 +72,24 @@ public abstract class Midia {
         return tipoArquivo;
     }
 
-    public void setTipoArquivo(ETipoArquivo tipoArquivo) {
+    public void setTipoArquivo(ETipoArquivo tipoArquivo) throws CampoVazioOuNuloExcecao {
         if (tipoArquivo == null) {
             throw new CampoVazioOuNuloExcecao();
         }
         this.tipoArquivo = tipoArquivo;
+    }
+
+    public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null){
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generos.add(genero);
+    }
+
+    public void removerGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null){
+            throw new CampoVazioOuNuloExcecao();
+        }
+        generos.remove(genero);
     }
 }
