@@ -53,8 +53,8 @@ public abstract class Midia {
         }
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
     public void setTitulo(String titulo) throws CampoVazioOuNuloExcecao {
