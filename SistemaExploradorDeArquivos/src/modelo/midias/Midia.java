@@ -47,7 +47,7 @@ public abstract class Midia {
         return local;
     }
 
-    public void setLocal(String local) throws CampoVazioOuNuloExcecao {
+    public void setCaminho(String local) throws CampoVazioOuNuloExcecao {
         if (!Utilitario.campoEstaVazioOuNulo(local)) {
             this.local = local.trim();
         }
