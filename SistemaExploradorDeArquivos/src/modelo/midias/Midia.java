@@ -18,7 +18,7 @@ public abstract class Midia {
     private List<Genero> generos;
 
 
-    public Midia(String local, String titulo, float tamanho,  double duracao, ETipoArquivo tipoArquivo) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String nome, String caminho, ETipoArquivo eTipoArquivo, double duracao, float tamanho) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         generos = new ArrayList<>();
         setNome(nome);
         setCaminho(caminho);
