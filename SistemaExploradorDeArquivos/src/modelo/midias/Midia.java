@@ -59,7 +59,7 @@ public abstract class Midia {
 
     public void setNome(String titulo) throws CampoVazioOuNuloExcecao {
         if (!Utilitario.campoEstaVazioOuNulo(titulo)) {
-            this.titulo = titulo.trim();
+            this.nome = titulo.trim();
         }
     }
 
