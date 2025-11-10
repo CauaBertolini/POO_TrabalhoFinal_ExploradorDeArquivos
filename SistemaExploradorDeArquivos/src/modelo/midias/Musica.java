@@ -9,7 +9,7 @@ public class Musica extends Midia {
     private String artista;
 
     public Musica(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, String artista) {
-        super(local, titulo, tamanho, duracao, eTipoArquivo);
+        super(local, titulo, eTipoArquivo, duracao, tamanho);
         setArtista(artista);
     }
 

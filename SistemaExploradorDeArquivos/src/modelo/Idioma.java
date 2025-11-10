@@ -6,6 +6,10 @@ import excecao.Utilitario;
 public class Idioma {
     String nome;
 
+    public Idioma(String nome)throws CampoVazioOuNuloExcecao {
+        setNome(nome);
+    }
+
     public String getNome() {
         return nome;
     }
