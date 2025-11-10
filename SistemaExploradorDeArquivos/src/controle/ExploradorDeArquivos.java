@@ -3,6 +3,7 @@ package controle;
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import modelo.Idioma;
+import modelo.ListaGenero;
 import modelo.Salvamento;
 import modelo.Genero;
 import modelo.midias.Filme;
@@ -11,33 +12,24 @@ import modelo.midias.Midia;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.concurrent.ExecutionException;
 
 public class ExploradorDeArquivos {
         Salvamento sv = new Salvamento();
 
-        Genero gen1;
+        ListaGenero generos = new ListaGenero();
 
-        public boolean criarNovaMidia() {
+        public boolean criarNovaMidia(String nome, String caminho, float tamanho, double duracao, Idioma idioma, Genero genero) {
 
-            // coleta parâmetros via JavaSwing
-            String nome = "Vídeo X";
-            String local = BuscadorDeCaminho.getCaminhoAreaDeTrabalho();
-            float tamanho = 43.5f;
-            double duracao = 32.3;
-            Idioma idioma = new Idioma();
-            Genero gen1 = new Genero("Romance", ETipoGenero.CINEMA);
-
-            String caminhoAbsoluto = local + nome + ".tpoo";
-
+            String caminhoCompleto = nome + ".tpoo";
             Midia novaMidia;
 
-            //Com base no tipo selecionado, segue-se para a parte respectiva.
-
             try {
-                novaMidia = new Filme(caminhoAbsoluto, nome, tamanho, duracao, ETipoArquivo.MP4, gen1 ,idioma );
+
+                novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero ,idioma );
                 sv.incluirMidia(novaMidia);
 
-                File f = new File(caminhoAbsoluto);
+                File f = new File(caminhoCompleto);
                 FileOutputStream fos = new FileOutputStream(f);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(novaMidia);
@@ -45,7 +37,21 @@ public class ExploradorDeArquivos {
             } catch (Exception ex) {
 
             }
+            return true;
+        }
 
+        public boolean excluirMidia(Midia midia) {
+            try {
+                File file = new File(midia.getCaminho());
+                if (file.exists()) {
+                    file.delete();
+                }
+                sv.removerMidia(midia);
+
+
+            } catch (Exception e) {
+
+            }
             return true;
         }
 
