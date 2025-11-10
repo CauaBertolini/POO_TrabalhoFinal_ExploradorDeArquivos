@@ -10,7 +10,7 @@ public class Livro extends Midia {
     private String autor;
 
     public Livro(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, String autor) {
-        super(local, titulo, tamanho, duracao, eTipoArquivo);
+        super(local, titulo, eTipoArquivo, duracao, tamanho);
         setAutor(autor);
     }
 
