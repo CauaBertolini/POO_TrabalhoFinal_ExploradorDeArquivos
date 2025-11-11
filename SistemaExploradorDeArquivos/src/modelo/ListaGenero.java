@@ -35,49 +35,50 @@ public class ListaGenero {
 
     public void gerarGeneros() {
 
-        Genero acao = new Genero("Ação", ETipoGenero.CINEMA);
-        Genero aventura = new Genero("Aventura", ETipoGenero.CINEMA);
-        Genero comedia = new Genero("Comedia", ETipoGenero.CINEMA);
-        Genero romance = new Genero("Romance", ETipoGenero.CINEMA);
-        Genero terror = new Genero("Terror", ETipoGenero.CINEMA);
-        Genero drama = new Genero("Drama", ETipoGenero.CINEMA);
-        Genero ficcaoCientifica = new Genero("Ficção Científica", ETipoGenero.CINEMA);
-        Genero suspense = new Genero("Suspense", ETipoGenero.CINEMA);
-        Genero documentario = new Genero("Documentário", ETipoGenero.CINEMA);
-        Genero animacao = new Genero("Animação", ETipoGenero.CINEMA);
-        Genero guerra = new Genero("Guerra", ETipoGenero.CINEMA);
-        Genero policial = new Genero("Policial", ETipoGenero.CINEMA);
-        Genero biografia = new Genero("Biografia", ETipoGenero.CINEMA);
-        Genero western = new Genero("Faroeste", ETipoGenero.CINEMA);
-        Genero historico = new Genero("Histórico", ETipoGenero.CINEMA);
+        listaGeneros.add(new Genero("Ação", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Aventura", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Comedia", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Romance", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Terror", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Drama", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Ficção Científica", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Suspense", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Documentário", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Animação", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Guerra", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Policial", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Biografia", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Faroeste", ETipoGenero.CINEMA));
+        listaGeneros.add(new Genero("Histórico", ETipoGenero.CINEMA));
 
-        Genero jazz = new Genero("Jazz", ETipoGenero.MUSICAL);
-        Genero rock = new Genero("Rock", ETipoGenero.MUSICAL);
-        Genero pop = new Genero("Pop", ETipoGenero.MUSICAL);
-        Genero eletronica = new Genero("Eletrônica", ETipoGenero.MUSICAL);
-        Genero sertanejo = new Genero("Sertanejo", ETipoGenero.MUSICAL);
-        Genero blues = new Genero("Blues", ETipoGenero.MUSICAL);
-        Genero reggae = new Genero("Reggae", ETipoGenero.MUSICAL);
-        Genero soul = new Genero("Soul", ETipoGenero.MUSICAL);
-        Genero funk = new Genero("Funk", ETipoGenero.MUSICAL);
-        Genero mpb = new Genero("MPB", ETipoGenero.MUSICAL);
-        Genero samba = new Genero("Samba", ETipoGenero.MUSICAL);
-        Genero classica = new Genero("Música Clássica", ETipoGenero.MUSICAL);
-        Genero rap = new Genero("Rap", ETipoGenero.MUSICAL);
-        Genero trap = new Genero("Trap", ETipoGenero.MUSICAL);
-        Genero bossaNova = new Genero("Bossa Nova", ETipoGenero.MUSICAL);
+        listaGeneros.add(new Genero("Jazz", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Rock", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Pop", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Eletrônica", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Sertanejo", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Blues", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Reggae", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Soul", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Funk", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("MPB", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Samba", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Música Clássica", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Rap", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Trap", ETipoGenero.MUSICAL));
+        listaGeneros.add(new Genero("Bossa Nova", ETipoGenero.MUSICAL));
 
-        Genero fantasia = new Genero("Fantasia", ETipoGenero.LITERARIO);
-        Genero ficcao = new Genero("Ficção", ETipoGenero.LITERARIO);
-        Genero dramaLit = new Genero("Drama", ETipoGenero.LITERARIO);
-        Genero poesia = new Genero("Poesia", ETipoGenero.LITERARIO);
-        Genero misterio = new Genero("Mistério", ETipoGenero.LITERARIO);
-        Genero terrorLit = new Genero("Terror", ETipoGenero.LITERARIO);
-        Genero aventuraLit = new Genero("Aventura", ETipoGenero.LITERARIO);
-        Genero romanceLit = new Genero("Romance", ETipoGenero.LITERARIO);
-        Genero distopia = new Genero("Distopia", ETipoGenero.LITERARIO);
-        Genero mitologia = new Genero("Mitologia", ETipoGenero.LITERARIO);
-        Genero cronica = new Genero("Crônica", ETipoGenero.LITERARIO);
+        listaGeneros.add(new Genero("Fantasia", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Ficção", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Drama", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Poesia", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Mistério", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Terror", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Aventura", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Romance", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Distopia", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Mitologia", ETipoGenero.LITERARIO));
+        listaGeneros.add(new Genero("Crônica", ETipoGenero.LITERARIO));
+
 
     }
 

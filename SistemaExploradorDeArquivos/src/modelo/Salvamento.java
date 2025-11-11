@@ -25,11 +25,9 @@ public class Salvamento {
     }
 
     public boolean removerMidia(Midia midia) {
-
         try {
             midias.remove(midia);
             return true;
-
         } catch (Exception e) {
             return false;
         }
@@ -47,6 +45,5 @@ public class Salvamento {
     public List<Midia> getMidias() {
         return midias;
     }
-
 
 }
