@@ -10,21 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Midia {
-    private String local;
+    private String caminho;
     private String nome;
     private float tamanho;
     private double duracao;
     private ETipoArquivo tipoArquivo;
     private List<Genero> generos;
+    private Genero genero;
 
 
-    public Midia(String nome, String caminho, ETipoArquivo eTipoArquivo, double duracao, float tamanho) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String caminho, String nome, ETipoArquivo eTipoArquivo, double duracao, float tamanho, Genero genero) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         generos = new ArrayList<>();
         setNome(nome);
         setCaminho(caminho);
         setTipoArquivo(eTipoArquivo);
         setDuracao(duracao);
         setTamanho(tamanho);
+        setGenero(genero);
     }
 
     public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
@@ -41,13 +43,13 @@ public abstract class Midia {
         generos.remove(genero);
     }
 
-    public String getLocal() {
-        return local;
+    public String getCaminho() {
+        return caminho;
     }
 
     public void setCaminho(String local) throws CampoVazioOuNuloExcecao {
         if (!Utilitario.campoEstaVazioOuNulo(local)) {
-            this.local = local.trim();
+            this.caminho = local.trim();
         }
     }
 
@@ -91,8 +93,6 @@ public abstract class Midia {
         }
         this.tipoArquivo = tipoArquivo;
     }
-<<<<<<< Updated upstream
-=======
 
     public Genero getGenero() {
         return genero;
@@ -105,16 +105,4 @@ public abstract class Midia {
         this.genero = genero;
     }
 
-    public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Nome: " + nome + "\n");
-        stringBuilder.append("Caminho: " + caminho + "\n");
-        stringBuilder.append("Tipo Arquivo: " + tipoArquivo + "\n");
-        stringBuilder.append("Duracao: " + duracao + "\n");
-        stringBuilder.append("Tamanho: " + tamanho + "\n");
-        stringBuilder.append("Genero: " + genero + "\n");
-        return stringBuilder.toString();
-    }
-
->>>>>>> Stashed changes
 }

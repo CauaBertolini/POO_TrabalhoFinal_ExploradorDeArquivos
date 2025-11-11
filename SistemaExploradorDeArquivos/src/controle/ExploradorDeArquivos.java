@@ -2,55 +2,101 @@ package controle;
 
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
+import excecao.ArquivoNaoExisteExcecao;
+import excecao.CampoMenorOuIgualAZeroExcecao;
+import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
 import modelo.Idioma;
+import modelo.ListaGenero;
 import modelo.Salvamento;
 import modelo.Genero;
 import modelo.midias.Filme;
+import modelo.midias.Livro;
 import modelo.midias.Midia;
+import modelo.midias.Musica;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import javax.swing.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.ExecutionException;
 
 public class ExploradorDeArquivos {
         Salvamento sv = new Salvamento();
 
-        Genero gen1;
+        ListaGenero generos = new ListaGenero();
 
-        public boolean criarNovaMidia() {
+        /*
+         * Novo Filme */
+        public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, Idioma idioma) {
 
-            // coleta parâmetros via JavaSwing
-            String nome = "Vídeo X";
-            String local = BuscadorDeCaminho.getCaminhoAreaDeTrabalho();
-            float tamanho = 43.5f;
-            double duracao = 32.3;
-            Idioma idioma = new Idioma();
-            Genero gen1 = new Genero("Romance", ETipoGenero.CINEMA);
-
-            String caminhoAbsoluto = local + nome + ".tpoo";
-
+            String caminhoCompleto = nome + ".tpoo";
             Midia novaMidia;
 
-            //Com base no tipo selecionado, segue-se para a parte respectiva.
-
             try {
-                novaMidia = new Filme(caminhoAbsoluto, nome, tamanho, duracao, ETipoArquivo.MP4, gen1 ,idioma );
+                novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero ,idioma );
                 sv.incluirMidia(novaMidia);
 
-                File f = new File(caminhoAbsoluto);
+                File f = new File(caminhoCompleto);
                 FileOutputStream fos = new FileOutputStream(f);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(novaMidia.toString());
 
-            } catch (Exception ex) {
+                oos.close();
 
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
             }
-
             return true;
         }
 
-<<<<<<< Updated upstream
-=======
+        /*
+         * Novo Livro ou Musica */
+        public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
+
+        String caminhoCompleto = nome + ".tpoo";
+        Midia novaMidia;
+
+        try {
+            if (eLivro) {
+                novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+            } else {
+                novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao,  ETipoArquivo.MP4, genero, autorOuArtista);
+            }
+
+            sv.incluirMidia(novaMidia);
+
+            File f = new File(caminhoCompleto);
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(novaMidia);
+
+            oos.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+
+        public boolean excluirMidia(Midia midia) {
+            try {
+                Path caminho = Paths.get(midia.getCaminho());
+                Files.deleteIfExists(caminho);
+
+                sv.removerMidia(midia);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+            return true;
+        }
+
         /*
          * Novo Livro ou Musica */
         public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
@@ -154,7 +200,6 @@ public class ExploradorDeArquivos {
             return false;
         }
 
->>>>>>> Stashed changes
 
 
 

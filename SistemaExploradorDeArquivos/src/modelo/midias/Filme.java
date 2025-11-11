@@ -10,7 +10,7 @@ public class Filme extends Midia {
     private Idioma idioma;
 
     public Filme(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, Idioma idioma) {
-        super(local, titulo, eTipoArquivo, duracao, tamanho);
+        super(titulo, local, eTipoArquivo, duracao, tamanho, genero);
         setIdioma(idioma);
     }
 

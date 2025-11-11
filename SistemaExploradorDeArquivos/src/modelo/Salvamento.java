@@ -12,10 +12,10 @@ public class Salvamento {
 
     public Salvamento() {
         midias = new ArrayList<>();
-
     }
 
     public boolean incluirMidia(Midia midia) {
+
         try {
             midias.add(midia);
             return true;
@@ -33,9 +33,8 @@ public class Salvamento {
         }
     }
 
-<<<<<<< Updated upstream
-=======
     public boolean atualizarMidia(Midia midia) {
+
         try {
             return false;
         } catch (Exception e) {
@@ -46,7 +45,5 @@ public class Salvamento {
     public List<Midia> getMidias() {
         return midias;
     }
-
->>>>>>> Stashed changes
 
 }

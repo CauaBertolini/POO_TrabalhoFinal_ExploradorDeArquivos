@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/generos/Genero.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Genero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" afterDir="false" />
-    </list>
+    <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +15,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -38,17 +33,10 @@
     &quot;assignee&quot;: &quot;CauaBertolini&quot;
   }
 }</component>
-<<<<<<< Updated upstream
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git&quot;,
-    &quot;accountId&quot;: &quot;cc9c99ae-a0dd-4ae6-933e-2964ca191243&quot;
-=======
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git",
-    "accountId": "2a67e51c-7501-4235-affa-38c3da0b61a8"
->>>>>>> Stashed changes
+    &quot;accountId&quot;: &quot;328dfd78-4e20-45b6-a1f5-d18b2f409a10&quot;
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -62,17 +50,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-<<<<<<< Updated upstream
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/cbertolini/Documents/GitHub/POO_TrabalhoFinal_ExploradorDeArquivos",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
     &quot;git-widget-placeholder&quot;: &quot;caua&quot;,
-=======
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
->>>>>>> Stashed changes
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/cbertolini/Documents/GitHub/POO_TrabalhoFinal_ExploradorDeArquivos&quot;,
@@ -81,16 +76,13 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-<<<<<<< Updated upstream
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-=======
->>>>>>> Stashed changes
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -108,11 +100,7 @@
       <updated>1762252879516</updated>
       <workItem from="1762252881536" duration="1150000" />
       <workItem from="1762339202728" duration="5715000" />
-<<<<<<< Updated upstream
       <workItem from="1762348437694" duration="15989000" />
-=======
-      <workItem from="1762856868056" duration="1310000" />
->>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="Ciração das classes Pessoa e Idioma">
       <option name="closed" value="true" />
@@ -194,71 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762343595711</updated>
     </task>
-    <task id="LOCAL-00011" summary="Aplicação da classe Utilitario.java ás validações de Midia.java">
+    <task id="LOCAL-00011" summary="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação.">
       <option name="closed" value="true" />
-      <created>1762351809778</created>
+      <created>1762821885617</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1762351809778</updated>
+      <updated>1762821885617</updated>
     </task>
-    <task id="LOCAL-00012" summary="Mudança de nomes para melhor compreensão - De &quot;local&quot; para &quot;caminho&quot; e de &quot;titulo&quot; para &quot;nome&quot;">
-      <option name="closed" value="true" />
-      <created>1762438180000</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438180000</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Reorganizado ordem de assinatura do construtor">
-      <option name="closed" value="true" />
-      <created>1762438211583</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438211583</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Padrão clean code aplicado, maior abstração acima">
-      <option name="closed" value="true" />
-      <created>1762438230876</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438230876</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Mudança de nome">
-      <option name="closed" value="true" />
-      <created>1762438242276</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438242276</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Mudança de nome">
-      <option name="closed" value="true" />
-      <created>1762438249682</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438249682</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Mudança de nome">
-      <option name="closed" value="true" />
-      <created>1762438257537</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438257537</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Mudança de nome">
-      <option name="closed" value="true" />
-      <created>1762438265675</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1762438265675</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,11 +214,8 @@
     <MESSAGE value="Ciração das classes Pessoa e Idioma.java" />
     <MESSAGE value="Criação de Getters and Setters Pessoa" />
     <MESSAGE value="Aplicação da classe Utilitario.java ás validações de Midia.java" />
-    <MESSAGE value="Mudança de nomes para melhor compreensão - De &quot;local&quot; para &quot;caminho&quot; e de &quot;titulo&quot; para &quot;nome&quot;" />
-    <MESSAGE value="Reorganizado ordem de assinatura do construtor" />
-    <MESSAGE value="Padrão clean code aplicado, maior abstração acima" />
-    <MESSAGE value="Mudança de nome" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mudança de nome" />
+    <MESSAGE value="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação." />
+    <option name="LAST_COMMIT_MESSAGE" value="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
