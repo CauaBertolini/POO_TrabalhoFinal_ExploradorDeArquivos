@@ -14,6 +14,15 @@ public class Musica extends Midia {
         setArtista(artista);
     }
 
+    @Override
+    public void setGenero(Genero genero) {
+        if (genero.getETipoGenero() == ETipoGenero.MUSICAL) {
+            super.setGenero(genero);
+        } else {
+            throw new IllegalArgumentException("ETipoGenero invalido");
+        }
+    }
+
     public String getArtista() {
         return artista;
     }
