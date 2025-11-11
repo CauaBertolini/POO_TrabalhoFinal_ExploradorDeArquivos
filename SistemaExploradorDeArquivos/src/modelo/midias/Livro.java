@@ -16,6 +16,15 @@ public class Livro extends Midia {
         setAutor(autor);
     }
 
+    @Override
+    public void setGenero(Genero genero) {
+        if (genero.getETipoGenero() == ETipoGenero.LITERARIO) {
+            super.setGenero(genero);
+        } else {
+            throw new IllegalArgumentException("ETipoGenero invalido");
+        }
+    }
+
     public String getAutor() {
         return autor;
     }
