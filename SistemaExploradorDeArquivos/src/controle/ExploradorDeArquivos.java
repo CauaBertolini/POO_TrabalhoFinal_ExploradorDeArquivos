@@ -79,7 +79,6 @@ public class ExploradorDeArquivos {
             return true;
         }
 
-
         public boolean excluirMidia(Midia midia) {
             try {
                 Path caminho = Paths.get(midia.getCaminho());
@@ -94,22 +93,7 @@ public class ExploradorDeArquivos {
             return true;
         }
 
-
-        public boolean excluirMidia(Midia midia) {
-            try {
-                Path caminho = Paths.get(midia.getCaminho());
-                Files.deleteIfExists(caminho);
-
-                sv.removerMidia(midia);
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                return false;
-            }
-            return true;
-        }
-
-        public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Idioma idioma) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
+        public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Idioma idioma) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
             try {
                 if (Utilitario.arquivoExiste(caminhoArquivo)) {
                     Midia midiaAlterando;
@@ -137,6 +121,10 @@ public class ExploradorDeArquivos {
                     
                     if (idioma != null) {
                         filmeAlterando.setIdioma(idioma);
+                    }
+
+                    if (eTipoArquivo != null) {
+                        filmeAlterando.setTipoArquivo(eTipoArquivo);
                     }
 
                     try (FileOutputStream fos = new FileOutputStream(caminhoArquivo);

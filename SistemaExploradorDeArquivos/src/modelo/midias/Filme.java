@@ -1,6 +1,7 @@
 package modelo.midias;
 
 import enumerador.ETipoArquivo;
+import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
 import modelo.Idioma;
 import modelo.Genero;
@@ -10,8 +11,9 @@ public class Filme extends Midia {
     private Idioma idioma;
 
     public Filme(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, Idioma idioma) {
-        super(titulo, local, eTipoArquivo, duracao, tamanho, genero);
+        super(titulo, local, eTipoArquivo, duracao, tamanho);
         setIdioma(idioma);
+        setGenero(genero);
     }
 
     public Idioma getIdioma() {

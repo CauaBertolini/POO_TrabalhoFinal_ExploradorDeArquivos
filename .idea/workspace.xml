@@ -7,8 +7,11 @@
     <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" afterDir="false" />
     </list>
-    <list default="true" id="017bf466-01bc-4ca3-bda0-c47f9c8bc056" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,19 +20,64 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "CauaBertolini"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git",
+    "accountId": "cc9c99ae-a0dd-4ae6-933e-2964ca191243"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="35LPyZG8My2KAX1W8xmlcgc984b" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "main",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "caua",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java" />
+      <created>1762886639144</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762886639144</updated>
+      <workItem from="1762886641158" duration="3245000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
