@@ -18,6 +18,15 @@ public class Filme extends Midia {
         return idioma;
     }
 
+    @Override
+    public void setGenero(Genero genero) {
+        if (genero.getETipoGenero() == ETipoGenero.CINEMA) {
+            super.setGenero(genero);
+        } else {
+            throw new IllegalArgumentException("ETipoGenero invalido");
+        }
+    }
+
     public void setIdioma(Idioma idioma) throws CampoVazioOuNuloExcecao {
         if (idioma == null) {
             throw new CampoVazioOuNuloExcecao();
