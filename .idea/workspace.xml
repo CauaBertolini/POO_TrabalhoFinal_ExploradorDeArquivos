@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
-      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/ArquivoNaoExisteExcecao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/Utilitario.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/Utilitario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" afterDir="false" />
-    </list>
+    <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -177,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762343595711</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação.">
+      <option name="closed" value="true" />
+      <created>1762821885617</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1762821885617</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +199,8 @@
     <MESSAGE value="Ciração das classes Pessoa e Idioma.java" />
     <MESSAGE value="Criação de Getters and Setters Pessoa" />
     <MESSAGE value="Aplicação da classe Utilitario.java ás validações de Midia.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aplicação da classe Utilitario.java ás validações de Midia.java" />
+    <MESSAGE value="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação." />
+    <option name="LAST_COMMIT_MESSAGE" value="ATUALIZAÇÃO MASSIVA!&#10;&#10;-&gt; Sobrecarga em criar mídia para atender aos diferentes tipos de mídia. (Atenção, para musicas ou livros é preciso informar a propriedade boolean &quot;eLivro&quot;.&#10;&#10;-&gt; Método de alterar mídia pronto para Filme, será feita sobrecarga para o resto.&#10;&#10;-&gt; Classe ArquivoNaoExisteExcecao.java agora serve para validar se há algo no caminho ou não. Método da Utilitario.java pode ser usado para tal.&#10;&#10;-&gt; Reorganização das classes de mídia para deixar o parâmetro diferente por último como forma de facilitar a criação." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
