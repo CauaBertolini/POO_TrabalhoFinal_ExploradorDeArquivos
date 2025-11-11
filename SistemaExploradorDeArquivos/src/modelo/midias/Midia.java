@@ -91,4 +91,30 @@ public abstract class Midia {
         }
         this.tipoArquivo = tipoArquivo;
     }
+<<<<<<< Updated upstream
+=======
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null) {
+            throw new CampoVazioOuNuloExcecao();
+        }
+        this.genero = genero;
+    }
+
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Nome: " + nome + "\n");
+        stringBuilder.append("Caminho: " + caminho + "\n");
+        stringBuilder.append("Tipo Arquivo: " + tipoArquivo + "\n");
+        stringBuilder.append("Duracao: " + duracao + "\n");
+        stringBuilder.append("Tamanho: " + tamanho + "\n");
+        stringBuilder.append("Genero: " + genero + "\n");
+        return stringBuilder.toString();
+    }
+
+>>>>>>> Stashed changes
 }

@@ -25,15 +25,28 @@ public class Salvamento {
     }
 
     public boolean removerMidia(Midia midia) {
-
         try {
             midias.remove(midia);
             return true;
-
         } catch (Exception e) {
             return false;
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    public boolean atualizarMidia(Midia midia) {
+        try {
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public List<Midia> getMidias() {
+        return midias;
+    }
+
+>>>>>>> Stashed changes
 
 }
