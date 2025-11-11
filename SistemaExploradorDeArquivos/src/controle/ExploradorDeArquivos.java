@@ -20,15 +20,13 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.ExecutionException;
+
 
 public class ExploradorDeArquivos {
         Salvamento sv = new Salvamento();
 
         ListaGenero generos = new ListaGenero();
 
-        /*
-         * Novo Filme */
         public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, Idioma idioma) {
 
             String caminhoCompleto = nome + ".tpoo";
@@ -52,8 +50,7 @@ public class ExploradorDeArquivos {
             return true;
         }
 
-        /*
-         * Novo Livro ou Musica */
+
         public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
 
             String caminhoCompleto = nome + ".tpoo";
@@ -95,34 +92,6 @@ public class ExploradorDeArquivos {
                 return false;
             }
             return true;
-        }
-
-        /*
-         * Novo Livro ou Musica */
-        public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
-                String caminhoCompleto = nome + ".tpoo";
-                Midia novaMidia;
-                try {
-                    if (eLivro) {
-                        novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
-                    } else {
-                        novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao,  ETipoArquivo.MP4, genero, autorOuArtista);
-                    }
-
-                    sv.incluirMidia(novaMidia);
-
-                    File f = new File(caminhoCompleto);
-                    FileOutputStream fos = new FileOutputStream(f);
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    oos.writeObject(novaMidia.toString());
-
-                    oos.close();
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                    return false;
-                }
-                return true;
         }
 
 
