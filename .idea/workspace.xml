@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9987721f-472c-447c-93cc-85054401d5f7" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
-      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/ListaGenero.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/ArquivoNaoExisteExcecao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/BuscadorDeCaminho.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/BuscadorDeCaminho.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/Utilitario.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/Utilitario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +25,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -55,25 +60,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;caua&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/cbertolini/Documents/GitHub/POO_TrabalhoFinal_ExploradorDeArquivos&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/cbertolini/Documents/GitHub/POO_TrabalhoFinal_ExploradorDeArquivos",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
