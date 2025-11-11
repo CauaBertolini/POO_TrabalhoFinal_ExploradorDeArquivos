@@ -10,4 +10,7 @@ public class BuscadorDeCaminho {
         Path caminhoDesktop = Paths.get(caminhoHome, "Desktop\\");
         return caminhoDesktop.toAbsolutePath().toString();
     }
+
+    //criar o metodo para buscar o salvamento
+
 }

@@ -16,15 +16,17 @@ public abstract class Midia {
     private double duracao;
     private ETipoArquivo tipoArquivo;
     private List<Genero> generos;
+    private Genero genero;
 
 
-    public Midia(String nome, String caminho, ETipoArquivo eTipoArquivo, double duracao, float tamanho) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String caminho, String nome, ETipoArquivo eTipoArquivo, double duracao, float tamanho, Genero genero) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         generos = new ArrayList<>();
         setNome(nome);
         setCaminho(caminho);
         setTipoArquivo(eTipoArquivo);
         setDuracao(duracao);
         setTamanho(tamanho);
+        setGenero(genero);
     }
 
     public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
@@ -91,4 +93,16 @@ public abstract class Midia {
         }
         this.tipoArquivo = tipoArquivo;
     }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) throws CampoVazioOuNuloExcecao {
+        if (genero == null) {
+            throw new CampoVazioOuNuloExcecao();
+        }
+        this.genero = genero;
+    }
+
 }
