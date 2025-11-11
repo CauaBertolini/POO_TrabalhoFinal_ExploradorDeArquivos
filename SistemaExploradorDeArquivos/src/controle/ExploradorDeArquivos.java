@@ -151,9 +151,95 @@ public class ExploradorDeArquivos {
             return false;
         }
 
-        public boolean alterarMidia(String caminho, float tamanho, double duracao, String autorOuArtista, boolean eLivro) {
+        public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, String autorOuArtista, boolean eLivro) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
+            try {
+                if (Utilitario.arquivoExiste(caminhoArquivo)) {
 
+                    Midia midiaAlterando;
 
+                    if (eLivro) {
+                        Livro livroAlterando = null;
+
+                        try (FileInputStream fis = new FileInputStream(caminhoArquivo);
+                             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+                            midiaAlterando = (Midia) ois.readObject();
+                        }
+
+                        if (midiaAlterando instanceof Livro) {
+                            livroAlterando =  (Livro) midiaAlterando;
+                        } else {
+                            return false;
+                        }
+
+                        if (tamanho > 0) {
+                            livroAlterando.setTamanho(tamanho);
+                        }
+
+                        if (duracao > 0) {
+                            livroAlterando.setDuracao(duracao);
+                        }
+
+                        if (!autorOuArtista.isBlank()) {
+                            livroAlterando.setAutor(autorOuArtista);
+                        }
+
+                        if (eTipoArquivo != null) {
+                            livroAlterando.setTipoArquivo(eTipoArquivo);
+                        }
+
+                    } else {
+                        Musica musicaAlterando = null;
+                        try (FileInputStream fis = new FileInputStream(caminhoArquivo);
+                             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+                            midiaAlterando = (Midia) ois.readObject();
+                        }
+
+                        if (midiaAlterando instanceof Musica) {
+                            musicaAlterando =  (Musica) midiaAlterando;
+                        } else {
+                            return false;
+                        }
+
+                        if (tamanho > 0) {
+                            musicaAlterando.setTamanho(tamanho);
+                        }
+
+                        if (duracao > 0) {
+                            musicaAlterando.setDuracao(duracao);
+                        }
+
+                        if (!autorOuArtista.isBlank()) {
+                            musicaAlterando.setArtista(autorOuArtista);
+                        }
+
+                        if (eTipoArquivo != null) {
+                            musicaAlterando.setTipoArquivo(eTipoArquivo);
+                        }
+                    }
+
+                    try (FileOutputStream fos = new FileOutputStream(caminhoArquivo);
+                         ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                        oos.writeObject(midiaAlterando);
+                    }
+
+                    sv.atualizarMidia(midiaAlterando);
+
+                    return true;
+                }
+            } catch (ArquivoNaoExisteExcecao a) {
+                JOptionPane.showMessageDialog(null, a.getMessage());
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             return false;
         }
 
