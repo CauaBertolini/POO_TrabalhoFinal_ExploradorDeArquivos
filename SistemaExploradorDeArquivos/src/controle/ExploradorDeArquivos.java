@@ -11,8 +11,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class ExploradorDeArquivos {
@@ -239,13 +238,27 @@ public class ExploradorDeArquivos {
     public List<Midia> filtrarMidias(String generoFiltrar, ETipoArquivo eTipoArquivo) {
         List<Midia> filtradas = new ArrayList<>();
 
-        for (Midia m : sv.getMidias()) {
-            if ((generoFiltrar == null || generoFiltrar.isEmpty() || m.getGenero().getNome().equalsIgnoreCase(generoFiltrar))
-                    && (eTipoArquivo == null || m.getTipoArquivo().equals(eTipoArquivo))) {
+        for (Midia m: sv.getMidias()) {
+            if (m.getGenero().getNome().equals("TODOS") && m.getTipoArquivo() ==ETipoArquivo.TODOS) {
+                return sv.getMidias();
+            } else if (m.getGenero().getNome().equalsIgnoreCase(generoFiltrar) && m.getTipoArquivo() == ETipoArquivo.TODOS) {
+                filtradas.add(m);
+            } else if (m.getGenero().getNome().equalsIgnoreCase("TODOS") && m.getTipoArquivo() == eTipoArquivo) {
+                filtradas.add(m);
+            } else if (m.getGenero().getNome().equals(generoFiltrar) && m.getTipoArquivo() == eTipoArquivo) {
                 filtradas.add(m);
             }
         }
         return filtradas;
     }
 
+    public List<Midia> ordenarMidiasPorNome(List<Midia> listaMidias) {
+        listaMidias.sort(Comparator.comparing(Midia::getNome));
+        return listaMidias;
+    }
+
+    public List<Midia> ordenarMidiaPorTamanho(List<Midia> listaMidias) {
+        listaMidias.sort(Comparator.comparing(Midia::getTamanho));
+        return listaMidias;
+    }
 }
