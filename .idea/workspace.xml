@@ -7,6 +7,8 @@
     <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/ListaGenero.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Listas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1762886639144</updated>
       <workItem from="1762886641158" duration="3245000" />
-      <workItem from="1762945208163" duration="309000" />
+      <workItem from="1762945208163" duration="7527000" />
     </task>
     <servers />
   </component>
