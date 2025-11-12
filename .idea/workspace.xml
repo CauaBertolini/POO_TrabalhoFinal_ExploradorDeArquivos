@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/ListaGenero.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Listas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/Salvamento.java" afterDir="false" />
-    </list>
+    <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,11 +75,24 @@
       <option name="presentableId" value="Default" />
       <updated>1762886639144</updated>
       <workItem from="1762886641158" duration="3245000" />
-      <workItem from="1762945208163" duration="7527000" />
+      <workItem from="1762945208163" duration="7689000" />
     </task>
+    <task id="LOCAL-00001" summary="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas.">
+      <option name="closed" value="true" />
+      <created>1762955824181</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762955824181</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
+    <option name="LAST_COMMIT_MESSAGE" value="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
   </component>
 </project>
