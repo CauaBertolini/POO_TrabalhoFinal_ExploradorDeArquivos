@@ -1,22 +1,12 @@
 package controle;
 
-import enumerador.ETipoArquivo;
-import enumerador.ETipoGenero;
-import excecao.ArquivoNaoExisteExcecao;
-import excecao.CampoMenorOuIgualAZeroExcecao;
-import excecao.CampoVazioOuNuloExcecao;
-import excecao.Utilitario;
-import modelo.Idioma;
-import modelo.ListaGenero;
-import modelo.Salvamento;
-import modelo.Genero;
-import modelo.midias.Filme;
-import modelo.midias.Livro;
-import modelo.midias.Midia;
-import modelo.midias.Musica;
-
+import enumerador.*;
+import excecao.*;
+import modelo.*;
+import modelo.midias.*;
 import javax.swing.*;
 import java.io.*;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,13 +17,13 @@ public class ExploradorDeArquivos {
 
         ListaGenero generos = new ListaGenero();
 
-        public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, Idioma idioma) {
+        public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) {
 
             String caminhoCompleto = nome + ".tpoo";
             Midia novaMidia;
 
             try {
-                novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero ,idioma );
+                novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero ,idioma);
                 sv.incluirMidia(novaMidia);
 
                 File f = new File(caminhoCompleto);

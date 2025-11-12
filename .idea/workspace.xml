@@ -7,34 +7,37 @@
     <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Filme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Livro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Midia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/modelo/midias/Musica.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "CauaBertolini"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CauaBertolini&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git",
-    "accountId": "cc9c99ae-a0dd-4ae6-933e-2964ca191243"
+    "accountId": "328dfd78-4e20-45b6-a1f5-d18b2f409a10"
   }
 }]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="35LPyZG8My2KAX1W8xmlcgc984b" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -43,21 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "caua",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;caua&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -74,6 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1762886639144</updated>
       <workItem from="1762886641158" duration="3245000" />
+      <workItem from="1762945208163" duration="309000" />
     </task>
     <servers />
   </component>
