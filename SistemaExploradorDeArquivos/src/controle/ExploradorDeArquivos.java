@@ -5,6 +5,7 @@ import excecao.*;
 import modelo.*;
 import modelo.midias.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 
 import java.nio.file.Files;
@@ -21,50 +22,101 @@ public class ExploradorDeArquivos {
 
         String caminhoCompleto = nome + ".tpoo";
         Midia novaMidia;
+        File arquivoNovo = new File(caminhoCompleto);
 
-        try {
-            novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
-            sv.incluirMidia(novaMidia);
+        if (arquivoNovo.exists()) {
+            if (confirmarSubstituicaoArquivo()) {
+                try {
+                    novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+                    sv.incluirMidia(novaMidia);
 
-            File f = new File(caminhoCompleto);
-            FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(novaMidia.toString());
+                    FileOutputStream fos = new FileOutputStream(arquivoNovo);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(novaMidia.toString());
 
-            oos.close();
+                    oos.close();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                return false;
+            }
+        } else {
+            try {
+                novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+                sv.incluirMidia(novaMidia);
+
+                FileOutputStream fos = new FileOutputStream(arquivoNovo);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(novaMidia.toString());
+
+                oos.close();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
         }
         return true;
     }
-
 
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
 
         String caminhoCompleto = nome + ".tpoo";
         Midia novaMidia;
 
-        try {
-            if (eLivro) {
-                novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+        File arquivoNovo = new File(caminhoCompleto);
+
+        if (arquivoNovo.exists()) {
+            if (confirmarSubstituicaoArquivo()) {
+                try {
+                    if (eLivro) {
+                        novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                    } else {
+                        novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                    }
+
+                    sv.incluirMidia(novaMidia);
+
+                    File f = new File(caminhoCompleto);
+                    FileOutputStream fos = new FileOutputStream(f);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(novaMidia);
+
+                    oos.close();
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    return false;
+                }
             } else {
-                novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                return false;
             }
+        } else {
+            try {
+                if (eLivro) {
+                    novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                } else {
+                    novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                }
 
-            sv.incluirMidia(novaMidia);
+                sv.incluirMidia(novaMidia);
 
-            File f = new File(caminhoCompleto);
-            FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(novaMidia);
+                File f = new File(caminhoCompleto);
+                FileOutputStream fos = new FileOutputStream(f);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(novaMidia);
 
-            oos.close();
+                oos.close();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
         }
         return true;
     }
@@ -252,19 +304,80 @@ public class ExploradorDeArquivos {
 
     }
 
-    public boolean moverMidia(Midia midia, String novoCaminhoString) {
-        if (Utilitario.arquivoExiste(midia.getCaminho())) {
+    public boolean moverMidia(Midia midia, String novoCaminhoString) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao {
 
-            File arquivo = new File(midia.getCaminho());
+        try {
+            if (Utilitario.arquivoExiste(midia.getCaminho())) {
 
-            File novoCaminho = new File(novoCaminhoString, midia.getNome() + ".tpoo");
+                File arquivo = new File(midia.getCaminho());
 
-            arquivo.renameTo(novoCaminho);
-            midia.setCaminho(novoCaminho.getAbsolutePath());
+                File novoCaminho = new File(novoCaminhoString, midia.getNome() + ".tpoo");
 
-            return true;
+                if (novoCaminho.exists()) {
+
+                    if (confirmarSubstituicaoArquivo()) {
+
+                        arquivo.renameTo(novoCaminho);
+                        midia.setCaminho(novoCaminho.getAbsolutePath());
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                        return false;
+                    }
+                } else {
+                    arquivo.renameTo(novoCaminho);
+                    midia.setCaminho(novoCaminho.getAbsolutePath());
+                    return true;
+                }
+
+            }
+        } catch (ArquivoJaExisteExcecao sobreposicao) {
+
         }
+
         return false;
 
+    }
+
+    public String abrirSeletorDeArquivoTpoo() {
+        FileNameExtensionFilter filtroExtensao = new FileNameExtensionFilter("Filtra arquivos permitindo apenas os lidos de forma padrão pelo sistema (tpoo)", "tpoo");
+
+        JFileChooser seletorTpoo = new JFileChooser();
+
+        seletorTpoo.setFileFilter(filtroExtensao);
+        seletorTpoo.setDialogTitle("Selecione um arquivo");
+        seletorTpoo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        if (seletorTpoo.showOpenDialog(null) ==  JFileChooser.APPROVE_OPTION) {
+            File arquivoSelecionado = seletorTpoo.getSelectedFile();
+            return arquivoSelecionado.getAbsolutePath();
+        }
+        return null;
+    }
+
+    public String abrirSeletorDeDiretorio() {
+        JFileChooser seletorDiretorio = new JFileChooser();
+
+        seletorDiretorio.setDialogTitle("Selecione uma pasta onde o arquivo será alocado.");
+        seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        seletorDiretorio.setAcceptAllFileFilterUsed(false);
+
+        if (seletorDiretorio.showOpenDialog(null) ==  JFileChooser.APPROVE_OPTION) {
+            File diretorioSelecionado = seletorDiretorio.getSelectedFile();
+            return diretorioSelecionado.getAbsolutePath();
+        }
+        return null;
+    }
+
+    public boolean confirmarSubstituicaoArquivo() {
+        int resposta = JOptionPane.showConfirmDialog(
+                null,
+                "Tem certeza que deseja substituir o arquivo destino pelo atual?",
+                "Confirmação de Sobescrita",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        return resposta == JOptionPane.YES_OPTION;
     }
 }

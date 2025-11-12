@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
+    <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas.">
+      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/ArquivoJaExisteExcecao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -26,12 +31,12 @@
     &quot;assignee&quot;: &quot;CauaBertolini&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git",
-    "accountId": "328dfd78-4e20-45b6-a1f5-d18b2f409a10"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git&quot;,
+    &quot;accountId&quot;: &quot;328dfd78-4e20-45b6-a1f5-d18b2f409a10&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
