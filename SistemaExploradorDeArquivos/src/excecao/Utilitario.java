@@ -1,5 +1,7 @@
 package excecao;
 
+import java.io.File;
+
 public class Utilitario {
 
     public static boolean campoEstaVazioOuNulo (String campo) throws CampoVazioOuNuloExcecao {
@@ -32,5 +34,13 @@ public class Utilitario {
         } else {
             return false;
         }
+    }
+
+    public static boolean arquivoExiste (String caminho) throws ArquivoNaoExisteExcecao {
+        File arquivo = new File(caminho);
+        if (!arquivo.exists()) {
+            throw new ArquivoNaoExisteExcecao();
+        }
+        return true;
     }
 }

@@ -12,10 +12,10 @@ public class Salvamento {
 
     public Salvamento() {
         midias = new ArrayList<>();
-
     }
 
     public boolean incluirMidia(Midia midia) {
+
         try {
             midias.add(midia);
             return true;
@@ -25,15 +25,25 @@ public class Salvamento {
     }
 
     public boolean removerMidia(Midia midia) {
-
         try {
             midias.remove(midia);
             return true;
-
         } catch (Exception e) {
             return false;
         }
     }
 
+    public boolean atualizarMidia(Midia midia) {
+
+        try {
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public List<Midia> getMidias() {
+        return midias;
+    }
 
 }
