@@ -1,6 +1,6 @@
-package modelo.midias;
+package modelo.Midias;
 
-import enumerador.ETipoArquivo;
+import enumeradores.ETipoArquivo;
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;

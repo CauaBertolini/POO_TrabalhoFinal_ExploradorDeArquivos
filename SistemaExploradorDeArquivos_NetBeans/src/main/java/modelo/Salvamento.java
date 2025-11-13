@@ -1,6 +1,6 @@
 package modelo;
 
-import modelo.midias.Midia;
+import modelo.Midias.Midia;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

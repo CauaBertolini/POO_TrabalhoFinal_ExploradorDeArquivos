@@ -1,4 +1,4 @@
-package enumerador;
+package enumeradores;
 
 public enum ETipoArquivo {
     MP4,

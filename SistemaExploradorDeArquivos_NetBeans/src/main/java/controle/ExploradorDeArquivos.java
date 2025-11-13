@@ -1,9 +1,16 @@
 package controle;
 
-import enumerador.*;
+import enumeradores.ETipoArquivo;
+import excecao.ArquivoNaoExisteExcecao;
+import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
+import excecao.CampoMenorOuIgualAZeroExcecao;
+import modelo.Midias.Livro;
+import modelo.Midias.Filme;
+import modelo.Midias.Musica;
+import modelo.Midias.Midia;
 import excecao.*;
 import modelo.*;
-import modelo.midias.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

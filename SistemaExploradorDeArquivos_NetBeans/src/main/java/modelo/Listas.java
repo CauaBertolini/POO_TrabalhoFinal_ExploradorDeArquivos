@@ -1,6 +1,6 @@
 package modelo;
 
-import enumerador.ETipoGenero;
+import enumeradores.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
 
 import java.util.ArrayList;
