@@ -1,9 +1,16 @@
 package controle;
 
-import enumerador.*;
+import enumeradores.ETipoArquivo;
+import excecao.ArquivoNaoExisteExcecao;
+import excecao.CampoVazioOuNuloExcecao;
+import excecao.Utilitario;
+import excecao.CampoMenorOuIgualAZeroExcecao;
+import modelo.midias.Livro;
+import modelo.midias.Filme;
+import modelo.midias.Musica;
+import modelo.midias.Midia;
 import excecao.*;
 import modelo.*;
-import modelo.midias.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -94,6 +101,81 @@ public class ExploradorDeArquivos {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar mídia.\n" + e.getMessage(),  JOptionPane.WARNING_MESSAGE);
             return false;
+        }
+    }
+    
+    // ==============================================
+    // ALTERAÇÃO DE MÍDIAS
+    // ==============================================
+    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
+                                ETipoArquivo eTipoArquivo, Idioma idioma)
+            throws ArquivoNaoExisteExcecao {
+
+        try {
+            if (!Utilitario.arquivoExiste(caminhoArquivo)) {
+                throw new ArquivoNaoExisteExcecao();
+            }
+
+            File arquivo = new File(caminhoArquivo);
+            Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
+
+            if (!(midiaAlterando instanceof Filme filmeAlterando)) {
+                return false; // não é um filme, ignora
+            }
+
+            filmeAlterando.setTamanho(tamanho);
+            filmeAlterando.setDuracao(duracao);
+            filmeAlterando.setTipoArquivo(eTipoArquivo);
+            filmeAlterando.setIdioma(idioma);
+
+            SerializadorTpoo.salvarMidia(filmeAlterando);
+            sv.atualizarMidia(filmeAlterando);
+
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao atualizar o arquivo: " + e.getMessage(), e);
+        }
+    }
+
+
+    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
+                                ETipoArquivo eTipoArquivo, String autorOuArtista, boolean eLivro)
+            throws ArquivoNaoExisteExcecao {
+
+        try {
+            if (!Utilitario.arquivoExiste(caminhoArquivo)) {
+                throw new ArquivoNaoExisteExcecao();
+            }
+
+            File arquivo = new File(caminhoArquivo);
+            Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
+
+            if (eLivro && midiaAlterando instanceof Livro livroAlterando) {
+                livroAlterando.setTamanho(tamanho);
+                livroAlterando.setDuracao(duracao);
+                livroAlterando.setAutor(autorOuArtista);
+                livroAlterando.setTipoArquivo(eTipoArquivo);
+
+                SerializadorTpoo.salvarMidia(livroAlterando);
+                sv.atualizarMidia(livroAlterando);
+                return true;
+
+            } else if (!eLivro && midiaAlterando instanceof Musica musicaAlterando) {
+                musicaAlterando.setTamanho(tamanho);
+                musicaAlterando.setDuracao(duracao);
+                musicaAlterando.setArtista(autorOuArtista);
+                musicaAlterando.setTipoArquivo(eTipoArquivo);
+
+                SerializadorTpoo.salvarMidia(musicaAlterando);
+                sv.atualizarMidia(musicaAlterando);
+                return true;
+            }
+
+            return false; // tipo incompatível
+
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao atualizar o arquivo: " + e.getMessage(), e);
         }
     }
 
