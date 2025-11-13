@@ -4,6 +4,13 @@ out/
 !**/src/test/**/out/
 .kotlin
 
+# IntelliJ
+.idea/
+*.iml
+
+# Sistema operacional
+Thumbs.db
+
 ### Eclipse ###
 .apt_generated
 .classpath

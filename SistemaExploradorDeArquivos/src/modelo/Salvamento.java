@@ -42,6 +42,20 @@ public class Salvamento {
         }
     }
 
+    public boolean atualizarCaminho(String caminhoAntigo, String caminhoNovo) {
+        try {
+            for (Midia m : getMidias()) {
+                if (m.getCaminho().equalsIgnoreCase(caminhoAntigo)) {
+                    m.setCaminho(caminhoNovo);
+                }
+            }
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public List<Midia> getMidias() {
         return midias;
     }

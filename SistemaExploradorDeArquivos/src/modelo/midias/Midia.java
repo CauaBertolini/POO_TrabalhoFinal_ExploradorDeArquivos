@@ -19,14 +19,13 @@ public abstract class Midia {
     private Genero genero;
 
 
-    public Midia(String caminho, String nome, ETipoArquivo eTipoArquivo, double duracao, float tamanho, Genero genero) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
+    public Midia(String caminho, String nome, ETipoArquivo eTipoArquivo, double duracao, float tamanho) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao{
         generos = new ArrayList<>();
         setNome(nome);
         setCaminho(caminho);
         setTipoArquivo(eTipoArquivo);
         setDuracao(duracao);
         setTamanho(tamanho);
-        setGenero(genero);
     }
 
     public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
