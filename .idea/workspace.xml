@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
+<<<<<<< Updated upstream
     <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas.">
       <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/ArquivoJaExisteExcecao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< Updated upstream
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
@@ -46,6 +50,25 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="35LPyZG8My2KAX1W8xmlcgc984b" />
+=======
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "CauaBertolini"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git",
+    "accountId": "cc9c99ae-a0dd-4ae6-933e-2964ca191243"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="35O0ngmP8qdJrN3iiY8CszkBSyE" />
+>>>>>>> Stashed changes
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -55,6 +78,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< Updated upstream
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -71,6 +95,15 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+=======
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.selected.package.tslint": "(autodetect)",
+>>>>>>> Stashed changes
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -78,14 +111,20 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+<<<<<<< Updated upstream
         <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
         <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+=======
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+>>>>>>> Stashed changes
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java" />
+<<<<<<< Updated upstream
       <created>1762886639144</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -102,13 +141,24 @@
       <updated>1762955824181</updated>
     </task>
     <option name="localTasksCounter" value="2" />
+=======
+      <created>1762965984317</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762965984317</updated>
+      <workItem from="1762965988469" duration="109000" />
+    </task>
+>>>>>>> Stashed changes
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< Updated upstream
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
     <option name="LAST_COMMIT_MESSAGE" value="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
   </component>
+=======
+>>>>>>> Stashed changes
 </project>
