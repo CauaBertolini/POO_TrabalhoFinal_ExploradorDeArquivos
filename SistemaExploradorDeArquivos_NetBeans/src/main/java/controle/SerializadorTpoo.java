@@ -5,10 +5,10 @@ import enumeradores.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
-import modelo.Midias.Filme;
-import modelo.Midias.Livro;
-import modelo.Midias.Midia;
-import modelo.Midias.Musica;
+import modelo.midias.Filme;
+import modelo.midias.Livro;
+import modelo.midias.Midia;
+import modelo.midias.Musica;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
