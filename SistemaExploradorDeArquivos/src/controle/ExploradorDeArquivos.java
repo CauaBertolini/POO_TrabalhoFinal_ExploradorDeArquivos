@@ -4,6 +4,7 @@ import enumerador.*;
 import excecao.*;
 import modelo.*;
 import modelo.midias.*;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
@@ -11,6 +12,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
 
 
 public class ExploradorDeArquivos {
@@ -53,11 +55,17 @@ public class ExploradorDeArquivos {
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(novaMidia.toString());
 
-                oos.close();
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                return false;
+    public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
+
+        String caminhoCompleto = nome + ".tpoo";
+        Midia novaMidia;
+
+        try {
+            if (eLivro) {
+                novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+            } else {
+                novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
             }
         }
         return true;
@@ -104,14 +112,17 @@ public class ExploradorDeArquivos {
                     novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
                 }
 
-                sv.incluirMidia(novaMidia);
+                if (tamanho > 0) {
+                    filmeAlterando.setTamanho(tamanho);
+                }
 
-                File f = new File(caminhoCompleto);
-                FileOutputStream fos = new FileOutputStream(f);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(novaMidia);
+                if (duracao > 0) {
+                    filmeAlterando.setDuracao(duracao);
+                }
 
-                oos.close();
+                if (idioma != null) {
+                    filmeAlterando.setIdioma(idioma);
+                }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -201,6 +212,12 @@ public class ExploradorDeArquivos {
 
                 if (eLivro) {
                     Livro livroAlterando = null;
+
+                    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Idioma idioma) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
+            try {
+                if (Utilitario.arquivoExiste(caminhoArquivo)) {
+                    Midia midiaAlterando;
+                    Filme filmeAlterando = null;
 
                     try (FileInputStream fis = new FileInputStream(caminhoArquivo);
                          ObjectInputStream ois = new ObjectInputStream(fis)) {
