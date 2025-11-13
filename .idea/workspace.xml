@@ -4,32 +4,100 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java">
+    <list default="true" id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas.">
+      <change afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/excecao/ArquivoJaExisteExcecao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/SistemaExploradorDeArquivos/src/controle/ExploradorDeArquivos.java" afterDir="false" />
     </list>
-    <list default="true" id="017bf466-01bc-4ca3-bda0-c47f9c8bc056" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Exception" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CauaBertolini&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CauaBertolini/POO_TrabalhoFinal_ExploradorDeArquivos.git&quot;,
+    &quot;accountId&quot;: &quot;328dfd78-4e20-45b6-a1f5-d18b2f409a10&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="35LPyZG8My2KAX1W8xmlcgc984b" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "main",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;caua&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="99bb825d-5986-4322-a6b2-28bc6c929f07" name="Changes" comment="Aplicação da classe Utilitario.java ás validações de Midia.java" />
+      <created>1762886639144</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762886639144</updated>
+      <workItem from="1762886641158" duration="3245000" />
+      <workItem from="1762945208163" duration="7689000" />
+    </task>
+    <task id="LOCAL-00001" summary="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas.">
+      <option name="closed" value="true" />
+      <created>1762955824181</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762955824181</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
+    <option name="LAST_COMMIT_MESSAGE" value="Criação dos métodos: &#10;-&gt; Mover Mídia&#10;-&gt; Renomear Mídia&#10;&#10;Relevante:&#10;ListaGenero.Java agora é Listas.java&#10;Listas.java possui lista de Idiomas." />
   </component>
 </project>
