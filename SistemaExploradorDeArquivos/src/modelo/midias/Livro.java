@@ -12,8 +12,8 @@ public class Livro extends Midia {
     private String autor;
     private Genero genero;
 
-    public Livro(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, String autor) {
-        super(titulo, local, eTipoArquivo, duracao, tamanho);
+    public Livro(String caminho, String nome, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, String autor) {
+        super(nome, caminho, eTipoArquivo, duracao, tamanho);
         setAutor(autor);
         setGenero(genero);
     }
@@ -23,7 +23,7 @@ public class Livro extends Midia {
         if (genero.getETipoGenero() == ETipoGenero.LITERARIO) {
             super.setGenero(genero);
         } else {
-            throw new IllegalArgumentException("ETipoGenero invalido");
+            throw new IllegalArgumentException("ETipoGenero inválido");
         }
     }
 

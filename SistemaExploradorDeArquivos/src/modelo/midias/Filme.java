@@ -10,8 +10,8 @@ public class Filme extends Midia {
 
     private Idioma idioma;
 
-    public Filme(String local, String titulo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, Idioma idioma) {
-        super(titulo, local, eTipoArquivo, duracao, tamanho);
+    public Filme(String caminho, String nome, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, Idioma idioma) {
+        super(nome, caminho, eTipoArquivo, duracao, tamanho);
         setIdioma(idioma);
         setGenero(genero);
     }
@@ -25,7 +25,7 @@ public class Filme extends Midia {
         if (genero.getETipoGenero() == ETipoGenero.CINEMA) {
             super.setGenero(genero);
         } else {
-            throw new IllegalArgumentException("ETipoGenero invalido");
+            throw new IllegalArgumentException("ETipoGenero inválido");
         }
     }
 
