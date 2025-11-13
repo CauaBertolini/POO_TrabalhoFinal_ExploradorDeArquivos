@@ -15,6 +15,8 @@ public class ExploradorDeArquivos {
     private Salvamento sv = new Salvamento();
     private Listas listas = new Listas();
 
+    SerializadorTpoo serializadorTpoo = new SerializadorTpoo();
+
     // ==============================================
     // CRIAÇÃO DE MÍDIA — FILME
     // ==============================================
@@ -41,9 +43,10 @@ public class ExploradorDeArquivos {
 
             sv.incluirMidia(novaMidia);
 
-            try (FileOutputStream fos = new FileOutputStream(arquivoNovo);
-                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-                oos.writeObject(novaMidia);
+            try {
+                 SerializadorTpoo.salvarMidia(novaMidia);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
 
             return true;
@@ -81,14 +84,15 @@ public class ExploradorDeArquivos {
 
             sv.incluirMidia(novaMidia);
 
-            try (FileOutputStream fos = new FileOutputStream(arquivoNovo);
-                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-                oos.writeObject(novaMidia);
+            try {
+                SerializadorTpoo.salvarMidia(novaMidia);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar mídia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
 
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar mídia.\n" + e.getMessage(),  JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
@@ -103,7 +107,7 @@ public class ExploradorDeArquivos {
             sv.removerMidia(midia);
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar excluir mídia:\n" + e.getMessage(), "Erro na exclusão",  JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
@@ -146,6 +150,16 @@ public class ExploradorDeArquivos {
     }
 
     // ==============================================
+    // CARREGAR ARQUIVO
+    // ==============================================
+    public boolean carregarArquivo(String caminho) throws IOException {
+        File arquivo = new File(caminho);
+        Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
+        sv.incluirMidia(novaMidia);
+        return false;
+    }
+
+    // ==============================================
     // SELETORES DE ARQUIVO E DIRETÓRIO
     // ==============================================
     public String abrirSeletorDeArquivoTpoo() {
@@ -183,5 +197,36 @@ public class ExploradorDeArquivos {
                 JOptionPane.WARNING_MESSAGE
         );
         return resposta == JOptionPane.YES_OPTION;
+    }
+
+    // ===============================================
+    // FILTROS DE MÍDIAS
+    // ===============================================
+    public List<Midia> filtrarMidias (String generoFiltrar, ETipoArquivo eTipoArquivo){
+        List<Midia> filtradas = new ArrayList<>();
+
+        for (Midia m : sv.getMidias()) {
+            if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo() == ETipoArquivo.TODOS) {
+                return sv.getMidias();
+            } else if (m.getGenero().getNome().equalsIgnoreCase(generoFiltrar) && m.getTipoArquivo() == ETipoArquivo.TODOS) {
+                filtradas.add(m);
+            } else if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo() == eTipoArquivo) {
+                filtradas.add(m);
+            } else if (m.getGenero().getNome().equals(generoFiltrar) && m.getTipoArquivo() == eTipoArquivo) {
+                filtradas.add(m);
+            }
+        }
+        return filtradas;
+    }
+
+    public List<Midia> ordenarMidiasPorNome (List < Midia > listaMidias) {
+        listaMidias.sort(Comparator.comparing(Midia::getNome));
+        return listaMidias;
+    }
+
+    public List<Midia> ordenarMidiaPorTamanho (List < Midia > listaMidias) {
+        // O comparing chama o getTamanho() e use o valor retornado para comparar
+        listaMidias.sort(Comparator.comparing(Midia::getTamanho));
+        return listaMidias;
     }
 }
