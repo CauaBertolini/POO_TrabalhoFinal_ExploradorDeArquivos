@@ -204,7 +204,6 @@ public class ExploradorDeArquivos {
         return false;
     }
 
-<<<<<<< Updated upstream
     public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, ETipoArquivo eTipoArquivo, String autorOuArtista, boolean eLivro) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
         try {
             if (Utilitario.arquivoExiste(caminhoArquivo)) {
@@ -213,13 +212,12 @@ public class ExploradorDeArquivos {
 
                 if (eLivro) {
                     Livro livroAlterando = null;
-=======
-        public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Idioma idioma) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
+
+                    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Idioma idioma) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
             try {
                 if (Utilitario.arquivoExiste(caminhoArquivo)) {
                     Midia midiaAlterando;
                     Filme filmeAlterando = null;
->>>>>>> Stashed changes
 
                     try (FileInputStream fis = new FileInputStream(caminhoArquivo);
                          ObjectInputStream ois = new ObjectInputStream(fis)) {
