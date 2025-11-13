@@ -74,7 +74,8 @@ public class ExploradorDeArquivos {
             JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
         }
 
-        File arquivoNovo = new File(caminhoCompleto);
+                String caminhoCompleto = nome + ".tpoo";
+                Midia novaMidia;
 
         try {
             if (arquivoNovo.exists() && !confirmarSubstituicaoArquivo()) {
