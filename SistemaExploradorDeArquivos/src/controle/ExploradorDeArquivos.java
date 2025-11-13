@@ -21,7 +21,16 @@ public class ExploradorDeArquivos {
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) {
 
         String caminhoCompleto = caminho + File.separator + nome + ".tpoo";
-        Midia novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+        Midia novaMidia = null;
+
+        try {
+            novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+        } catch (CampoVazioOuNuloExcecao excecao) {
+            JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
+        } catch (CampoMenorOuIgualAZeroExcecao excecao) {
+            JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
+        }
+
         File arquivoNovo = new File(caminhoCompleto);
 
         try {
@@ -50,9 +59,17 @@ public class ExploradorDeArquivos {
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao,
                                   Genero genero, String autorOuArtista, boolean eLivro) throws CampoMenorOuIgualAZeroExcecao, CampoVazioOuNuloExcecao {
         String caminhoCompleto = caminho + File.separator + nome + ".tpoo";
-        Midia novaMidia = eLivro
-                ? new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista)
-                : new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+        Midia novaMidia = null;
+
+        try {
+            novaMidia = eLivro
+                    ? new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista)
+                    : new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+        } catch (CampoVazioOuNuloExcecao excecao) {
+            JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
+        } catch (CampoMenorOuIgualAZeroExcecao excecao) {
+            JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
+        }
 
         File arquivoNovo = new File(caminhoCompleto);
 
