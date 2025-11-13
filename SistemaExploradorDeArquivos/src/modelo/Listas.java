@@ -6,17 +6,24 @@ import excecao.CampoVazioOuNuloExcecao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaGenero {
+public class Listas {
 
     private List<Genero> listaGeneros;
+    private List<Idioma> listaIdiomas;
 
-    public ListaGenero () {
+    public Listas() {
         listaGeneros = new ArrayList<>();
+        listaIdiomas = new ArrayList<>();
         gerarGeneros();
+        gerarIdiomas();
     }
 
     public List<Genero> getListaGeneros() {
         return listaGeneros;
+    }
+
+    public List<Idioma> getListaIdiomas() {
+        return listaIdiomas;
     }
 
     public void adicionarGenero(Genero genero) throws CampoVazioOuNuloExcecao {
@@ -32,6 +39,7 @@ public class ListaGenero {
         }
         listaGeneros.remove(genero);
     }
+
 
     public void gerarGeneros() {
 
@@ -79,7 +87,28 @@ public class ListaGenero {
         listaGeneros.add(new Genero("Mitologia", ETipoGenero.LITERARIO));
         listaGeneros.add(new Genero("Crônica", ETipoGenero.LITERARIO));
 
+    }
 
+    public void gerarIdiomas() {
+        listaIdiomas.add(new Idioma("Português (BR)"));
+        listaIdiomas.add(new Idioma("Português (PT)"));
+        listaIdiomas.add(new Idioma("Inglês (EUA)"));
+        listaIdiomas.add(new Idioma("Espanhol (ES)"));
+        listaIdiomas.add(new Idioma("Francês (FR)"));
+        listaIdiomas.add(new Idioma("Alemão (DE)"));
+        listaIdiomas.add(new Idioma("Italiano (IT)"));
+        listaIdiomas.add(new Idioma("Japonês (JP)"));
+        listaIdiomas.add(new Idioma("Chinês (Mandarim)"));
+        listaIdiomas.add(new Idioma("Coreano (KR)"));
+        listaIdiomas.add(new Idioma("Russo (RU)"));
+        listaIdiomas.add(new Idioma("Árabe (SA)"));
+        listaIdiomas.add(new Idioma("Hindi (IN)"));
+        listaIdiomas.add(new Idioma("Sueco (SE)"));
+        listaIdiomas.add(new Idioma("Norueguês (NO)"));
+        listaIdiomas.add(new Idioma("Grego (GR)"));
+        listaIdiomas.add(new Idioma("Hebraico (IL)"));
+        listaIdiomas.add(new Idioma("Turco (TR)"));
+        listaIdiomas.add(new Idioma("Holandês (NL)"));
     }
 
 

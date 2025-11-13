@@ -6,6 +6,7 @@ import modelo.*;
 import modelo.midias.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 
 import java.nio.file.Files;
@@ -17,30 +18,42 @@ import java.util.*;
 public class ExploradorDeArquivos {
     Salvamento sv = new Salvamento();
 
-    ListaGenero generos = new ListaGenero();
+    Listas generos = new Listas();
 
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) {
 
         String caminhoCompleto = nome + ".tpoo";
         Midia novaMidia;
+        File arquivoNovo = new File(caminhoCompleto);
 
-        try {
-            novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
-            sv.incluirMidia(novaMidia);
+        if (arquivoNovo.exists()) {
+            if (confirmarSubstituicaoArquivo()) {
+                try {
+                    novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+                    sv.incluirMidia(novaMidia);
 
-            File f = new File(caminhoCompleto);
-            FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(novaMidia.toString());
+                    FileOutputStream fos = new FileOutputStream(arquivoNovo);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(novaMidia.toString());
 
-            oos.close();
+                    oos.close();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
-        }
-        return true;
-    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                return false;
+            }
+        } else {
+            try {
+                novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+                sv.incluirMidia(novaMidia);
+
+                FileOutputStream fos = new FileOutputStream(arquivoNovo);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(novaMidia.toString());
 
 
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
@@ -54,19 +67,67 @@ public class ExploradorDeArquivos {
             } else {
                 novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
             }
+        }
+        return true;
+    }
 
-            sv.incluirMidia(novaMidia);
+    public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, Genero genero, String autorOuArtista, boolean eLivro) {
 
-            File f = new File(caminhoCompleto);
-            FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(novaMidia);
+        String caminhoCompleto = nome + ".tpoo";
+        Midia novaMidia;
 
-            oos.close();
+        File arquivoNovo = new File(caminhoCompleto);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
+        if (arquivoNovo.exists()) {
+            if (confirmarSubstituicaoArquivo()) {
+                try {
+                    if (eLivro) {
+                        novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                    } else {
+                        novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                    }
+
+                    sv.incluirMidia(novaMidia);
+
+                    File f = new File(caminhoCompleto);
+                    FileOutputStream fos = new FileOutputStream(f);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(novaMidia);
+
+                    oos.close();
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                return false;
+            }
+        } else {
+            try {
+                if (eLivro) {
+                    novaMidia = new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                } else {
+                    novaMidia = new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                }
+
+                if (tamanho > 0) {
+                    filmeAlterando.setTamanho(tamanho);
+                }
+
+                if (duracao > 0) {
+                    filmeAlterando.setDuracao(duracao);
+                }
+
+                if (idioma != null) {
+                    filmeAlterando.setIdioma(idioma);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
         }
         return true;
     }
@@ -235,30 +296,99 @@ public class ExploradorDeArquivos {
         return false;
     }
 
-    public List<Midia> filtrarMidias(String generoFiltrar, ETipoArquivo eTipoArquivo) {
-        List<Midia> filtradas = new ArrayList<>();
+    public boolean renomearMidia(Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
 
-        for (Midia m: sv.getMidias()) {
-            if (m.getGenero().getNome().equals("TODOS") && m.getTipoArquivo() ==ETipoArquivo.TODOS) {
-                return sv.getMidias();
-            } else if (m.getGenero().getNome().equalsIgnoreCase(generoFiltrar) && m.getTipoArquivo() == ETipoArquivo.TODOS) {
-                filtradas.add(m);
-            } else if (m.getGenero().getNome().equalsIgnoreCase("TODOS") && m.getTipoArquivo() == eTipoArquivo) {
-                filtradas.add(m);
-            } else if (m.getGenero().getNome().equals(generoFiltrar) && m.getTipoArquivo() == eTipoArquivo) {
-                filtradas.add(m);
-            }
+        if (Utilitario.arquivoExiste(midia.getCaminho())) {
+
+            File arquivo = new File(midia.getCaminho());
+
+            File novoNome = new File(arquivo.getParent(), novoNomeString + ".tpoo");
+
+            arquivo.renameTo(novoNome);
+
+            midia.setCaminho(novoNome.getAbsolutePath());
+
+            return true;
         }
-        return filtradas;
+
+        return false;
+
     }
 
-    public List<Midia> ordenarMidiasPorNome(List<Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(Midia::getNome));
-        return listaMidias;
+    public boolean moverMidia(Midia midia, String novoCaminhoString) throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao {
+
+        try {
+            if (Utilitario.arquivoExiste(midia.getCaminho())) {
+
+                File arquivo = new File(midia.getCaminho());
+
+                File novoCaminho = new File(novoCaminhoString, midia.getNome() + ".tpoo");
+
+                if (novoCaminho.exists()) {
+
+                    if (confirmarSubstituicaoArquivo()) {
+
+                        arquivo.renameTo(novoCaminho);
+                        midia.setCaminho(novoCaminho.getAbsolutePath());
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                        return false;
+                    }
+                } else {
+                    arquivo.renameTo(novoCaminho);
+                    midia.setCaminho(novoCaminho.getAbsolutePath());
+                    return true;
+                }
+
+            }
+        } catch (ArquivoJaExisteExcecao sobreposicao) {
+
+        }
+
+        return false;
+
     }
 
-    public List<Midia> ordenarMidiaPorTamanho(List<Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(Midia::getTamanho));
-        return listaMidias;
+    public String abrirSeletorDeArquivoTpoo() {
+        FileNameExtensionFilter filtroExtensao = new FileNameExtensionFilter("Filtra arquivos permitindo apenas os lidos de forma padrão pelo sistema (tpoo)", "tpoo");
+
+        JFileChooser seletorTpoo = new JFileChooser();
+
+        seletorTpoo.setFileFilter(filtroExtensao);
+        seletorTpoo.setDialogTitle("Selecione um arquivo");
+        seletorTpoo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        if (seletorTpoo.showOpenDialog(null) ==  JFileChooser.APPROVE_OPTION) {
+            File arquivoSelecionado = seletorTpoo.getSelectedFile();
+            return arquivoSelecionado.getAbsolutePath();
+        }
+        return null;
+    }
+
+    public String abrirSeletorDeDiretorio() {
+        JFileChooser seletorDiretorio = new JFileChooser();
+
+        seletorDiretorio.setDialogTitle("Selecione uma pasta onde o arquivo será alocado.");
+        seletorDiretorio.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        seletorDiretorio.setAcceptAllFileFilterUsed(false);
+
+        if (seletorDiretorio.showOpenDialog(null) ==  JFileChooser.APPROVE_OPTION) {
+            File diretorioSelecionado = seletorDiretorio.getSelectedFile();
+            return diretorioSelecionado.getAbsolutePath();
+        }
+        return null;
+    }
+
+    public boolean confirmarSubstituicaoArquivo() {
+        int resposta = JOptionPane.showConfirmDialog(
+                null,
+                "Tem certeza que deseja substituir o arquivo destino pelo atual?",
+                "Confirmação de Sobescrita",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        return resposta == JOptionPane.YES_OPTION;
     }
 }
