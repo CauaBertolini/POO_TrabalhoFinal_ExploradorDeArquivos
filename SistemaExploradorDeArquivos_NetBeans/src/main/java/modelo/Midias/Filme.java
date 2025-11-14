@@ -1,7 +1,7 @@
 package modelo.midias;
 
-import enumeradores.ETipoArquivo;
-import enumeradores.ETipoGenero;
+import enumerador.ETipoArquivo;
+import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
 import modelo.Idioma;
 import modelo.Genero;
