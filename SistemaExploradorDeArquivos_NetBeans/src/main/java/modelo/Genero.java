@@ -1,6 +1,6 @@
 package modelo;
 
-import enumeradores.ETipoGenero;
+import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
 
