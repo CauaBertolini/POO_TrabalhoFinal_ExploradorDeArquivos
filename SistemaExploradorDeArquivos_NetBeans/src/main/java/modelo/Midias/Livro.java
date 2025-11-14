@@ -1,13 +1,13 @@
-package modelo.midias;
+package modelo.Midias;
 
-import enumeradores.ETipoArquivo;
-import enumeradores.ETipoGenero;
+import enumerador.ETipoArquivo;
+import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
 import excecao.Utilitario;
 import modelo.Genero;
 
 
-public class Livro extends Midia {
+public class Livro extends modelo.Midias.Midia {
 
     private String autor;
     private Genero genero;

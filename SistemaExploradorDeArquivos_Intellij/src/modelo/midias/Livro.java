@@ -13,7 +13,7 @@ public class Livro extends Midia {
     private Genero genero;
 
     public Livro(String caminho, String nome, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, String autor) {
-        super(nome, caminho, eTipoArquivo, duracao, tamanho);
+        super(caminho, nome, eTipoArquivo, duracao, tamanho);
         setAutor(autor);
         setGenero(genero);
     }
