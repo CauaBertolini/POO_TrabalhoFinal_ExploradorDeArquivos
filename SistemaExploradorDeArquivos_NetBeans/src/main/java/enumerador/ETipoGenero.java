@@ -1,4 +1,4 @@
-package enumeradores;
+package enumerador;
 
 public enum ETipoGenero {
     LITERARIO,

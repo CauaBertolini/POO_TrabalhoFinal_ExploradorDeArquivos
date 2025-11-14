@@ -1,7 +1,7 @@
 package controle;
 
-import enumeradores.ETipoArquivo;
-import enumeradores.ETipoGenero;
+import enumerador.ETipoArquivo;
+import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
