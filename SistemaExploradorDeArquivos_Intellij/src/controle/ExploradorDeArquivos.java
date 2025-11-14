@@ -22,8 +22,11 @@ public class ExploradorDeArquivos {
     // ==============================================
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) {
 
-        String caminhoCompleto = caminho + File.separator + nome + ".tpoo";
+        String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
+        System.out.println("Caminho: " + caminhoCompleto);
         Midia novaMidia = null;
+
+        System.out.println(">>> Caminho recebido: " + caminho);
 
         try {
             novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
@@ -42,12 +45,12 @@ public class ExploradorDeArquivos {
             }
 
             sv.incluirMidia(novaMidia);
-
             try {
                  SerializadorTpoo.salvarMidia(novaMidia);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
+            System.out.println(">>> Caminho completo utilizado na mídia: " + novaMidia.getCaminho());
 
             return true;
         } catch (Exception e) {
@@ -61,7 +64,7 @@ public class ExploradorDeArquivos {
     // ==============================================
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao,
                                   Genero genero, String autorOuArtista, boolean eLivro) throws CampoMenorOuIgualAZeroExcecao, CampoVazioOuNuloExcecao {
-        String caminhoCompleto = caminho + File.separator + nome + ".tpoo";
+        String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
         Midia novaMidia = null;
 
         try {
