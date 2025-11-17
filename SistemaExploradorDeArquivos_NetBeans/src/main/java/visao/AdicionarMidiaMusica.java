@@ -57,6 +57,12 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
 
         botaoProcurar.addActionListener((evt) -> {
             explorador.abrirSeletorDeDiretorio();
+            String selecionado = explorador.abrirSeletorDeDiretorio();
+
+            if (selecionado != null) {
+                caminho = selecionado;
+                campoCaminho.setText(selecionado);
+            }
         });
 
         botaoCancelar.addActionListener((evt) -> {
