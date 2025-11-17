@@ -1,13 +1,17 @@
 package visao;
 
 import controle.ExploradorDeArquivos;
+import modelo.Midias.Filme;
+import modelo.Midias.Livro;
 import modelo.Midias.Midia;
+import modelo.Midias.Musica;
 import modelo.Salvamento;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.time.LocalTime;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class HomePage extends javax.swing.JFrame {
@@ -30,7 +34,7 @@ public class HomePage extends javax.swing.JFrame {
     private void configurarTabela() {
         DefaultTableModel modelo = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Caminho", "Tamanho (MB)", "Tipo"}
+                new String[]{"Caminho", "Tamanho (MB)"}
         );
         tabelaMidias.setModel(modelo);
     }
@@ -39,7 +43,7 @@ public class HomePage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
         model.setRowCount(0); // limpar
         for (Midia m : salvamento.getMidias()) {
-            model.addRow(new Object[]{ m.getNome()+"."+m.getTipoArquivo().name(), m.getTamanho(), m.getTipoArquivo() });
+            model.addRow(new Object[]{ m.getNome()+"."+m.getTipoArquivo().name().toLowerCase(), m.getTamanho() });
         }
 
     }
@@ -91,6 +95,7 @@ public class HomePage extends javax.swing.JFrame {
 
         btnAlterar.setText("Alterar Mídia");
         btnAlterar.setBounds(30, 70, 150, 30);
+        btnAlterar.addActionListener(abrirAlterarMidia());
         painelEsquerdo.add(btnAlterar);
 
         btnListar.setText("Listar");
@@ -127,6 +132,36 @@ public class HomePage extends javax.swing.JFrame {
 
         painelDireito.revalidate();
         painelDireito.repaint();
+    }
+
+    private ActionListener abrirAlterarMidia() {
+        int linhaSelecionada = tabelaMidias.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione uma mídia! ", "Erro", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+
+        List listaMidias = salvamento.getMidias();
+
+        int modeloSelecionado = tabelaMidias.convertRowIndexToModel(linhaSelecionada);
+
+        Midia midiaSelecionada = (Midia) listaMidias.get(modeloSelecionado);
+
+        if (midiaSelecionada instanceof Filme) {
+            painelDireito.removeAll();
+            painelDireito.setLayout(new BorderLayout());
+            painelDireito.add(new EditarMidiaFilme(), BorderLayout.CENTER);
+            painelDireito.revalidate();
+            painelDireito.repaint();
+        } else if (midiaSelecionada instanceof Livro) {
+
+        } else if (midiaSelecionada instanceof Musica) {
+
+        }
+
+
+        return null;
     }
 
     // Variables

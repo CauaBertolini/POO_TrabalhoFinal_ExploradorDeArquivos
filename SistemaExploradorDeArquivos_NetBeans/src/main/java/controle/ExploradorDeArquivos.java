@@ -69,15 +69,15 @@ public class ExploradorDeArquivos {
     // ==============================================
     // CRIAÇÃO DE MÍDIA — LIVRO OU MÚSICA
     // ==============================================
-    public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao,
+    public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo,
                                   Genero genero, String autorOuArtista, boolean eLivro) throws CampoMenorOuIgualAZeroExcecao, CampoVazioOuNuloExcecao {
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
         modelo.Midias.Midia novaMidia = null;
 
         try {
             novaMidia = eLivro
-                    ? new Livro(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista)
-                    : new Musica(caminhoCompleto, nome, tamanho, duracao, ETipoArquivo.MP4, genero, autorOuArtista);
+                    ? new Livro(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, autorOuArtista)
+                    : new Musica(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, autorOuArtista);
         } catch (CampoVazioOuNuloExcecao excecao) {
             JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
         } catch (CampoMenorOuIgualAZeroExcecao excecao) {

@@ -78,7 +78,7 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
             Idioma idioma = (Idioma) comboIdioma.getSelectedItem();
             ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
 
-            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao, genero,artista, false);
+            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao, genero, artista, false);
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
