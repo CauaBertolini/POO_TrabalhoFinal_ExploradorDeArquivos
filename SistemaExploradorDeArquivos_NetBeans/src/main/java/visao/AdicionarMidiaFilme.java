@@ -7,6 +7,8 @@ import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
 
+import javax.swing.*;
+
 /**
  *
  * @author ISAC
@@ -196,12 +198,18 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
         ETipoArquivo tipoArquivo = (ETipoArquivo) comboBoxTipoArquivo.getSelectedItem();
 
         explorador.criarNovaMidia(caminho, titulo, tamanhoMB, duracao, tipoArquivo, genero, idioma);
+
+        JOptionPane.showMessageDialog(this, "Filme cadastrado com sucesso!");
+        limparCampos();
     }
 
     // -------------------------
     // BOTÃO CANCELAR
     // -------------------------
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        limparCampos();
+    }
+    private void limparCampos() {
         caminhoArquivo.setText("");
         tituloFilme.setText("");
         tamanhoArquivo.setText("");

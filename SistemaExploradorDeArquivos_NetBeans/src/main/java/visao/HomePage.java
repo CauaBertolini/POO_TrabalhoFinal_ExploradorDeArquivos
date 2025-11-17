@@ -6,7 +6,6 @@ import modelo.Salvamento;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.time.LocalTime;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,7 +29,7 @@ public class HomePage extends javax.swing.JFrame {
     private void configurarTabela() {
         DefaultTableModel modelo = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Caminho", "Tamanho (MB)", "Tipo"}
+                new String[]{"Caminho", "Tamanho (MB)"}
         );
         tabelaMidias.setModel(modelo);
     }
@@ -39,9 +38,8 @@ public class HomePage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
         model.setRowCount(0); // limpar
         for (Midia m : salvamento.getMidias()) {
-            model.addRow(new Object[]{ m.getNome()+"."+m.getTipoArquivo().name(), m.getTamanho(), m.getTipoArquivo() });
+            model.addRow(new Object[]{ m.getNome()+"."+m.getTipoArquivo().name(), m.getTamanho()});
         }
-
     }
 
     private void configurarFiltros() {
@@ -121,7 +119,7 @@ public class HomePage extends javax.swing.JFrame {
         painelDireito.setLayout(new BorderLayout());
 
         painelDireito.add(
-                new SelecioneQualMidiaAdicionar(painelDireito, explorador, salvamento),
+                new SelecioneQualMidiaAdicionar(painelDireito, explorador),
                 BorderLayout.CENTER
         );
 
