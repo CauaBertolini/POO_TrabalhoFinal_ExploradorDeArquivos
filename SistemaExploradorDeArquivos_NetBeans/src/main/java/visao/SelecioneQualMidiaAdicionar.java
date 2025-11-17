@@ -12,11 +12,10 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
     private JPanel painelPrincipal;
     private Salvamento salvamento;
 
-    public SelecioneQualMidiaAdicionar(JPanel painelPrincipal, ExploradorDeArquivos explorador, Salvamento salvamento) {
+    public SelecioneQualMidiaAdicionar(JPanel painelPrincipal, ExploradorDeArquivos explorador) {
         initComponents();
         this.painelPrincipal = painelPrincipal;
         this.explorador = explorador;  // CORRIGIDO!
-        this.salvamento = salvamento;
     }
 
     @SuppressWarnings("unchecked")
@@ -86,10 +85,9 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
     }
 
     private void abrirPainelLivro() {
-        trocarPainel(new AdicionarMidiaLivro(explorador, salvamento));
+        trocarPainel(new AdicionarMidiaLivro(explorador));
     }
 
-    // ==== Método padrão de troca de painel ====
 
     private void trocarPainel(JPanel novoPainel) {
         painelPrincipal.removeAll();
