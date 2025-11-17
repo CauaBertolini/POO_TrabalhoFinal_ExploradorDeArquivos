@@ -1,6 +1,6 @@
 package modelo;
 
-import modelo.midias.Midia;
+import modelo.Midias.Midia;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +15,6 @@ public class Salvamento {
     }
 
     public boolean incluirMidia(Midia midia) {
-
         try {
             midias.add(midia);
             return true;
@@ -34,7 +33,6 @@ public class Salvamento {
     }
 
     public boolean atualizarMidia(Midia midia) {
-
         try {
             return false;
         } catch (Exception e) {
@@ -50,7 +48,6 @@ public class Salvamento {
                 }
             }
             return true;
-
         } catch (Exception e) {
             return false;
         }
