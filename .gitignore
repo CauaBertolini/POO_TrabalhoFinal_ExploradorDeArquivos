@@ -1,0 +1,6 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Sistema operacional
+Thumbs.db

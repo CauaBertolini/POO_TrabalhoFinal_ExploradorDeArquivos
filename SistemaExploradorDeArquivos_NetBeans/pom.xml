@@ -10,4 +10,17 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>com.mycompany.sistemaexploradordearquivos_netbeans.SistemaExploradorDeArquivos_NetBeans</exec.mainClass>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>24</source>
+                    <target>24</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
