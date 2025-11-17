@@ -6,7 +6,8 @@ import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
-import modelo.Midias.Midia;
+
+import javax.swing.*;
 
 public class AdicionarMidiaMusica extends javax.swing.JPanel {
 
@@ -55,30 +56,23 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
         botaoCancelar = new javax.swing.JButton("Cancelar");
         botaoCadastrar = new javax.swing.JButton("Cadastrar");
 
+
         botaoProcurar.addActionListener((evt) -> {
-            explorador.abrirSeletorDeDiretorio();
+            String selecionado = explorador.abrirSeletorDeDiretorio();
+
+            if (selecionado != null) {
+                caminho = selecionado;
+                campoCaminho.setText(selecionado);
+            }
         });
 
+
         botaoCancelar.addActionListener((evt) -> {
-            campoCaminho.setText("");
-            campoTitulo.setText("");
-            campoArtista.setText("");
-            campoTamanho.setText("");
-            campoDuracao.setText("");
+            limparCampos();
         });
 
         botaoCadastrar.addActionListener((evt) -> {
-
-            String titulo = campoTitulo.getText();
-            String artista = campoArtista.getText();
-
-            float tamanho = Float.parseFloat(campoTamanho.getText());
-            double duracao = Double.parseDouble(campoDuracao.getText());
-            Genero genero = (Genero) comboGenero.getSelectedItem();
-            Idioma idioma = (Idioma) comboIdioma.getSelectedItem();
-            ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
-
-            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao, genero, artista, false);
+            botaoCadastrarActionPerformed();
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -167,6 +161,26 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
                                         .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
+    }
+    public void botaoCadastrarActionPerformed(){
+        String titulo = campoTitulo.getText();
+        String artista = campoArtista.getText();
+
+        float tamanho = Float.parseFloat(campoTamanho.getText());
+        double duracao = Double.parseDouble(campoDuracao.getText());
+        Genero genero = (Genero) comboGenero.getSelectedItem();
+        ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
+
+        explorador.criarNovaMidia(caminho, titulo, tamanho, duracao,tipo, genero, artista, false);
+        JOptionPane.showMessageDialog(this, "Musica cadastrado com sucesso!");
+        limparCampos();
+    }
+    private  void limparCampos() {
+        campoCaminho.setText("");
+        campoTitulo.setText("");
+        campoArtista.setText("");
+        campoTamanho.setText("");
+        campoDuracao.setText("");
     }
 
     public void carregarGenero() {

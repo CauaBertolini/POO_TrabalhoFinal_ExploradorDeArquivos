@@ -19,4 +19,7 @@ public class Idioma {
             this.nome = nome;
         }
     }
+    public String toString() {
+        return nome;
+    }
 }
