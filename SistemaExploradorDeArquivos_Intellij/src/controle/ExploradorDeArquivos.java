@@ -11,15 +11,34 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+/**
+ * A classe ExploradorDeArquivos é a responsável pela criação das Mídias e dos arquivos do tipo
+ * .tpoo. Além de modificar, excluir, mover e filtrar essas mídias que estão contidas no lista Salvamento.
+ */
+
 public class ExploradorDeArquivos {
     private Salvamento sv = new Salvamento();
     private Listas listas = new Listas();
 
     SerializadorTpoo serializadorTpoo = new SerializadorTpoo();
 
-    // ==============================================
-    // CRIAÇÃO DE MÍDIA — FILME
-    // ==============================================
+    /**
+     * Cria uma nova mídia do tipo Filme
+     * <p>
+     * Ele monta o caminho completo do arquivo, instancia a mídia, trata possíveis
+     * exceções de validação, confirma substituição caso o arquivo já exista,
+     * inclui a mídia no sistema e realiza a serialização para disco.
+     *
+     * @param caminho     - Caminho do usuário onde o arquivo vai ser salvo.
+     * @param nome        - Nome da Mídia a ser criada.
+     * @param tamanho     - Tamanho do arquivo em bytes.
+     * @param duracao     - Duração do filme em minutos.
+     * @param tipoArquivo - O tipo de arquivo de acordo com o tipo de Mídia criada. No caso de filme, MKV ou MP4.
+     * @param genero      - Gênero da Mídia para tipo cinema.
+     * @param idioma      - Idioma principal do filme criado.
+     * @return O método retorna {@code true} caso o objeto tenha sido criado com sucesso e retorna {@code false} se a ação for
+     * cancelada ou ocorrerem erros
+     */
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) {
 
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
@@ -33,7 +52,7 @@ public class ExploradorDeArquivos {
         } catch (CampoVazioOuNuloExcecao excecao) {
             JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
         } catch (CampoMenorOuIgualAZeroExcecao excecao) {
-            JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
         }
 
         File arquivoNovo = new File(caminhoCompleto);
@@ -46,7 +65,7 @@ public class ExploradorDeArquivos {
 
             sv.incluirMidia(novaMidia);
             try {
-                 SerializadorTpoo.salvarMidia(novaMidia);
+                SerializadorTpoo.salvarMidia(novaMidia);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
@@ -59,9 +78,25 @@ public class ExploradorDeArquivos {
         }
     }
 
-    // ==============================================
-    // CRIAÇÃO DE MÍDIA — LIVRO OU MÚSICA
-    // ==============================================
+    /**
+     * Cria uma nova mídia do tipo Música ou Livro.
+     * <p>
+     * O método monta o caminho completo do arquivo, instancia a mídia correspondente,
+     * trata exceções de validação, confirma substituição caso o arquivo já exista,
+     * inclui a mídia no sistema e realiza sua serialização em disco.
+     *
+     * @param caminho        - Caminho do usuário onde o arquivo vai ser salvo.
+     * @param nome           - Nome da Mídia a ser criada.
+     * @param tamanho        - Tamanho do arquivo em bytes.
+     * @param duracao        - Duração da música em minutos ou número de páginas em Livro.
+     * @param tipoArquivo    - O tipo de arquivo de acordo com o tipo de Mídia criada. MP3 para música e
+     *                       PDF ou EPUB para Livro.
+     * @param genero         - Gênero da Mídia para tipo Cinema.
+     * @param autorOuArtista -Nome do artista da música ou do Autor do Livro.
+     * @param eLivro         -Define o tipo da mídia a ser criada: {@code true} para Livro e {@code false} para Música.
+     * @return O método retorna {@code true} caso o objeto tenha sido criado com sucesso e retorna {@code false} se houver o
+     * cancelamento da ação ou caso alguma exceção seja lançada na hora da criação do arquivo
+     */
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao,
                                   Genero genero, String autorOuArtista, boolean eLivro) throws CampoMenorOuIgualAZeroExcecao, CampoVazioOuNuloExcecao {
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
@@ -74,7 +109,7 @@ public class ExploradorDeArquivos {
         } catch (CampoVazioOuNuloExcecao excecao) {
             JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
         } catch (CampoMenorOuIgualAZeroExcecao excecao) {
-            JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
         }
 
         File arquivoNovo = new File(caminhoCompleto);
@@ -95,14 +130,29 @@ public class ExploradorDeArquivos {
 
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar mídia.\n" + e.getMessage(),  JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar mídia.\n" + e.getMessage(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
 
-    // ==============================================
-    // ALTERAÇÃO DE MÍDIAS
-    // ==============================================
+    /**
+     * Altera os atributos de uma mídia já existente do tipo Filme.
+     * O caminho do arquivo permanece inalterado e apenas os atributos internos da mídia
+     * são atualizados (tamanho, duração, tipo de arquivo e idioma).
+     * <p>
+     * O método carrega a mídia do arquivo informado, verifica se ela é um Filme e,
+     * caso seja, atualiza seus valores e salva novamente o arquivo serializado
+     *
+     * @param caminhoArquivo - Caminho completo do arquivo .tpoo já existente.
+     * @param tamanho        - O tamanho do arquivo em Bytes.
+     * @param duracao        - Duração do Filme em minutos.
+     * @param eTipoArquivo   - O tipo do arquivo criado.
+     * @param idioma         - Principal idioma do filme.
+     * @return Se a mídia for alterada com sucesso é retornado {@code true}. E se a Mídia não for Filme ou
+     * houver algum erro é retornado {@code false}
+     * retornado {@code false}
+     * @throws ArquivoNaoExisteExcecao - Se o arquivo informado não existir no caminho especificado.
+     */
     public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
                                 ETipoArquivo eTipoArquivo, Idioma idioma)
             throws ArquivoNaoExisteExcecao {
@@ -134,7 +184,24 @@ public class ExploradorDeArquivos {
         }
     }
 
-
+    /**
+     * Altera os atributos de uma mídia já existente do tipo Música e Livro.
+     * O caminho do arquivo permanece inalterado e apenas os atributos internos da mídia
+     * são atualizados (tamanho, duração, tipo de arquivo e idioma).
+     * <p>
+     * O método carrega a mídia do arquivo informado, verifica se ela é um Música ou Livro, e
+     * caso seja, atualiza seus valores e salva novamente o arquivo serializado.
+     *
+     * @param caminhoArquivo - Caminho completo do arquivo .tpoo já existente.
+     * @param tamanho        - Novo tamanho do arquivo em bytes.
+     * @param duracao        - Nova duração do filme em minutos.
+     * @param eTipoArquivo   - Novo tipo de arquivo da mídia.
+     * @param autorOuArtista - Novo autor ou artista da Música ou Livro.
+     * @param eLivro         -Define o tipo da mídia a ser criada: {@code true} para Livro e {@code false} para Música.
+     * @return Se a mídia for alterada com sucesso é retornada {@code true}, caso a Mídia não for Música ou Filme
+     * ou houver algum erro, é retornado {@code false}
+     * @throws ArquivoNaoExisteExcecao - Se o arquivo informado não existir no caminho especificado.
+     */
     public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
                                 ETipoArquivo eTipoArquivo, String autorOuArtista, boolean eLivro)
             throws ArquivoNaoExisteExcecao {
@@ -175,9 +242,15 @@ public class ExploradorDeArquivos {
         }
     }
 
-    // ==============================================
-    // EXCLUIR
-    // ==============================================
+    /**
+     * Exclui uma mídia tanto do sistema de arquivos (desktop) quanto da lista
+     * de mídias armazenadas no sistema. A exclusão do arquivo é realizada por meio
+     * Files.deleteIfExists.
+     *
+     * @param midia - Mídia que será deletada.
+     * @return O método retorna {@code true} caso seja deletada com sucesso, e se houver algum problema na hora de exclusão
+     * é retornado {@code false}.
+     */
     public boolean excluirMidia(Midia midia) {
         try {
             Path caminho = Paths.get(midia.getCaminho());
@@ -185,14 +258,22 @@ public class ExploradorDeArquivos {
             sv.removerMidia(midia);
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao tentar excluir mídia:\n" + e.getMessage(), "Erro na exclusão",  JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao tentar excluir mídia:\n" + e.getMessage(), "Erro na exclusão", JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
 
-    // ==============================================
-    // RENOMEAR
-    // ==============================================
+    /**
+     * Renomeia uma mídia, alterando também o caminho do arquivo no sistema.
+     * <p>
+     * O método verifica a existência do arquivo, constrói o novo caminho com o nome atualizado
+     * e executa a operação de renomeação no sistema de arquivos.
+     *
+     * @param midia           Mídia que será renomeada.
+     * @param novoNomeString  Novo nome que o arquivo deverá receber.
+     * @return O método retorna {@code true} se o arquivo for renomeado com sucesso; {@code false} caso contrário.
+     * @throws ArquivoNaoExisteExcecao se o arquivo original não existir.
+     */
     public boolean renomearMidia(Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
         if (Utilitario.arquivoExiste(midia.getCaminho())) {
             File arquivo = new File(midia.getCaminho());
@@ -280,7 +361,7 @@ public class ExploradorDeArquivos {
     // ===============================================
     // FILTROS DE MÍDIAS
     // ===============================================
-    public List<Midia> filtrarMidias (String generoFiltrar, ETipoArquivo eTipoArquivo){
+    public List<Midia> filtrarMidias(String generoFiltrar, ETipoArquivo eTipoArquivo) {
         List<Midia> filtradas = new ArrayList<>();
 
         for (Midia m : sv.getMidias()) {
@@ -297,12 +378,12 @@ public class ExploradorDeArquivos {
         return filtradas;
     }
 
-    public List<Midia> ordenarMidiasPorNome (List < Midia > listaMidias) {
+    public List<Midia> ordenarMidiasPorNome(List<Midia> listaMidias) {
         listaMidias.sort(Comparator.comparing(Midia::getNome));
         return listaMidias;
     }
 
-    public List<Midia> ordenarMidiaPorTamanho (List < Midia > listaMidias) {
+    public List<Midia> ordenarMidiaPorTamanho(List<Midia> listaMidias) {
         // O comparing chama o getTamanho() e use o valor retornado para comparar
         listaMidias.sort(Comparator.comparing(Midia::getTamanho));
         return listaMidias;
