@@ -7,19 +7,18 @@ import enumerador.ETipoGenero;
 import javax.swing.*;
 import modelo.Genero;
 import modelo.Listas;
-import modelo.Midias.Livro;
+import modelo.midias.Livro;
 
 public class AdicionarMidiaLivro extends JPanel {
 
     private ExploradorDeArquivos explorador;
-    private Salvamento salvamento;
     private Listas listas;
 
-    public AdicionarMidiaLivro(ExploradorDeArquivos explorador, Salvamento salvamento) {
-        this.explorador = explorador;
-        this.salvamento = salvamento;
-        this.listas = new Listas();
+    public AdicionarMidiaLivro(ExploradorDeArquivos explorador) {
         initComponents();
+        this.explorador = explorador;
+        this.listas = new Listas();
+
         carregarComboBoxes();
     }
 
@@ -66,7 +65,7 @@ public class AdicionarMidiaLivro extends JPanel {
 
         setBackground(new java.awt.Color(230, 230, 230));
 
-        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18));
+        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 20));
         jLabelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelTitulo.setText("Cadastro de Livro");
 
@@ -90,14 +89,102 @@ public class AdicionarMidiaLivro extends JPanel {
         botaoCancelar.setText("Cancelar");
         botaoCancelar.addActionListener(evt -> limparCampos());
 
-        // ------ Layout cortado para manter o foco (você já tem ele funcionando) ------
-        // (Se quiser, envio novamente o layout completo)
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        // -------------------- GROUPLAYOUT COMPLETO --------------------
+        GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
 
-        // ... (mantém exatamente o layout do painel anterior sem alterar nada)
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabelTitulo, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+
+                                        .addComponent(jLabelCaminho)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(campoCaminho)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                        )
+
+                                        .addComponent(jLabelNome)
+                                        .addComponent(campoNome)
+
+                                        .addComponent(jLabelAutor)
+                                        .addComponent(campoAutor)
+
+                                        .addComponent(jLabelTamanho)
+                                        .addComponent(campoTamanho)
+
+                                        .addComponent(jLabelPaginas)
+                                        .addComponent(campoPaginas)
+
+                                        .addComponent(jLabelGenero)
+                                        .addComponent(comboBoxGenero)
+
+                                        .addComponent(jLabelTipoArquivo)
+                                        .addComponent(comboBoxTipoArquivo)
+
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(20, 20, 20)
+                                                .addComponent(botaoCadastrar, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                                        )
+                                )
+                                .addGap(30, 30, 30)
+                        )
+        );
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabelTitulo)
+                                .addGap(20, 20, 20)
+
+                                .addComponent(jLabelCaminho)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(campoCaminho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                )
+                                .addGap(15, 15, 15)
+
+                                .addComponent(jLabelNome)
+                                .addComponent(campoNome, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+
+                                .addComponent(jLabelAutor)
+                                .addComponent(campoAutor, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+
+                                .addComponent(jLabelTamanho)
+                                .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+
+                                .addComponent(jLabelPaginas)
+                                .addComponent(campoPaginas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+
+                                .addComponent(jLabelGenero)
+                                .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+
+                                .addComponent(jLabelTipoArquivo)
+                                .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(botaoCadastrar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                                )
+
+                                .addContainerGap(40, Short.MAX_VALUE)
+                        )
+        );
     }
+
 
     private void cadastrarLivro() {
         try {
@@ -109,18 +196,8 @@ public class AdicionarMidiaLivro extends JPanel {
             Genero genero = (Genero) comboBoxGenero.getSelectedItem();
             ETipoArquivo tipo = (ETipoArquivo) comboBoxTipoArquivo.getSelectedItem();
 
-            modelo.Midias.Midia livro = new Livro(
-                    caminho,
-                    nome,
-                    tamanho,
-                    paginas,
-                    tipo,
-                    genero,
-                    autor
-            );
+            explorador.criarNovaMidia(caminho, nome, tamanho, paginas,tipo, genero, autor, true);
 
-            // ⭐ Adiciona AGORA no lugar certo ⭐
-            salvamento.incluirMidia(livro);
 
             JOptionPane.showMessageDialog(this, "Livro cadastrado com sucesso!");
 

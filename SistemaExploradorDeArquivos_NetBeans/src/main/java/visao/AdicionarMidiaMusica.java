@@ -6,7 +6,6 @@ import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
-import modelo.Midias.Midia;
 
 public class AdicionarMidiaMusica extends javax.swing.JPanel {
 
@@ -55,8 +54,8 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
         botaoCancelar = new javax.swing.JButton("Cancelar");
         botaoCadastrar = new javax.swing.JButton("Cadastrar");
 
+
         botaoProcurar.addActionListener((evt) -> {
-            explorador.abrirSeletorDeDiretorio();
             String selecionado = explorador.abrirSeletorDeDiretorio();
 
             if (selecionado != null) {
@@ -64,6 +63,7 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
                 campoCaminho.setText(selecionado);
             }
         });
+
 
         botaoCancelar.addActionListener((evt) -> {
             campoCaminho.setText("");
@@ -84,7 +84,7 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
             Idioma idioma = (Idioma) comboIdioma.getSelectedItem();
             ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
 
-            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao, genero,artista, false);
+            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao,tipo, genero, artista, false);
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
