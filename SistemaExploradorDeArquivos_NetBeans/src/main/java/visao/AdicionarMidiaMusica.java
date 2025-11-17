@@ -72,18 +72,7 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
         });
 
         botaoCadastrar.addActionListener((evt) -> {
-
-            String titulo = campoTitulo.getText();
-            String artista = campoArtista.getText();
-
-            float tamanho = Float.parseFloat(campoTamanho.getText());
-            double duracao = Double.parseDouble(campoDuracao.getText());
-            Genero genero = (Genero) comboGenero.getSelectedItem();
-            ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
-
-            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao,tipo, genero, artista, false);
-            JOptionPane.showMessageDialog(this, "Musica cadastrado com sucesso!");
-            limparCampos();
+            botaoCadastrarActionPerformed();
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -172,6 +161,19 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
                                         .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
+    }
+    public void botaoCadastrarActionPerformed(){
+        String titulo = campoTitulo.getText();
+        String artista = campoArtista.getText();
+
+        float tamanho = Float.parseFloat(campoTamanho.getText());
+        double duracao = Double.parseDouble(campoDuracao.getText());
+        Genero genero = (Genero) comboGenero.getSelectedItem();
+        ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
+
+        explorador.criarNovaMidia(caminho, titulo, tamanho, duracao,tipo, genero, artista, false);
+        JOptionPane.showMessageDialog(this, "Musica cadastrado com sucesso!");
+        limparCampos();
     }
     private  void limparCampos() {
         campoCaminho.setText("");

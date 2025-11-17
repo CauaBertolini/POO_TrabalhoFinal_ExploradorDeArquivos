@@ -180,9 +180,6 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
         );
     }
 
-    // -------------------------
-    // BOTÃO CADASTRAR
-    // -------------------------
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
 
         if (caminho == null || caminho.isEmpty()) {
@@ -209,6 +206,7 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {
         limparCampos();
     }
+
     private void limparCampos() {
         caminhoArquivo.setText("");
         tituloFilme.setText("");

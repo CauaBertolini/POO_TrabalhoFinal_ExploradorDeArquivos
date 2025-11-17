@@ -93,13 +93,13 @@ public class ExploradorDeArquivos {
             }
 
             sv.incluirMidia(novaMidia);
-
+            homePage.atualizarTabela();
             try {
                 SerializadorTpoo.salvarMidia(novaMidia);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar mídia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
-            homePage.atualizarTabela();
+
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar mídia.\n" + e.getMessage(),  JOptionPane.WARNING_MESSAGE);
