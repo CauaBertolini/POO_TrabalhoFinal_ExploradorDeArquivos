@@ -8,6 +8,7 @@ import modelo.midias.Livro;
 import modelo.midias.Midia;
 import modelo.midias.Musica;
 import util.ExcecaoUtil;
+import util.GerenciadorCSV;
 import util.JOptionPaneUtil;
 import visao.HomePage;
 
@@ -37,6 +38,19 @@ public class ExploradorDeArquivos {
     public ExploradorDeArquivos(HomePage homePage) {
         salvamento = new Salvamento();
         this.homePage = homePage;
+    }
+
+    public void carregarMidiasCSV() {
+        try {
+            List<String> caminhosMidiasCSV = GerenciadorCSV.carregarCaminhos();
+
+            for (String linha : caminhosMidiasCSV) {
+                carregarArquivo(linha);
+            }
+
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 
     /**
@@ -87,6 +101,9 @@ public class ExploradorDeArquivos {
             } catch (IOException excecao) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + excecao.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
+
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
             homePage.limparPainelDireito();
             homePage.atualizarTabela();//adicionei isso para atualizar a tabela de midias na home page
             return true;
@@ -148,6 +165,8 @@ public class ExploradorDeArquivos {
                 JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
             }
 
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
             homePage.limparPainelDireito();
             homePage.atualizarTabela();
             return true;
@@ -201,6 +220,8 @@ public class ExploradorDeArquivos {
 
             salvamento.atualizarMidia(filmeAlterando);
             SerializadorTpoo.salvarMidia(filmeAlterando);
+
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
             homePage.atualizarTabela();
             return true;
@@ -263,6 +284,8 @@ public class ExploradorDeArquivos {
                 SerializadorTpoo.salvarMidia(musicaAlterando);
                 salvamento.atualizarMidia(musicaAlterando);
 
+                GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
                 homePage.limparPainelDireito();
                 homePage.atualizarTabela();
                 return true;
@@ -289,6 +312,8 @@ public class ExploradorDeArquivos {
             Path caminho = Paths.get(midia.getCaminho());
             Files.deleteIfExists(caminho);
             salvamento.removerMidia(midia);
+
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
             homePage.limparPainelDireito();
             homePage.atualizarTabela();
@@ -322,6 +347,10 @@ public class ExploradorDeArquivos {
 
             midia.setCaminho(novoNome.getAbsolutePath());
             midia.setNome(novoNomeString);
+
+            SerializadorTpoo.salvarMidia(midia);
+
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
             homePage.limparPainelDireito();
             homePage.atualizarTabela();
@@ -360,8 +389,18 @@ public class ExploradorDeArquivos {
 
             arquivo.renameTo(novoCaminho);
             midia.setCaminho(novoCaminho.getAbsolutePath());
+
+            try {
+                SerializadorTpoo.salvarMidia(midia);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
             homePage.limparPainelDireito();
             homePage.atualizarTabela();
+
             return true;
         }
         return false;
@@ -374,6 +413,9 @@ public class ExploradorDeArquivos {
         File arquivo = new File(caminho);
         Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
         salvamento.incluirMidia(novaMidia);
+
+        GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
         homePage.limparPainelDireito();
         homePage.atualizarTabela();
         return false;

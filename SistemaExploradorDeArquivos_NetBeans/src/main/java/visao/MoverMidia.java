@@ -119,14 +119,14 @@ public class MoverMidia extends JPanel {
     private void botaoConfirmarAcao() {
         try {
             if (campoCaminho.getText().isBlank()) {
-                JOptionPaneUtil.mostrarMensagemErro("Informe um nome para renomear");
+                JOptionPaneUtil.mostrarMensagemErro("Informe caminho para onde mover");
             } else {
                 String campoCaminhoNovo = campoCaminho.getText();
-                explorador.moverMidia(midiaMovendo, campoCaminho.getText());
+                explorador.moverMidia(midiaMovendo, campoCaminhoNovo);
                 JOptionPaneUtil.mostrarMensagemSucesso("Mídia movida com sucesso!");
             }
         } catch (Exception excecao) {
-            JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar renomear!");
+            JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar mover!");
         }
 
 

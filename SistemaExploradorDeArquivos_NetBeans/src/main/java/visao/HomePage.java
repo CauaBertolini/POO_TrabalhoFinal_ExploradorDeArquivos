@@ -37,8 +37,9 @@ public class HomePage extends javax.swing.JFrame {
     private ExploradorDeArquivos explorador;
 
     public HomePage() {
-        initComponents();
         this.explorador = new ExploradorDeArquivos(this);
+
+        initComponents();
         this.salvamento = explorador.getSalvamento();
         this.lista = new Listas();
 
@@ -53,6 +54,8 @@ public class HomePage extends javax.swing.JFrame {
         filtrarTabela();
 
         setVisible(true);
+
+        explorador.carregarMidiasCSV();
 
     }
 
@@ -110,7 +113,7 @@ public class HomePage extends javax.swing.JFrame {
 
 
         botaoCarregarMidia = new javax.swing.JButton("Carregar Mídia");
-        botaoAdicionarMidia.addActionListener(evt -> botaoCarregarMidiaAcao())
+        botaoCarregarMidia.addActionListener(evt -> botaoCarregarMidiaAcao());
 
         // Painel para centralizar o botão Carregar Mídia em uma linha
         JPanel painelCentralizado = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -183,7 +186,7 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     private void botaoCarregarMidiaAcao() {
-
+        abrirNoPainelDireito(new CarregarArquivo(explorador));
     }
 
     private void botaoDeletarMidiaAcao() {
@@ -220,7 +223,7 @@ public class HomePage extends javax.swing.JFrame {
             abrirNoPainelDireito(new RenomearMidia(explorador, midiaSelecionada));
 
         } catch (ArquivoNaoExisteExcecao excecao) {
-            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para renomear!");
         }
 
     }
@@ -232,7 +235,7 @@ public class HomePage extends javax.swing.JFrame {
             abrirNoPainelDireito(new MoverMidia(explorador, midiaSelecionada));
 
         } catch (ArquivoNaoExisteExcecao excecao) {
-            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para mover!");
         }
     }
 

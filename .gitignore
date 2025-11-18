@@ -4,3 +4,6 @@
 
 # Sistema operacional
 Thumbs.db
+
+# Saves local
+*.csv
