@@ -120,10 +120,12 @@ public class HomePage extends javax.swing.JFrame {
         painelSuperior.add(labelFiltroGenero);
         painelSuperior.add(labelFiltroTipo);
 
-        ordenarCombo = new javax.swing.JComboBox<>();
+
         instanciaCombo = new javax.swing.JComboBox<>();
         generoCombo = new javax.swing.JComboBox<>();
         tipoCombo = new javax.swing.JComboBox<>();
+        ordenarCombo = new javax.swing.JComboBox<>();
+
         painelSuperior.add(generoCombo);
         painelSuperior.add(tipoCombo);
         painelSuperior.add(instanciaCombo);
@@ -258,7 +260,6 @@ public class HomePage extends javax.swing.JFrame {
                 tipoCombo.getSelectedItem().toString(),
                 instanciaCombo.getSelectedItem().toString() // NOVO!
         );
-
         explorador.ordenarMidias(listaFiltrada, ordenarCombo.getSelectedItem().toString());
 
         DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
