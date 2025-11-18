@@ -1,8 +1,12 @@
-package excecao;
+package util;
+
+import excecao.ArquivoNaoExisteExcecao;
+import excecao.CampoMenorOuIgualAZeroExcecao;
+import excecao.CampoVazioOuNuloExcecao;
 
 import java.io.File;
 
-public class Utilitario {
+public class ExcecaoUtil {
 
     public static boolean campoEstaVazioOuNulo (String campo) throws CampoVazioOuNuloExcecao {
         if (campo.isEmpty() || campo == null) {

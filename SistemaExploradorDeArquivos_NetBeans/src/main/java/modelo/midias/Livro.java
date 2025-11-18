@@ -1,19 +1,19 @@
-package modelo.Midias;
+package modelo.midias;
 
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
-import excecao.Utilitario;
+import util.ExcecaoUtil;
 import modelo.Genero;
 
 
-public class Livro extends modelo.Midias.Midia {
+public class Livro extends modelo.midias.Midia {
 
     private String autor;
     private Genero genero;
 
     public Livro(String caminho, String nome, float tamanho, double duracao, ETipoArquivo eTipoArquivo, Genero genero, String autor) {
-        super(nome, caminho, eTipoArquivo, duracao, tamanho);
+        super(caminho, nome, eTipoArquivo, duracao, tamanho);
         setAutor(autor);
         setGenero(genero);
     }
@@ -32,7 +32,7 @@ public class Livro extends modelo.Midias.Midia {
     }
 
     public void setAutor(String autor) throws CampoVazioOuNuloExcecao {
-        if (!Utilitario.campoEstaVazioOuNulo(autor)) {
+        if (!ExcecaoUtil.campoEstaVazioOuNulo(autor)) {
             this.autor = autor;
         }
     }
