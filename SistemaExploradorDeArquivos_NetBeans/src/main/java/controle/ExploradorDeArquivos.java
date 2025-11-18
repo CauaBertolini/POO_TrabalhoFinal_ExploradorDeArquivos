@@ -482,21 +482,7 @@ public class ExploradorDeArquivos {
         return resposta == JOptionPane.YES_OPTION;
     }
 
-    /**
-     * Filtra a lista de mídias com base no gênero e no tipo de arquivo informados.
-     * <p>
-     * O método percorre todas as mídias armazenadas e aplica duas regras:
-     * <ul>
-     *     <li>O gênero deve corresponder ao filtro informado, ou ser {@code "TODOS"} para não filtrar por gênero.</li>
-     *     <li>O tipo de arquivo deve corresponder ao filtro informado, ou ser {@code "TODOS"} para não filtrar por tipo.</li>
-     * </ul>
-     * Caso ambos os critérios sejam atendidos, a mídia é adicionada ao resultado.
-     *
-     * @param generoFiltrar gênero a ser filtrado, ou {@code "TODOS"} para incluir todos os gêneros.
-     * @param tipoFiltrar   tipo de arquivo a ser filtrado, ou {@code "TODOS"} para incluir todos os tipos.
-     * @return uma lista contendo todas as mídias que atendem aos critérios de filtro.
-     */
-    public List<Midia> filtrarMidias(String generoFiltrar, String tipoFiltrar) {
+    public List<Midia> filtrarMidias(String generoFiltrar, String tipoFiltrar, String instancia) {
 
         List<Midia> filtradas = new ArrayList<>();
 
@@ -508,7 +494,13 @@ public class ExploradorDeArquivos {
             boolean tipoOK = tipoFiltrar.equalsIgnoreCase("TODOS")
                     || m.getTipoArquivo().name().equalsIgnoreCase(tipoFiltrar);
 
-            if (generoOK && tipoOK) {
+            boolean instanciaOK = instancia.equalsIgnoreCase("TODOS")//essa é o metodo que foi adicionado fiz dessa maneira sem utilizar direto com o instanceOf pois o Intance of nao pode ser utilizado com uma string
+                    || (instancia.equalsIgnoreCase("Filme") && m instanceof Filme)
+                    || (instancia.equalsIgnoreCase("Musica") && m instanceof Musica)
+                    || (instancia.equalsIgnoreCase("Livro") && m instanceof Livro);
+
+
+            if (generoOK && tipoOK && instanciaOK) {
                 filtradas.add(m);
             }
         }
@@ -516,36 +508,24 @@ public class ExploradorDeArquivos {
         return filtradas;
     }
 
-    /**
-     * Ordena uma lista de mídias pelo tamanho do arquivo em ordem alfabética.
-     * <p>
-     * O método utiliza um comparador baseado no atributo {@code name} da classe Midia,
-     * realizando a ordenação diretamente na lista recebida. Após a ordenação, a própria lista
-     * (já modificada) é retornada.
-     * </p
-     *
-     * @param listaMidias -  Lista de mídias que será ordenada pelo nome.
-     * @return A lista de mídias ordenada em ordem alfabética crescente.
-     */
-    public List<Midia> ordenarMidiasPorNome(List<Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(Midia::getNome));
-        return listaMidias;
-    }
+    public void ordenarMidias(List<Midia> lista, String criterio) {
 
-    /**
-     * Ordena uma lista de mídias pelo tamanho do arquivo em ordem crescente.
-     * <p>
-     * O método utiliza um comparador baseado no atributo {@code name} da classe Midia,
-     * realizando a ordenação diretamente na lista recebida. Após a ordenação, a própria lista
-     * (já modificada) é retornada.
-     * </p
-     *
-     * @param listaMidias -  Lista de mídias que será ordenada pelo tamanho do arquivo.
-     * @return A lista de mídias ordenada em ordem crescente.
-     */
-    public List<Midia> ordenarMidiaPorTamanho(List<Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(Midia::getTamanho));
-        return listaMidias;
+        switch (criterio) {
+            case "Nome A-Z":
+                lista.sort(Comparator.comparing(Midia::getNome, String.CASE_INSENSITIVE_ORDER));
+                break;
+
+            case "Duração Crescente":
+                lista.sort(Comparator.comparingDouble(Midia::getDuracao));
+                break;
+
+            case "Duração Decrescente":
+                lista.sort(Comparator.comparingDouble(Midia::getDuracao).reversed());
+                break;
+
+            default:
+                break;
+        }
     }
 
     public Salvamento getSalvamento() {
