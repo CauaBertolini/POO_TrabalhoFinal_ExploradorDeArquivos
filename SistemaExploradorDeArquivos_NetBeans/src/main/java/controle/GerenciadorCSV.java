@@ -1,4 +1,4 @@
-package util;
+package controle;
 
 import controle.ExploradorDeArquivos;
 import modelo.midias.Midia;

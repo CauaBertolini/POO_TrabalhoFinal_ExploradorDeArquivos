@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ComboUtil {
 
-    static Listas lista = new Listas();
+    private static Listas lista = new Listas();
 
     /**
      * Carrega todos os tipos de arquivo disponíveis no enum ETipoArquivo
@@ -66,6 +66,22 @@ public class ComboUtil {
         combo.setModel(model);
     }
 
+    public static void carregarInstanciasParaFiltro(JComboBox<String> combo) {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        model.addElement("Todos");
+        model.addElement("Filme");
+        model.addElement("Musica");
+        model.addElement("Livro");
+        combo.setModel(model);
+    }
+
+    public static void carregarOrdenacoesParaFiltro(JComboBox<String> combo) {
+        combo.addItem("Nenhum");
+        combo.addItem("Nome A-Z");
+        combo.addItem("Duração Crescente");
+        combo.addItem("Duração Decrescente");
+    }
+
     /**
      * Carrega os gêneros disponíveis em uma lista dentro de um JComboBox,
      * adicionando também a opção "Todos" para uso em filtros.
@@ -74,7 +90,6 @@ public class ComboUtil {
      * {@code HashSet} para armazenar nomes únicos antes de adicioná-los ao combo.
      *
      * @param combo o componente {@code JComboBox} que receberá os gêneros.
-     * @param lista a lista de objetos Genero da qual os nomes serão extraídos.
      */
     public static void carregarGenerosComFiltro(JComboBox<Genero> combo, ETipoGenero tipo) {
         DefaultComboBoxModel<Genero> model = new DefaultComboBoxModel<>();
@@ -94,7 +109,7 @@ public class ComboUtil {
      *
      * @param combo
      */
-    public static void carregarIdioma(JComboBox<Idioma> combo) {
+    public static void carregarIdiomas(JComboBox<Idioma> combo) {
         combo.removeAllItems();
 
         for (Idioma idioma : lista.getListaIdiomas()) {
@@ -107,7 +122,7 @@ public class ComboUtil {
      *
      * @param combo o JComboBox<ETipoArquivo> que receberá os tipos de arquivo.
      */
-    public static void carregarTipoArquivoFilme(JComboBox<ETipoArquivo> combo) {
+    public static void carregarTiposArquivosFilme(JComboBox<ETipoArquivo> combo) {
         combo.removeAllItems();
         combo.addItem(ETipoArquivo.MP4);
         combo.addItem(ETipoArquivo.MKV);
@@ -118,7 +133,7 @@ public class ComboUtil {
      *
      * @param combo o JComboBox<ETipoArquivo> que receberá os tipos de arquivo.
      */
-    public static void carregarTipoArquivoMusica(JComboBox<ETipoArquivo> combo) {
+    public static void carregarTiposArquivosMusica(JComboBox<ETipoArquivo> combo) {
         combo.removeAllItems();
         combo.addItem(ETipoArquivo.MP3);
     }
@@ -134,18 +149,4 @@ public class ComboUtil {
         combo.addItem(ETipoArquivo.EPUB);
     }
 
-    public static void carregarInstanciasParaFiltro(JComboBox<String> combo) {
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        model.addElement("Todos");
-        model.addElement("Filme");
-        model.addElement("Musica");
-        model.addElement("Livro");
-        combo.setModel(model);
-    }
-    public static void carregarOrdenacoes(JComboBox<String> combo) {
-        combo.addItem("Nenhum");
-        combo.addItem("Nome A-Z");
-        combo.addItem("Duração Crescente");
-        combo.addItem("Duração Decrescente");
-    }
 }

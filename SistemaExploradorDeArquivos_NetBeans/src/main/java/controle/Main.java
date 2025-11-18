@@ -1,11 +1,11 @@
 package controle;
 
-import visao.HomePage;
+import visao.PaginaPrincipal;
 
 public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            new HomePage().setVisible(true);
+            new PaginaPrincipal().setVisible(true);
         });
     }
 }

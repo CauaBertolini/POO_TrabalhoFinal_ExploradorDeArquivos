@@ -39,7 +39,7 @@ public class EditarMidiaMusica extends JPanel {
         initComponents();
         this.musica = (Musica) midiaSelecionada;
 
-        ComboUtil.carregarTipoArquivoMusica(comboBoxTipoArquivo);
+        ComboUtil.carregarTiposArquivosMusica(comboBoxTipoArquivo);
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.MUSICAL);
         carregarDadosMidia();
     }

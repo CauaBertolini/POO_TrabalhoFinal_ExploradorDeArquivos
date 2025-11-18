@@ -16,7 +16,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class HomePage extends javax.swing.JFrame {
+public class PaginaPrincipal extends javax.swing.JFrame {
     // Componentes de Filtro e Ordenação
     private javax.swing.JLabel labelFiltroGenero;
     private javax.swing.JLabel labelFiltroTipo;
@@ -43,7 +43,7 @@ public class HomePage extends javax.swing.JFrame {
     private Salvamento salvamento;
     private ExploradorDeArquivos explorador;
 
-    public HomePage() {
+    public PaginaPrincipal() {
         this.explorador = new ExploradorDeArquivos(this);
 
         initComponents();
@@ -56,7 +56,7 @@ public class HomePage extends javax.swing.JFrame {
 
         configurarFiltros();
 
-        explorador.carregarMidiasCSV();
+        explorador.carregarMidiasDoCSV();
 
         adicionarListenersFiltros();
 
@@ -316,7 +316,7 @@ public class HomePage extends javax.swing.JFrame {
         ComboUtil.carregarTiposArquivoParaFiltro(tipoCombo);
         ComboUtil.carregarGenerosParaFiltro(generoCombo, lista.getListaGeneros());
         ComboUtil.carregarInstanciasParaFiltro(instanciaCombo);
-        ComboUtil.carregarOrdenacoes(ordenarCombo);
+        ComboUtil.carregarOrdenacoesParaFiltro(ordenarCombo);
     }
 
     private void adicionarListenersFiltros() {

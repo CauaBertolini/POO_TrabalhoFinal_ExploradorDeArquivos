@@ -8,9 +8,8 @@ import modelo.midias.Livro;
 import modelo.midias.Midia;
 import modelo.midias.Musica;
 import util.ExcecaoUtil;
-import util.GerenciadorCSV;
 import util.JOptionPaneUtil;
-import visao.HomePage;
+import visao.PaginaPrincipal;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,23 +23,21 @@ import java.util.*;
  */
 public class ExploradorDeArquivos {
     private Salvamento salvamento;
-    private Listas listas = new Listas();
-    private HomePage homePage;
-    SerializadorTpoo serializadorTpoo = new SerializadorTpoo();
+    private PaginaPrincipal paginaPrincipal;
 
     /**
      * Constrói um novo ExploradorDeArquivos associando-o à interface principal
      * da aplicação e inicializando o gerenciador de salvamento.
      *
-     * @param homePage a instância da tela principal que será vinculada ao explorador
+     * @param paginaPrincipal a instância da tela principal que será vinculada ao explorador
      *                 para atualização de interface e ações relacionadas.
      */
-    public ExploradorDeArquivos(HomePage homePage) {
+    public ExploradorDeArquivos(PaginaPrincipal paginaPrincipal) {
         salvamento = new Salvamento();
-        this.homePage = homePage;
+        this.paginaPrincipal = paginaPrincipal;
     }
 
-    public void carregarMidiasCSV() {
+    public void carregarMidiasDoCSV() {
         try {
             List<String> caminhosMidiasCSV = GerenciadorCSV.carregarCaminhos();
 
@@ -51,6 +48,21 @@ public class ExploradorDeArquivos {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    /**
+     *
+     */
+    public boolean carregarArquivo(String caminho) throws IOException {
+        File arquivo = new File(caminho);
+        Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
+        salvamento.incluirMidia(novaMidia);
+
+        GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
+        paginaPrincipal.limparPainelDireito();
+        paginaPrincipal.atualizarTabela();
+        return false;
     }
 
     /**
@@ -104,8 +116,8 @@ public class ExploradorDeArquivos {
 
             GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            homePage.limparPainelDireito();
-            homePage.atualizarTabela();//adicionei isso para atualizar a tabela de midias na home page
+            paginaPrincipal.limparPainelDireito();
+            paginaPrincipal.atualizarTabela();//adicionei isso para atualizar a tabela de midias na home page
             return true;
         } catch (Exception excecao) {
             JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
@@ -167,8 +179,8 @@ public class ExploradorDeArquivos {
 
             GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            homePage.limparPainelDireito();
-            homePage.atualizarTabela();
+            paginaPrincipal.limparPainelDireito();
+            paginaPrincipal.atualizarTabela();
             return true;
         } catch (Exception excecao) {
             JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
@@ -223,7 +235,7 @@ public class ExploradorDeArquivos {
 
             GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            homePage.atualizarTabela();
+            paginaPrincipal.atualizarTabela();
             return true;
 
         } catch (IOException e) {
@@ -271,7 +283,7 @@ public class ExploradorDeArquivos {
 
                 SerializadorTpoo.salvarMidia(livroAlterando);
                 salvamento.atualizarMidia(livroAlterando);
-                homePage.atualizarTabela();
+                paginaPrincipal.atualizarTabela();
                 return true;
 
             } else if (!eLivro && midiaAlterando instanceof modelo.midias.Musica musicaAlterando) {
@@ -286,8 +298,8 @@ public class ExploradorDeArquivos {
 
                 GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-                homePage.limparPainelDireito();
-                homePage.atualizarTabela();
+                paginaPrincipal.limparPainelDireito();
+                paginaPrincipal.atualizarTabela();
                 return true;
             }
 
@@ -298,31 +310,6 @@ public class ExploradorDeArquivos {
         }
     }
 
-    /**
-     * Exclui uma mídia tanto do sistema de arquivos (desktop) quanto da lista
-     * de mídias armazenadas no sistema. A exclusão do arquivo é realizada por meio
-     * Files.deleteIfExists.
-     *
-     * @param midia - Mídia que será deletada.
-     * @return O método retorna {@code true} caso seja deletada com sucesso, e se houver algum problema na hora de exclusão
-     * é retornado {@code false}.
-     */
-    public boolean excluirMidia(Midia midia) {
-        try {
-            Path caminho = Paths.get(midia.getCaminho());
-            Files.deleteIfExists(caminho);
-            salvamento.removerMidia(midia);
-
-            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
-
-            homePage.limparPainelDireito();
-            homePage.atualizarTabela();
-            return true;
-        } catch (Exception excecao) {
-            JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
-            return false;
-        }
-    }
 
     /**
      * Renomeia uma mídia, alterando também o caminho do arquivo no sistema.
@@ -352,8 +339,8 @@ public class ExploradorDeArquivos {
 
             GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            homePage.limparPainelDireito();
-            homePage.atualizarTabela();
+            paginaPrincipal.limparPainelDireito();
+            paginaPrincipal.atualizarTabela();
             return true;
 
         } catch (IOException e) {
@@ -398,8 +385,8 @@ public class ExploradorDeArquivos {
 
             GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            homePage.limparPainelDireito();
-            homePage.atualizarTabela();
+            paginaPrincipal.limparPainelDireito();
+            paginaPrincipal.atualizarTabela();
 
             return true;
         }
@@ -407,18 +394,29 @@ public class ExploradorDeArquivos {
     }
 
     /**
+     * Exclui uma mídia tanto do sistema de arquivos (desktop) quanto da lista
+     * de mídias armazenadas no sistema. A exclusão do arquivo é realizada por meio
+     * Files.deleteIfExists.
      *
+     * @param midia - Mídia que será deletada.
+     * @return O método retorna {@code true} caso seja deletada com sucesso, e se houver algum problema na hora de exclusão
+     * é retornado {@code false}.
      */
-    public boolean carregarArquivo(String caminho) throws IOException {
-        File arquivo = new File(caminho);
-        Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
-        salvamento.incluirMidia(novaMidia);
+    public boolean excluirMidia(Midia midia) {
+        try {
+            Path caminho = Paths.get(midia.getCaminho());
+            Files.deleteIfExists(caminho);
+            salvamento.removerMidia(midia);
 
-        GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-        homePage.limparPainelDireito();
-        homePage.atualizarTabela();
-        return false;
+            paginaPrincipal.limparPainelDireito();
+            paginaPrincipal.atualizarTabela();
+            return true;
+        } catch (Exception excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -528,11 +526,11 @@ public class ExploradorDeArquivos {
         }
     }
 
-    public Salvamento getSalvamento() {
-        return salvamento;
+    public void exploradorLimparPainelDireito() {
+        paginaPrincipal.limparPainelDireito();
     }
 
-    public void exploradorLimparPainelDireito() {
-        homePage.limparPainelDireito();
+    public Salvamento getSalvamento() {
+        return salvamento;
     }
 }

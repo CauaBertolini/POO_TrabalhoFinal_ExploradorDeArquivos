@@ -46,8 +46,8 @@ public class AdicionarMidiaFilme extends JPanel {
         lista = new Listas();
 
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.CINEMA);
-        ComboUtil.carregarTipoArquivoFilme(comboBoxTipoArquivo);
-        ComboUtil.carregarIdioma(comboBoxIdioma);
+        ComboUtil.carregarTiposArquivosFilme(comboBoxTipoArquivo);
+        ComboUtil.carregarIdiomas(comboBoxIdioma);
     }
 
     @SuppressWarnings("unchecked")
