@@ -2,11 +2,15 @@ package controle;
 
 import enumerador.*;
 import excecao.*;
-import modelo.*;
+import modelo.Idioma;
 import modelo.midias.Filme;
 import modelo.midias.Livro;
-import modelo.midias.Midia;
 import modelo.midias.Musica;
+import modelo.midias.Midia;
+// outros imports que você precisa...
+import modelo.Genero;
+import modelo.Listas;
+import modelo.Salvamento;
 import util.ExcecaoUtil;
 import util.JOptionPaneUtil;
 import visao.HomePage;
@@ -313,10 +317,8 @@ public class ExploradorDeArquivos {
         return resposta == JOptionPane.YES_OPTION;
     }
 
-    // ===============================================
-    // FILTROS DE MÍDIAS
-    // ===============================================
-    public List<Midia> filtrarMidias(String generoFiltrar, String tipoFiltrar) {
+
+    public List<Midia> filtrarMidias(String generoFiltrar, String tipoFiltrar, String instancia) {
 
         List<Midia> filtradas = new ArrayList<>();
 
@@ -328,7 +330,13 @@ public class ExploradorDeArquivos {
             boolean tipoOK = tipoFiltrar.equalsIgnoreCase("TODOS")
                     || m.getTipoArquivo().name().equalsIgnoreCase(tipoFiltrar);
 
-            if (generoOK && tipoOK) {
+            boolean instanciaOK = instancia.equalsIgnoreCase("TODOS")//essa é o metodo que foi adicionado fiz dessa maneira sem utilizar direto com o instanceOf pois o Intance of nao pode ser utilizado com uma string
+                    || (instancia.equalsIgnoreCase("Filme") && m instanceof Filme)
+                    || (instancia.equalsIgnoreCase("Musica") && m instanceof Musica)
+                    || (instancia.equalsIgnoreCase("Livro") && m instanceof Livro);
+
+
+            if (generoOK && tipoOK && instanciaOK) {
                 filtradas.add(m);
             }
         }
@@ -336,15 +344,25 @@ public class ExploradorDeArquivos {
         return filtradas;
     }
 
-    public List<modelo.midias.Midia> ordenarMidiasPorNome (List <modelo.midias.Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getNome));
-        return listaMidias;
-    }
+    public void ordenarMidias(List<Midia> lista, String criterio) {
 
-    public List<modelo.midias.Midia> ordenarMidiaPorTamanho (List <modelo.midias.Midia> listaMidias) {
-        // O comparing chama o getTamanho() e use o valor retornado para comparar
-        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getTamanho));
-        return listaMidias;
+        switch (criterio) {
+            case "Nome A-Z":
+                lista.sort(Comparator.comparing(Midia::getNome, String.CASE_INSENSITIVE_ORDER));
+                break;
+
+            case "Duração Crescente":
+                lista.sort(Comparator.comparingDouble(Midia::getDuracao));
+                break;
+
+            case "Duração Decrescente":
+                lista.sort(Comparator.comparingDouble(Midia::getDuracao).reversed());
+                break;
+
+            default:
+                // Nenhum → não faz nada
+                break;
+        }
     }
 
     public Salvamento getSalvamento() {
