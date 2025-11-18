@@ -269,8 +269,8 @@ public class ExploradorDeArquivos {
      * O método verifica a existência do arquivo, constrói o novo caminho com o nome atualizado
      * e executa a operação de renomeação no sistema de arquivos.
      *
-     * @param midia           Mídia que será renomeada.
-     * @param novoNomeString  Novo nome que o arquivo deverá receber.
+     * @param midia           - Mídia que será renomeada.
+     * @param novoNomeString  - Novo nome que o arquivo deverá receber.
      * @return O método retorna {@code true} se o arquivo for renomeado com sucesso; {@code false} caso contrário.
      * @throws ArquivoNaoExisteExcecao se o arquivo original não existir.
      */
@@ -287,9 +287,20 @@ public class ExploradorDeArquivos {
         return false;
     }
 
-    // ==============================================
-    // MOVER
-    // ==============================================
+    /**
+     * Move a mídia para um novo diretório, atualizando também o caminho salvo no objeto.
+     * <p>
+     * O método verifica se o arquivo original existe, monta o novo destino com base no
+     * diretório informado e no nome atual da mídia, confirma substituição caso o arquivo
+     * já exista no destino e, por fim, realiza a operação de movimentação.
+     *
+     * @param midia              - Mídia cujo arquivo será movido.
+     * @param novoCaminhoString  - Caminho do diretório onde o arquivo deverá ser movido.
+     * @return {@code true} se o arquivo for movido com sucesso; {@code false} caso a operação
+     *         seja cancelada ou não possa ser concluída.
+     * @throws ArquivoNaoExisteExcecao  Se o arquivo original não existir.
+     * @throws CampoVazioOuNuloExcecao Se o novo caminho informado for vazio ou nulo.
+     */
     public boolean moverMidia(Midia midia, String novoCaminhoString)
             throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao {
         if (Utilitario.arquivoExiste(midia.getCaminho())) {
@@ -308,9 +319,15 @@ public class ExploradorDeArquivos {
         return false;
     }
 
-    // ==============================================
-    // CARREGAR ARQUIVO
-    // ==============================================
+    /**
+     * Carrega um arquivo de mídia a partir do caminho informado, desserializa o objeto
+     * e o inclui no serviço de mídias.
+     *
+     * @param caminho o caminho completo do arquivo a ser carregado.
+     * @return sempre retorna {@code false}. (Considere ajustar se esse retorno
+     *         tiver outro propósito no futuro.)
+     * @throws IOException se ocorrer um erro ao acessar ou ler o arquivo.
+     */
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
         Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
@@ -318,9 +335,13 @@ public class ExploradorDeArquivos {
         return false;
     }
 
-    // ==============================================
-    // SELETORES DE ARQUIVO E DIRETÓRIO
-    // ==============================================
+    /**
+     * Abre um seletor de arquivos configurado para escolher exclusivamente arquivos
+     * com extensão <code>.tpoo</code>. Caso o usuário selecione um arquivo,
+     * retorna o caminho absoluto dele. Caso contrário, retorna {@code null}.
+     *
+     * @return o caminho absoluto do arquivo selecionado ou {@code null} se a seleção for cancelada.
+     */
     public String abrirSeletorDeArquivoTpoo() {
         JFileChooser seletorTpoo = new JFileChooser();
         seletorTpoo.setFileFilter(new FileNameExtensionFilter("Arquivos .tpoo", "tpoo"));
@@ -333,6 +354,37 @@ public class ExploradorDeArquivos {
         return null;
     }
 
+    /**
+     * Abre um seletor de arquivos configurado para permitir apenas a escolha
+     * de arquivos com extensão <code>.tpoo</code>.
+     * <p>
+     * Caso o usuário selecione um arquivo, o caminho absoluto dele é retornado.
+     * Caso o usuário cancele a operação, o método retorna {@code null}.
+     * </p>
+     *
+     * @return o caminho absoluto do arquivo selecionado, ou {@code null} caso a seleção seja cancelada.
+     */
+    public String abrirSeletorDeArquivoTpoo() {
+        JFileChooser seletorTpoo = new JFileChooser();
+        seletorTpoo.setFileFilter(new FileNameExtensionFilter("Arquivos .tpoo", "tpoo"));
+        seletorTpoo.setDialogTitle("Selecione um arquivo");
+        seletorTpoo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        if (seletorTpoo.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return seletorTpoo.getSelectedFile().getAbsolutePath();
+        }
+        return null;
+    }
+
+    /**
+     * Abre um seletor de diretórios permitindo que o usuário escolha apenas pastas.
+     * <p>
+     * Caso o usuário selecione um diretório, o caminho absoluto dele é retornado.
+     * Caso a operação seja cancelada, o método retorna {@code null}.
+     * </p>
+     *
+     * @return o caminho absoluto do diretório selecionado, ou {@code null} caso a seleção seja cancelada.
+     */
     public String abrirSeletorDeDiretorio() {
         JFileChooser seletorDiretorio = new JFileChooser();
         seletorDiretorio.setDialogTitle("Selecione uma pasta");
@@ -344,9 +396,17 @@ public class ExploradorDeArquivos {
         return null;
     }
 
-    // ==============================================
-    // CONFIRMAÇÃO DE SOBRESCRITA
-    // ==============================================
+    /**
+     * Exibe uma caixa de diálogo solicitando ao usuário a confirmação para sobrescrever
+     * um arquivo existente no destino.
+     * <p>
+     * O método utiliza um JOptionPane com opções "Sim" e "Não". Caso o usuário
+     * confirme a operação, o método retorna {@code true}; caso ele recuse ou feche o diálogo,
+     * retorna {@code false}.
+     * </p>
+     *
+     * @return {@code true} se o usuário confirmar a substituição; {@code false} caso contrário.
+     */
     public boolean confirmarSubstituicaoArquivo() {
         int resposta = JOptionPane.showConfirmDialog(
                 null,
@@ -358,9 +418,26 @@ public class ExploradorDeArquivos {
         return resposta == JOptionPane.YES_OPTION;
     }
 
-    // ===============================================
-    // FILTROS DE MÍDIAS
-    // ===============================================
+    /**
+     * Filtra a lista de mídias cadastradas de acordo com o gênero e o tipo de arquivo informados.
+     * <p>
+     * O método percorre todas as mídias disponíveis no sistema e aplica as seguintes regras:
+     * </p>
+     * <ul>
+     *     <li>Se o gênero pesquisado for {@code "TODOS"} e o tipo de arquivo da mídia for
+     *     {@link ETipoArquivo#TODOS}, todas as mídias são retornadas imediatamente.</li>
+     *     <li>Se o gênero da mídia coincidir com o gênero filtrado e o tipo de arquivo for
+     *     {@link ETipoArquivo#TODOS}, a mídia é adicionada ao resultado.</li>
+     *     <li>Se o gênero filtrado for {@code "TODOS"} e o tipo de arquivo coincidir com o informado,
+     *     a mídia é adicionada ao resultado.</li>
+     *     <li>Se tanto o gênero quanto o tipo de arquivo coincidirem exatamente com os parâmetros,
+     *     a mídia é adicionada ao resultado.</li>
+     * </ul>
+     *
+     * @param generoFiltrar Gênero desejado para filtragem (ou {@code "TODOS"} para ignorar o gênero).
+     * @param eTipoArquivo  Tipo de arquivo desejado para filtragem.
+     * @return Uma lista contendo apenas as mídias que atendem aos critérios definidos.
+     */
     public List<Midia> filtrarMidias(String generoFiltrar, ETipoArquivo eTipoArquivo) {
         List<Midia> filtradas = new ArrayList<>();
 
@@ -378,13 +455,34 @@ public class ExploradorDeArquivos {
         return filtradas;
     }
 
+    /**
+     * Ordena uma lista de mídias pelo nome em ordem alfabética.
+     * <p>
+     * O método utiliza um comparador baseado no atributo {@code nome} da classe {@link Midia},
+     * realizando a ordenação diretamente na lista recebida. Após a ordenação, a própria lista
+     * (agora modificada) é retornada.
+     * </p>
+     *
+     * @param listaMidias Lista de mídias que será ordenada pelo nome.
+     * @return A lista de mídias ordenada em ordem alfabética crescente.
+     */
     public List<Midia> ordenarMidiasPorNome(List<Midia> listaMidias) {
         listaMidias.sort(Comparator.comparing(Midia::getNome));
         return listaMidias;
     }
 
+    /**
+     * Ordena uma lista de mídias pelo tamanho do arquivo em ordem crescente.
+     * <p>
+     * O método utiliza um comparador baseado no atributo {@code tamanho} da classe {@link Midia},
+     * realizando a ordenação diretamente na lista recebida. Após a ordenação, a própria lista
+     * (já modificada) é retornada.
+     * </p>
+     *
+     * @param listaMidias Lista de mídias que será ordenada pelo tamanho do arquivo.
+     * @return A lista de mídias ordenada em ordem crescente de tamanho.
+     */
     public List<Midia> ordenarMidiaPorTamanho(List<Midia> listaMidias) {
-        // O comparing chama o getTamanho() e use o valor retornado para comparar
         listaMidias.sort(Comparator.comparing(Midia::getTamanho));
         return listaMidias;
     }
