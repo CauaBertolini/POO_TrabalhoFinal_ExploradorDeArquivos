@@ -8,6 +8,7 @@ import javax.swing.*;
 import modelo.Genero;
 import modelo.Listas;
 import modelo.Midias.Livro;
+import util.ComboUtil;
 
 public class AdicionarMidiaLivro extends JPanel {
 
@@ -19,23 +20,8 @@ public class AdicionarMidiaLivro extends JPanel {
         this.explorador = explorador;
         this.listas = new Listas();
 
-        carregarComboBoxes();
-    }
-
-    private void carregarComboBoxes() {
-
-        // Tipos de arquivo
-        comboBoxTipoArquivo.removeAllItems();
-        comboBoxTipoArquivo.addItem(ETipoArquivo.PDF);
-        comboBoxTipoArquivo.addItem(ETipoArquivo.EPUB);
-
-        // Gêneros literários
-        comboBoxGenero.removeAllItems();
-        for (Genero g : listas.getListaGeneros()) {
-            if (g.getETipoGenero() == ETipoGenero.LITERARIO) {
-                comboBoxGenero.addItem(g);
-            }
-        }
+        ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.LITERARIO);
+        ComboUtil.carregarTipoArquivoLivro(comboBoxTipoArquivo);
     }
 
     @SuppressWarnings("unchecked")

@@ -42,7 +42,6 @@ public class Listas {
 
 
     public void gerarGeneros() {
-
         listaGeneros.add(new Genero("Ação", ETipoGenero.CINEMA));
         listaGeneros.add(new Genero("Aventura", ETipoGenero.CINEMA));
         listaGeneros.add(new Genero("Comedia", ETipoGenero.CINEMA));

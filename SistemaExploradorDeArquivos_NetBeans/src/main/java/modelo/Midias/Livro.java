@@ -3,7 +3,7 @@ package modelo.Midias;
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
-import excecao.Utilitario;
+import util.ExcecaoUtil;
 import modelo.Genero;
 
 
@@ -32,7 +32,7 @@ public class Livro extends modelo.Midias.Midia {
     }
 
     public void setAutor(String autor) throws CampoVazioOuNuloExcecao {
-        if (!Utilitario.campoEstaVazioOuNulo(autor)) {
+        if (!ExcecaoUtil.campoEstaVazioOuNulo(autor)) {
             this.autor = autor;
         }
     }

@@ -3,7 +3,7 @@ package modelo.Midias;
 import enumerador.ETipoArquivo;
 import excecao.CampoMenorOuIgualAZeroExcecao;
 import excecao.CampoVazioOuNuloExcecao;
-import excecao.Utilitario;
+import util.ExcecaoUtil;
 import modelo.Genero;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public abstract class Midia {
     }
 
     public void setCaminho(String local) throws CampoVazioOuNuloExcecao {
-        if (!Utilitario.campoEstaVazioOuNulo(local)) {
+        if (!ExcecaoUtil.campoEstaVazioOuNulo(local)) {
             this.caminho = local.trim();
         }
     }
@@ -57,7 +57,7 @@ public abstract class Midia {
     }
 
     public void setNome(String titulo) throws CampoVazioOuNuloExcecao {
-        if (!Utilitario.campoEstaVazioOuNulo(titulo)) {
+        if (!ExcecaoUtil.campoEstaVazioOuNulo(titulo)) {
             this.nome = titulo.trim();
         }
     }
@@ -67,7 +67,7 @@ public abstract class Midia {
     }
 
     public void setTamanho(float tamanho) throws CampoMenorOuIgualAZeroExcecao {
-        if (!Utilitario.campoMenorOuIgualAZeroExcecao(tamanho)) {
+        if (!ExcecaoUtil.campoMenorOuIgualAZeroExcecao(tamanho)) {
             this.tamanho = tamanho;
         }
     }
@@ -77,7 +77,7 @@ public abstract class Midia {
     }
 
     public void setDuracao(double duracao) throws CampoMenorOuIgualAZeroExcecao {
-        if (!Utilitario.campoMenorOuIgualAZeroExcecao(duracao)) {
+        if (!ExcecaoUtil.campoMenorOuIgualAZeroExcecao(duracao)) {
             this.duracao = duracao;
         }
     }

@@ -3,7 +3,7 @@ package modelo.Midias;
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
-import excecao.Utilitario;
+import util.ExcecaoUtil;
 import modelo.Genero;
 
 public class Musica extends modelo.Midias.Midia {
@@ -30,7 +30,7 @@ public class Musica extends modelo.Midias.Midia {
     }
 
     public void setArtista(String artista) throws CampoVazioOuNuloExcecao {
-        if (!Utilitario.campoEstaVazioOuNulo(artista)) {
+        if (!ExcecaoUtil.campoEstaVazioOuNulo(artista)) {
             this.artista = artista;
         }
     }

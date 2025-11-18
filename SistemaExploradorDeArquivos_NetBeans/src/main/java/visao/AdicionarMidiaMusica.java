@@ -6,6 +6,7 @@ import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
+import util.ComboUtil;
 
 import javax.swing.*;
 
@@ -19,9 +20,10 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
         initComponents();
         this.explorador = explorador ;
         lista = new Listas();
-        carregarGenero();
-        carregarIdioma();
-        carregarTipoArquivo();
+
+        ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.MUSICAL);
+        ComboUtil.carregarTipoArquivoMusica(comboBoxTipoArquivo);
+        ComboUtil.carregarIdioma(comboIdioma);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,9 +50,9 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
         campoTamanho = new javax.swing.JTextField();
         campoDuracao = new javax.swing.JTextField();
 
-        comboGenero = new javax.swing.JComboBox<>();
+        comboBoxGenero = new javax.swing.JComboBox<>();
         comboIdioma = new javax.swing.JComboBox<>();
-        comboTipo = new javax.swing.JComboBox<>();
+        comboBoxTipoArquivo = new javax.swing.JComboBox<>();
 
         botaoProcurar = new javax.swing.JButton("Procurar");
         botaoCancelar = new javax.swing.JButton("Cancelar");
@@ -100,11 +102,11 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabelGenero)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(comboGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(comboBoxGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabelTipo)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(comboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(comboBoxTipoArquivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabelIdioma)
                                                 .addGap(18, 18, 18)
@@ -146,11 +148,11 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
                                 .addGap(10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelGenero)
-                                        .addComponent(comboGenero))
+                                        .addComponent(comboBoxGenero))
                                 .addGap(10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelTipo)
-                                        .addComponent(comboTipo))
+                                        .addComponent(comboBoxTipoArquivo))
                                 .addGap(10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelIdioma)
@@ -168,8 +170,8 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
 
         float tamanho = Float.parseFloat(campoTamanho.getText());
         double duracao = Double.parseDouble(campoDuracao.getText());
-        Genero genero = (Genero) comboGenero.getSelectedItem();
-        ETipoArquivo tipo = (ETipoArquivo) comboTipo.getSelectedItem();
+        Genero genero = (Genero) comboBoxGenero.getSelectedItem();
+        ETipoArquivo tipo = (ETipoArquivo) comboBoxTipoArquivo.getSelectedItem();
 
         explorador.criarNovaMidia(caminho, titulo, tamanho, duracao,tipo, genero, artista, false);
         JOptionPane.showMessageDialog(this, "Musica cadastrado com sucesso!");
@@ -183,32 +185,11 @@ public class AdicionarMidiaMusica extends javax.swing.JPanel {
         campoDuracao.setText("");
     }
 
-    public void carregarGenero() {
-        comboGenero.removeAllItems();
-        for (Genero g : lista.getListaGeneros()) {
-            if (g.getETipoGenero() == ETipoGenero.MUSICAL) {
-                comboGenero.addItem(g);
-            }
-        }
-    }
-
-    public void carregarIdioma() {
-        comboIdioma.removeAllItems();
-        for (Idioma i : lista.getListaIdiomas()) {
-            comboIdioma.addItem(i);
-        }
-    }
-
-    public void carregarTipoArquivo() {
-        comboTipo.removeAllItems();
-        comboTipo.addItem(ETipoArquivo.MP3);
-    }
-
     // Variables
     private javax.swing.JLabel jLabelTitulo, jLabelCaminho, jLabelTituloMusica, jLabelArtista, jLabelTamanho, jLabelDuracao, jLabelGenero, jLabelTipo, jLabelIdioma;
     private javax.swing.JTextField campoCaminho, campoTitulo, campoArtista, campoTamanho, campoDuracao;
-    private javax.swing.JComboBox<Genero> comboGenero;
+    private javax.swing.JComboBox<Genero> comboBoxGenero;
     private javax.swing.JComboBox<Idioma> comboIdioma;
-    private javax.swing.JComboBox<ETipoArquivo> comboTipo;
+    private javax.swing.JComboBox<ETipoArquivo> comboBoxTipoArquivo;
     private javax.swing.JButton botaoProcurar, botaoCancelar, botaoCadastrar;
 }

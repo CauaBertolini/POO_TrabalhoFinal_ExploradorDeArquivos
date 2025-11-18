@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class SerializadorTpoo {
 
-    static Listas listas = new Listas();
+    private static Listas listas = new Listas();
 
     public static void salvarMidia(Midia midia) throws IOException {
         try (DataOutputStream serializador = new DataOutputStream(new FileOutputStream(new File(midia.getCaminho())))) {

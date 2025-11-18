@@ -7,4 +7,5 @@ public enum ETipoArquivo {
     PDF,
     EPUB,
     TODOS
+
 }

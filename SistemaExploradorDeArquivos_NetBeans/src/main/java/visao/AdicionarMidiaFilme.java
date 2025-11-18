@@ -6,6 +6,7 @@ import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
+import util.ComboUtil;
 
 import javax.swing.*;
 
@@ -28,9 +29,9 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
 
         lista = new Listas();
 
-        carregarGenero();
-        carregarIdioma();
-        carregarTipoArquivo();
+        ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.CINEMA);
+        ComboUtil.carregarTipoArquivoFilme(comboBoxTipoArquivo);
+        ComboUtil.carregarIdioma(comboBoxIdioma);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,8 +61,8 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de Filme");
 
+        jLabel1.setText("Cadastro de Filme");
         jLabel2.setText("Caminho do Arquivo");
         jLabel3.setText("Título");
         jLabel4.setText("Tamanho do Arquivo (MB)");
@@ -198,6 +199,11 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(this, "Filme cadastrado com sucesso!");
         limparCampos();
+
+    }
+
+    public void atualizarTabela() {
+
     }
 
     // -------------------------
@@ -226,33 +232,6 @@ public class AdicionarMidiaFilme extends javax.swing.JPanel {
             caminho = selecionado;
             caminhoArquivo.setText(selecionado);
         }
-    }
-
-    // -------------------------
-    // CARREGAMENTO DE COMBOS
-    // -------------------------
-    public void carregarGenero() {
-        comboBoxGenero.removeAllItems();
-
-        for (Genero g : lista.getListaGeneros()) {
-            if (g.getETipoGenero() == ETipoGenero.CINEMA) {
-                comboBoxGenero.addItem(g);
-            }
-        }
-    }
-
-    public void carregarIdioma() {
-        comboBoxIdioma.removeAllItems();
-
-        for (Idioma idioma : lista.getListaIdiomas()) {
-            comboBoxIdioma.addItem(idioma);
-        }
-    }
-
-    public void carregarTipoArquivo() {
-        comboBoxTipoArquivo.removeAllItems();
-        comboBoxTipoArquivo.addItem(ETipoArquivo.MP4);
-        comboBoxTipoArquivo.addItem(ETipoArquivo.MKV);
     }
 
     // Variables declaration

@@ -4,15 +4,15 @@ import controle.ExploradorDeArquivos;
 import modelo.Salvamento;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
+public class SelecionarMidiaAdicionar extends JPanel {
 
     private ExploradorDeArquivos explorador;
     private JPanel painelPrincipal;
     private Salvamento salvamento;
 
-    public SelecioneQualMidiaAdicionar(JPanel painelPrincipal, ExploradorDeArquivos explorador) {
+    public SelecionarMidiaAdicionar(JPanel painelPrincipal, ExploradorDeArquivos explorador) {
         initComponents();
         this.painelPrincipal = painelPrincipal;
         this.explorador = explorador;  // CORRIGIDO!
@@ -21,11 +21,11 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        painelFundo = new javax.swing.JPanel();
-        btnFilme = new javax.swing.JToggleButton();
-        btnMusica = new javax.swing.JToggleButton();
-        btnLivro = new javax.swing.JToggleButton();
-        titulo = new javax.swing.JLabel();
+        painelFundo = new JPanel();
+        btnFilme = new JToggleButton();
+        btnMusica = new JToggleButton();
+        btnLivro = new JToggleButton();
+        titulo = new JLabel();
 
         setLayout(new BorderLayout());
 

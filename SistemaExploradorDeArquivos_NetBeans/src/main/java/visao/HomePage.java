@@ -1,119 +1,47 @@
 package visao;
 
 import controle.ExploradorDeArquivos;
-import enumerador.ETipoArquivo;
-import enumerador.ETipoGenero;
-import modelo.Genero;
-import modelo.Listas;
+import modelo.*;
+import modelo.Midias.Filme;
+import modelo.Midias.Musica;
+import modelo.Midias.Livro;
 import modelo.Midias.Midia;
-import modelo.Salvamento;
+import util.ComboUtil;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class HomePage extends javax.swing.JFrame {
     private Listas lista;
-    private ExploradorDeArquivos explorador;
     private Salvamento salvamento;
+    private ExploradorDeArquivos explorador;
 
     public HomePage() {
         initComponents();
-        this.salvamento = new Salvamento();
-        this.explorador = new ExploradorDeArquivos(this, salvamento);
+        this.explorador = new ExploradorDeArquivos(this);
+        this.salvamento = explorador.getSalvamento();
         this.lista = new Listas();
 
         configurarTabela();
+
+// 1. Remove listeners temporariamente
+        removerListenersFiltros();
+
+// 2. Carrega os combos
         configurarFiltros();
+
+// 3. Recoloca listeners
         adicionarListenersFiltros();
 
-        setVisible(true);
-    }
-    // metodo para iniciar no construtor a minha filtragem no painel das listas
-    private void adicionarListenersFiltros() {
-        tipoCombo.addActionListener(e -> filtrarTabela());
-        generoCombo.addActionListener(e -> filtrarTabela());
-    }
-
-    // metodo responsavel pela filtragem o qual e chamado pelo metodo acima no listener
-    private void filtrarTabela() {
-        String tipoSelecionado = (String) tipoCombo.getSelectedItem();
-        String generoSelecionado = (String) generoCombo.getSelectedItem();
-
-        DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();//pega o modelo da minha tabela ja modificado com os campos que eu quero
-        model.setRowCount(0); // limpar tabela
-
-        for (Midia m : salvamento.getMidias()) {//aqui eu tenho o loop responsavel por percorrer a minha lista do salvamento
-            boolean passaFiltroTipo = tipoSelecionado.equals("Todos") ||
-                    m.getTipoArquivo().toString().equals(tipoSelecionado);//verifica se o tipo selecionado no filtro for todos ou se o tipo selecionado no combo for igual ao tipo da midia que ele esta percorrendo
-
-            boolean passaFiltroGenero = generoSelecionado.equals("Todos") ||//verifica se o genero selecionado no filtro for todos ou se o tipo selecionado no combo for igual ao tipo da midia que ele esta percorrendo
-                    (m.getGenero() != null &&
-                            m.getGenero().getNome().equals(generoSelecionado));
-
-            if (passaFiltroTipo && passaFiltroGenero) {
-                model.addRow(new Object[]{
-                        m.getNome() + "." + m.getTipoArquivo().name(),
-                        m.getTamanho()
-                });
-            }
-        }
-    }
-
-
-    private void configurarTabela() {
-        DefaultTableModel modelo = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Caminho", "Tamanho (MB)"}
-        );
-        tabelaMidias.setModel(modelo);
-    }
-
-    public void atualizarTabela() {
+// 4. Agora sim pode filtrar
         filtrarTabela();
-    }
 
-    private void configurarFiltros() {
-        // Carregar tipos de arquivo do enum ETipoArquivo
-        carregarTiposArquivo();
+        setVisible(true);
 
-        // Carregar gêneros dinamicamente
-        carregarGeneros();
-    }
-
-    private void carregarTiposArquivo() {
-        // Obter todos os valores do enum ETipoArquivo
-        ETipoArquivo[] tipos = ETipoArquivo.values();
-        String[] opcoesTipos = new String[tipos.length + 1];
-        opcoesTipos[0] = "Todos";
-
-        for (int i = 0; i < tipos.length; i++) {
-            opcoesTipos[i + 1] = tipos[i].toString();
-        }
-
-        tipoCombo.setModel(new DefaultComboBoxModel<>(opcoesTipos));
-    }
-
-    private void carregarGeneros() {
-        // Primeiro item "Todos"
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        model.addElement("Todos");
-
-        // Usar um Set para evitar gêneros duplicados
-        java.util.Set<String> generosUnicos = new java.util.HashSet<>();
-
-        // Adicionar todos os gêneros únicos
-        for (Genero genero : lista.getListaGeneros()) {
-            generosUnicos.add(genero.getNome());
-        }
-
-        // Adicionar ao modelo
-        for (String genero : generosUnicos) {
-            model.addElement(genero);
-        }
-
-        generoCombo.setModel(model);
     }
 
     @SuppressWarnings("unchecked")
@@ -122,7 +50,7 @@ public class HomePage extends javax.swing.JFrame {
         btnAdicionar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
-        btnListar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
         generoCombo = new javax.swing.JComboBox<>();
         tipoCombo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -139,7 +67,7 @@ public class HomePage extends javax.swing.JFrame {
         javax.swing.JPanel painelEsquerdo = new javax.swing.JPanel();
         painelEsquerdo.setBackground(new java.awt.Color(240, 240, 240));
         painelEsquerdo.setLayout(null);
-        painelEsquerdo.setPreferredSize(new Dimension(380, 600)); // FIXA A LARGURA
+        painelEsquerdo.setPreferredSize(new Dimension(500, 600)); // FIXA A LARGURA
 
         // Botões
         btnAdicionar.setText("Adicionar Mídia +");
@@ -153,11 +81,13 @@ public class HomePage extends javax.swing.JFrame {
 
         btnAlterar.setText("Alterar Mídia");
         btnAlterar.setBounds(30, 70, 150, 30);
+        btnAlterar.addActionListener(evt -> abrirAlterarMidia());
         painelEsquerdo.add(btnAlterar);
 
-        btnListar.setText("Listar");
-        btnListar.setBounds(200, 70, 150, 30);
-        painelEsquerdo.add(btnListar);
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setBounds(200, 70, 150, 30);
+        btnAtualizar.addActionListener(atualizarTabelaListener());
+        painelEsquerdo.add(btnAtualizar);
 
         // Filtros
         generoCombo.setBounds(30, 130, 150, 25);
@@ -178,12 +108,64 @@ public class HomePage extends javax.swing.JFrame {
         add(painelDireito, BorderLayout.CENTER);
     }
 
+    private void configurarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Caminho", "Tamanho (MB)"}
+        );
+        tabelaMidias.setModel(modelo);
+    }
+
+    private void removerListenersFiltros() {
+        for (ActionListener al : tipoCombo.getActionListeners()) {
+            tipoCombo.removeActionListener(al);
+        }
+        for (ActionListener al : generoCombo.getActionListeners()) {
+            generoCombo.removeActionListener(al);
+        }
+    }
+
+    private void configurarFiltros() {
+        ComboUtil.carregarTiposArquivoParaFiltro(tipoCombo);
+        ComboUtil.carregarGenerosParaFiltro(generoCombo, lista.getListaGeneros());
+    }
+
+    private void adicionarListenersFiltros() {
+        tipoCombo.addActionListener(e -> filtrarTabela());
+        generoCombo.addActionListener(e -> filtrarTabela());
+    }
+
+    private ActionListener atualizarTabelaListener() {
+        return e -> filtrarTabela();
+    }
+
+    // metodo responsavel pela filtragem o qual e chamado pelo metodo acima no listener
+    private void filtrarTabela() {
+        // Filtra usando o explorador
+        List<modelo.Midias.Midia> listaFiltrada = explorador.filtrarMidias(
+                generoCombo.getSelectedItem().toString(),
+                tipoCombo.getSelectedItem().toString()
+        );
+
+        // Modelo da JTable
+        DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
+        model.setRowCount(0); // limpa a tabela
+
+        // Preenche a tabela
+        for (modelo.Midias.Midia midia : listaFiltrada) {
+            model.addRow(new Object[]{
+                    midia.getNome() + "." + midia.getTipoArquivo().name().toLowerCase(),
+                    midia.getTamanho()
+            });
+        }
+    }
+
     private void abrirSelecaoMidia() {
         painelDireito.removeAll();
         painelDireito.setLayout(new BorderLayout());
 
         painelDireito.add(
-                new SelecioneQualMidiaAdicionar(painelDireito, explorador),
+                new SelecionarMidiaAdicionar(painelDireito, explorador),
                 BorderLayout.CENTER
         );
 
@@ -191,11 +173,47 @@ public class HomePage extends javax.swing.JFrame {
         painelDireito.repaint();
     }
 
-    // Variables
+    public void abrirAlterarMidia() {
+        List<Midia> listaMidias = salvamento.getMidias();
+
+        int viewIndex = tabelaMidias.getSelectedRow();
+        if (viewIndex == -1) return;
+
+        int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+        Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+        if (midiaSelecionada instanceof Filme) {
+            abrirNoPainelDireito(new EditarMidiaFilme(midiaSelecionada));
+        } else if (midiaSelecionada instanceof Musica) {
+
+        } else if (midiaSelecionada instanceof Livro) {
+
+        }
+    }
+
+    public void abrirNoPainelDireito(JPanel painel) {
+        painelDireito.removeAll();
+        painelDireito.setLayout(new BorderLayout());
+
+        painelDireito.add(painel, BorderLayout.CENTER);
+
+        painelDireito.revalidate();
+        painelDireito.repaint();
+    }
+
+    public void limparPainelDireito() {
+        painelDireito.removeAll();
+        painelDireito.setLayout(new BorderLayout());
+        painelDireito.revalidate();
+        painelDireito.repaint();
+    }
+
+    // Variáveis
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JComboBox<String> generoCombo;
     private javax.swing.JComboBox<String> tipoCombo;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,5 +1,11 @@
 package visao;
 
+import enumerador.ETipoArquivo;
+import enumerador.ETipoGenero;
+import modelo.Genero;
+import modelo.Idioma;
+import util.ComboUtil;
+
 import javax.swing.*;
 
 public class EditarMidiaFilme extends JPanel {
@@ -9,18 +15,28 @@ public class EditarMidiaFilme extends JPanel {
     private JLabel lblDuracao;
     private JLabel lblIdioma;
     private JLabel lblTipoArquivo;
+    private JLabel lblGenero;
 
     private JTextField txtTamanho;
     private JTextField txtDuracao;
 
-    private JComboBox<String> comboIdioma;
-    private JComboBox<String> comboTipoArquivo;
+
+    private JComboBox<Genero> comboBoxGenero;
+    private JComboBox<Idioma> comboBoxIdioma;
+    private JComboBox<ETipoArquivo> comboBoxTipoArquivo;
 
     private JButton btnCancelar;
     private JButton btnConfirmar;
 
-    public EditarMidiaFilme() {
+    private modelo.Midias.Filme filme;
+
+    public EditarMidiaFilme(modelo.Midias.Midia midiaSelecionada) {
         initComponents();
+        this.filme = (modelo.Midias.Filme) midiaSelecionada;
+
+        ComboUtil.carregarTipoArquivoFilme(comboBoxTipoArquivo);
+        ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.CINEMA);
+        ComboUtil.carregarIdioma(comboBoxIdioma);
     }
 
     private void initComponents() {
@@ -36,10 +52,13 @@ public class EditarMidiaFilme extends JPanel {
         txtDuracao = new JTextField();
 
         lblIdioma = new JLabel("Idioma");
-        comboIdioma = new JComboBox<>(new String[]{"Item 1", "Item 2", "Item 3"});
+        comboBoxIdioma = new JComboBox<>();
 
         lblTipoArquivo = new JLabel("Tipo de Arquivo");
-        comboTipoArquivo = new JComboBox<>(new String[]{"Item 1", "Item 2", "Item 3"});
+        comboBoxTipoArquivo = new JComboBox<>();
+
+        lblGenero = new JLabel("Gênero");
+        comboBoxGenero = new JComboBox<>();
 
         btnCancelar = new JButton("Cancelar");
         btnConfirmar = new JButton("Confirmar");
@@ -63,9 +82,11 @@ public class EditarMidiaFilme extends JPanel {
                                         .addComponent(lblDuracao)
                                         .addComponent(txtDuracao, 200, 200, 200)
                                         .addComponent(lblIdioma)
-                                        .addComponent(comboIdioma, 200, 200, 200)
+                                        .addComponent(comboBoxIdioma, 200, 200, 200)
                                         .addComponent(lblTipoArquivo)
-                                        .addComponent(comboTipoArquivo, 200, 200, 200)
+                                        .addComponent(comboBoxTipoArquivo, 200, 200, 200)
+                                        .addComponent(lblGenero)
+                                        .addComponent(comboBoxGenero, 200, 200, 200)
                         )
                         .addGroup(
                                 layout.createSequentialGroup()
@@ -86,10 +107,13 @@ public class EditarMidiaFilme extends JPanel {
                         .addComponent(txtDuracao, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                         .addGap(10)
                         .addComponent(lblIdioma)
-                        .addComponent(comboIdioma, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxIdioma, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                         .addGap(10)
                         .addComponent(lblTipoArquivo)
-                        .addComponent(comboTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        .addGap(10)
+                        .addComponent(lblGenero)
+                        .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                         .addGap(40)
                         .addGroup(
                                 layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -98,5 +122,30 @@ public class EditarMidiaFilme extends JPanel {
                         )
                         .addGap(20)
         );
+    }
+
+    private void carregarDadosMidia() {
+        txtDuracao.setText(String.valueOf(filme.getDuracao()));
+        txtTamanho.setText(String.valueOf(filme.getTamanho()));
+
+        comboBoxTipoArquivo.setSelectedItem(filme.getTipoArquivo());
+        comboBoxGenero.setSelectedItem(filme.getGenero());
+
+        for (int i = 0; i < comboBoxGenero.getItemCount(); i++) {
+            Genero g = comboBoxGenero.getItemAt(i);
+            if (g.getNome().equals(filme.getGenero().getNome())) {
+                comboBoxGenero.setSelectedIndex(i);
+                break;
+            }
+        }
+        for (int i = 0; i < comboBoxIdioma.getItemCount(); i++) {
+            Idioma idi = comboBoxIdioma.getItemAt(i);
+            if (idi.getNome().equalsIgnoreCase(filme.getIdioma().getNome())) {
+                comboBoxIdioma.setSelectedIndex(i);
+                break;
+            }
+        }
+
+
     }
 }

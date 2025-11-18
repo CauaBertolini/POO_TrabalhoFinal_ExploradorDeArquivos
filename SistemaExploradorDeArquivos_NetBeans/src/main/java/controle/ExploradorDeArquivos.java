@@ -4,8 +4,9 @@ import enumerador.*;
 import excecao.*;
 import modelo.*;
 import modelo.Midias.Filme;
-import modelo.Midias.*;
+import modelo.Midias.Livro;
 import modelo.Midias.Musica;
+import util.ExcecaoUtil;
 import visao.HomePage;
 
 import javax.swing.*;
@@ -15,14 +16,14 @@ import java.nio.file.*;
 import java.util.*;
 
 public class ExploradorDeArquivos {
-    private Salvamento sv;
+    private Salvamento salvamento;
     private Listas listas = new Listas();
     private HomePage homePage;
     SerializadorTpoo serializadorTpoo = new SerializadorTpoo();
 
-    public ExploradorDeArquivos(HomePage homePage, Salvamento sv) {
+    public ExploradorDeArquivos(HomePage homePage) {
+        salvamento = new Salvamento();
         this.homePage = homePage;
-        this.sv = sv;
     }
     // ==============================================
     // CRIAÇÃO DE MÍDIA — FILME
@@ -51,7 +52,7 @@ public class ExploradorDeArquivos {
                 return false;
             }
 
-            sv.incluirMidia(novaMidia);
+            salvamento.incluirMidia(novaMidia);
             try {
                  SerializadorTpoo.salvarMidia(novaMidia);
             } catch (IOException e) {
@@ -92,7 +93,7 @@ public class ExploradorDeArquivos {
                 return false;
             }
 
-            sv.incluirMidia(novaMidia);
+            salvamento.incluirMidia(novaMidia);
             homePage.atualizarTabela();
             try {
                 SerializadorTpoo.salvarMidia(novaMidia);
@@ -110,12 +111,12 @@ public class ExploradorDeArquivos {
     // ==============================================
     // ALTERAÇÃO DE MÍDIAS
     // ==============================================
-    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
+    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Genero genero,
                                 ETipoArquivo eTipoArquivo, Idioma idioma)
             throws ArquivoNaoExisteExcecao {
 
         try {
-            if (!Utilitario.arquivoExiste(caminhoArquivo)) {
+            if (!ExcecaoUtil.arquivoExiste(caminhoArquivo)) {
                 throw new ArquivoNaoExisteExcecao();
             }
 
@@ -126,13 +127,14 @@ public class ExploradorDeArquivos {
                 return false; // não é um filme, ignora
             }
 
+            filmeAlterando.setGenero(genero);
             filmeAlterando.setTamanho(tamanho);
             filmeAlterando.setDuracao(duracao);
             filmeAlterando.setTipoArquivo(eTipoArquivo);
             filmeAlterando.setIdioma(idioma);
 
             SerializadorTpoo.salvarMidia(filmeAlterando);
-            sv.atualizarMidia(filmeAlterando);
+            salvamento.atualizarMidia(filmeAlterando);
             homePage.atualizarTabela();
             return true;
 
@@ -142,12 +144,12 @@ public class ExploradorDeArquivos {
     }
 
 
-    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
+    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Genero genero,
                                 ETipoArquivo eTipoArquivo, String autorOuArtista, boolean eLivro)
             throws ArquivoNaoExisteExcecao {
 
         try {
-            if (!Utilitario.arquivoExiste(caminhoArquivo)) {
+            if (!ExcecaoUtil.arquivoExiste(caminhoArquivo)) {
                 throw new ArquivoNaoExisteExcecao();
             }
 
@@ -155,24 +157,26 @@ public class ExploradorDeArquivos {
             modelo.Midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
 
             if (eLivro && midiaAlterando instanceof Livro livroAlterando) {
+                livroAlterando.setGenero(genero);
                 livroAlterando.setTamanho(tamanho);
                 livroAlterando.setDuracao(duracao);
                 livroAlterando.setAutor(autorOuArtista);
                 livroAlterando.setTipoArquivo(eTipoArquivo);
 
                 SerializadorTpoo.salvarMidia(livroAlterando);
-                sv.atualizarMidia(livroAlterando);
+                salvamento.atualizarMidia(livroAlterando);
                 homePage.atualizarTabela();
                 return true;
 
             } else if (!eLivro && midiaAlterando instanceof modelo.Midias.Musica musicaAlterando) {
+                musicaAlterando.setGenero(genero);
                 musicaAlterando.setTamanho(tamanho);
                 musicaAlterando.setDuracao(duracao);
                 musicaAlterando.setArtista(autorOuArtista);
                 musicaAlterando.setTipoArquivo(eTipoArquivo);
 
                 SerializadorTpoo.salvarMidia(musicaAlterando);
-                sv.atualizarMidia(musicaAlterando);
+                salvamento.atualizarMidia(musicaAlterando);
                 homePage.atualizarTabela();
                 return true;
             }
@@ -191,7 +195,7 @@ public class ExploradorDeArquivos {
         try {
             Path caminho = Paths.get(midia.getCaminho());
             Files.deleteIfExists(caminho);
-            sv.removerMidia(midia);
+            salvamento.removerMidia(midia);
             homePage.atualizarTabela();
             return true;
         } catch (Exception e) {
@@ -204,7 +208,7 @@ public class ExploradorDeArquivos {
     // RENOMEAR
     // ==============================================
     public boolean renomearMidia(modelo.Midias.Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
-        if (Utilitario.arquivoExiste(midia.getCaminho())) {
+        if (ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
             File arquivo = new File(midia.getCaminho());
             File novoNome = new File(arquivo.getParent(), novoNomeString + ".tpoo");
 
@@ -222,7 +226,7 @@ public class ExploradorDeArquivos {
     // ==============================================
     public boolean moverMidia(modelo.Midias.Midia midia, String novoCaminhoString)
             throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao {
-        if (Utilitario.arquivoExiste(midia.getCaminho())) {
+        if (ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
             File arquivo = new File(midia.getCaminho());
             File novoCaminho = new File(novoCaminhoString, midia.getNome() + ".tpoo");
 
@@ -244,7 +248,7 @@ public class ExploradorDeArquivos {
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
         modelo.Midias.Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
-        sv.incluirMidia(novaMidia);
+        salvamento.incluirMidia(novaMidia);
         return false;
     }
 
@@ -291,17 +295,17 @@ public class ExploradorDeArquivos {
     // ===============================================
     // FILTROS DE MÍDIAS
     // ===============================================
-    public List<modelo.Midias.Midia> filtrarMidias (String generoFiltrar, ETipoArquivo eTipoArquivo){
+    public List<modelo.Midias.Midia> filtrarMidias (String generoFiltrar, String eTipoArquivo){
         List<modelo.Midias.Midia> filtradas = new ArrayList<>();
 
-        for (modelo.Midias.Midia m : sv.getMidias()) {
-            if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo() == ETipoArquivo.TODOS) {
-                return sv.getMidias();
-            } else if (m.getGenero().getNome().equalsIgnoreCase(generoFiltrar) && m.getTipoArquivo() == ETipoArquivo.TODOS) {
+        for (modelo.Midias.Midia m : salvamento.getMidias()) {
+            if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo().name().equalsIgnoreCase("TODOS")) {
+                return salvamento.getMidias();
+            } else if (m.getGenero().getNome().equalsIgnoreCase(generoFiltrar) && m.getTipoArquivo().name().equalsIgnoreCase("TODOS")) {
                 filtradas.add(m);
-            } else if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo() == eTipoArquivo) {
+            } else if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo().name().equalsIgnoreCase(eTipoArquivo)) {
                 filtradas.add(m);
-            } else if (m.getGenero().getNome().equals(generoFiltrar) && m.getTipoArquivo() == eTipoArquivo) {
+            } else if (m.getGenero().getNome().equals(generoFiltrar) && m.getTipoArquivo().name().equalsIgnoreCase(eTipoArquivo)) {
                 filtradas.add(m);
             }
         }
@@ -317,5 +321,9 @@ public class ExploradorDeArquivos {
         // O comparing chama o getTamanho() e use o valor retornado para comparar
         listaMidias.sort(Comparator.comparing(modelo.Midias.Midia::getTamanho));
         return listaMidias;
+    }
+
+    public Salvamento getSalvamento() {
+        return salvamento;
     }
 }
