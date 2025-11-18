@@ -28,19 +28,12 @@ public class RenomearMidia extends JPanel {
 
     private void initComponents() {
 
-        // Painel REAL do conteúdo
-        JPanel conteudo = new JPanel();
-        conteudo.setBackground(new Color(247, 247, 255));
-
-        GroupLayout layout = new GroupLayout(conteudo);
-        conteudo.setLayout(layout);
-
+        // ---------- COMPONENTES (Inicialização) ----------
         lblTitulo = new JLabel("Renomeando");
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
         lblNome = new JLabel("Nome");
-        lblNome.setHorizontalAlignment(SwingConstants.CENTER);
 
         campoNome = new JTextField();
 
@@ -50,45 +43,71 @@ public class RenomearMidia extends JPanel {
         botaoRenomear = new JButton("Renomear");
         botaoRenomear.addActionListener(evt -> botaoRenomearAcao());
 
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
+        // ---------- LAYOUT (Aplicando MOLAS diretamente em 'this') ----------
 
+        // Aplicamos a cor e a borda no painel principal (THIS)
+        this.setBackground(new Color(247, 247, 255));
+        this.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 255)));
+
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true); // Adiciona padding interno
+
+        // --- HORIZONTAL (Com "MOLAS" para centralizar o conteúdo) ---
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(lblTitulo, 250, 250, 250)
-                        .addComponent(lblNome, 250, 250, 250)
-                        .addComponent(campoNome, 250, 250, 250)
-                        .addGroup(
-                                layout.createSequentialGroup()
-                                        .addComponent(botaoCancelar, 120, 120, 120)
-                                        .addGap(10)
-                                        .addComponent(botaoRenomear, 120, 120, 120)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                        // 1. Título (Ocupa a largura total e se auto-centraliza)
+                        .addComponent(lblTitulo, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+
+                        // 2. Grupo do Formulário (centralizado com molas)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+
+                                // Conteúdo do formulário
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblNome)
+                                                // Usa um espaço flexível para empurrar o campo para a direita
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, 20, 30)
+                                                .addComponent(campoNome, 200, 200, 250)
+                                        )
+                                )
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
+                        )
+
+                        // 3. Grupo dos Botões (centralizado com molas)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                .addComponent(botaoCancelar, 120, 120, 120)
+                                .addGap(10)
+                                .addComponent(botaoRenomear, 120, 120, 120)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
         );
 
+        // --- VERTICAL (Linha por Linha) ---
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addComponent(lblTitulo)
                         .addGap(25)
-                        .addComponent(lblNome)
-                        .addComponent(campoNome, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+
+                        // Linha 1: Nome (rótulo e campo lado a lado)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblNome)
+                                .addComponent(campoNome, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        )
+
                         .addGap(40)
-                        .addGroup(
-                                layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(botaoCancelar, 32, 32, 32)
-                                        .addComponent(botaoRenomear, 32, 32, 32)
+
+                        // Linha 2: Botões
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(botaoCancelar, 32, 32, 32)
+                                .addComponent(botaoRenomear, 32, 32, 32)
                         )
         );
-
-        // Agora o truque: centralizar usando BoxLayout
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBackground(new Color(247, 247, 255));
-
-        add(Box.createVerticalGlue());  // empurra pra cima
-        add(conteudo);                  // conteúdo centralizado
-        add(Box.createVerticalGlue());  // empurra pra baixo
-
-        conteudo.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void botaoRenomearAcao() {

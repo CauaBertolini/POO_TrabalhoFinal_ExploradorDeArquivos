@@ -9,6 +9,7 @@ import util.ComboUtil;
 import util.JOptionPaneUtil;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class EditarMidiaLivro extends JPanel {
 
@@ -44,8 +45,9 @@ public class EditarMidiaLivro extends JPanel {
 
     private void initComponents() {
 
+        // ---------- COMPONENTES (Sem alteração) ----------
         lblTitulo = new JLabel("Alterando Livro");
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22));
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22)); // Usando a importação
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
         lblTamanho = new JLabel("Tamanho do Arquivo (MB)");
@@ -69,58 +71,101 @@ public class EditarMidiaLivro extends JPanel {
         botaoConfirmar = new JButton("Confirmar");
         botaoConfirmar.addActionListener(evt -> botaoConfirmarAcao());
 
+        // ---------- LAYOUT (Baseado no seu exemplo) ----------
+
+        // 1. Aplicar o fundo e a borda diretamente no 'this'
         setBackground(new java.awt.Color(247, 247, 255));
         setBorder(BorderFactory.createLineBorder(new java.awt.Color(220, 220, 255)));
 
         GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
+        setLayout(layout);
 
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        // --- HORIZONTAL ---
+        // Exatamente como no seu exemplo, usamos "molas" para centralizar
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(lblTitulo)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                        // 1. Título ocupa toda a largura e se auto-centraliza
+                        .addComponent(lblTitulo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
+                        // 2. Grupo do Formulário (centralizado com molas)
                         .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+
+                                // Coluna 1: Rótulos
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(lblTamanho)
-                                        .addComponent(campoTamanho, 200, 200, 200)
                                         .addComponent(lblPaginas)
-                                        .addComponent(campoPaginas, 200, 200, 200)
                                         .addComponent(lblAutor)
-                                        .addComponent(campoAutor, 200, 200, 200)
                                         .addComponent(lblTipoArquivo)
-                                        .addComponent(comboBoxTipoArquivo, 200, 200, 200)
                                         .addComponent(lblGenero)
-                                        .addComponent(comboBoxGenero, 200, 200, 200)
                                 )
+                                .addGap(10) // Espaço entre colunas
+
+                                // Coluna 2: Campos de Entrada (com tamanho fixo)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false) // 'false' evita que cresçam
+                                        .addComponent(campoTamanho, 200, 200, 270)
+                                        .addComponent(campoPaginas, 200, 200, 270)
+                                        .addComponent(campoAutor, 200, 200, 270)
+                                        .addComponent(comboBoxTipoArquivo, 200, 200, 270)
+                                        .addComponent(comboBoxGenero, 200, 200, 270)
+                                )
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
+
+                        // 3. Grupo dos Botões (centralizado com molas)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoCancelar, 100, 120, 150)
-                                .addComponent(botaoConfirmar, 100, 120, 150)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                .addComponent(botaoCancelar, 110, 120, 150)
+                                .addGap(8)
+                                .addComponent(botaoConfirmar, 110, 120, 150)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
         );
 
+        // --- VERTICAL ---
+        // Estrutura linha por linha, como no seu exemplo
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addGap(20)
-                        .addComponent(lblTitulo)
+                        .addComponent(lblTitulo) // Título
                         .addGap(25)
-                        .addComponent(lblTamanho)
-                        .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+
+                        // Linha 1: Tamanho
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblTamanho)
+                                .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblPaginas)
-                        .addComponent(campoPaginas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        // Linha 2: Páginas
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblPaginas)
+                                .addComponent(campoPaginas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblAutor)
-                        .addComponent(campoAutor, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        // Linha 3: Autor
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblAutor)
+                                .addComponent(campoAutor, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblTipoArquivo)
-                        .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        // Linha 4: Tipo de Arquivo
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblTipoArquivo)
+                                .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblGenero)
-                        .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addGap(40)
+                        // Linha 5: Gênero
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblGenero)
+                                .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE) // Ajustado para 32
+                        )
+                        .addGap(40) // Espaço maior antes dos botões
+
+                        // Linha 6: Botões
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(botaoConfirmar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
