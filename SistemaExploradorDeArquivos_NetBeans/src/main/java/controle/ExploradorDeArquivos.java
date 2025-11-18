@@ -372,7 +372,7 @@ public class ExploradorDeArquivos {
      */
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
-        modelo.midias.Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
+        Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
         salvamento.incluirMidia(novaMidia);
         homePage.limparPainelDireito();
         homePage.atualizarTabela();
@@ -485,8 +485,8 @@ public class ExploradorDeArquivos {
      * @param listaMidias -  Lista de mídias que será ordenada pelo nome.
      * @return A lista de mídias ordenada em ordem alfabética crescente.
      */
-    public List<modelo.midias.Midia> ordenarMidiasPorNome(List<modelo.midias.Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getNome));
+    public List<Midia> ordenarMidiasPorNome(List<Midia> listaMidias) {
+        listaMidias.sort(Comparator.comparing(Midia::getNome));
         return listaMidias;
     }
 
@@ -501,8 +501,8 @@ public class ExploradorDeArquivos {
      * @param listaMidias -  Lista de mídias que será ordenada pelo tamanho do arquivo.
      * @return A lista de mídias ordenada em ordem crescente.
      */
-    public List<modelo.midias.Midia> ordenarMidiaPorTamanho(List<modelo.midias.Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getTamanho));
+    public List<Midia> ordenarMidiaPorTamanho(List<Midia> listaMidias) {
+        listaMidias.sort(Comparator.comparing(Midia::getTamanho));
         return listaMidias;
     }
 

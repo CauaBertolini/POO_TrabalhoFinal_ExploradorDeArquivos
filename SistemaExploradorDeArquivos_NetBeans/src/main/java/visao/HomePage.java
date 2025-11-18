@@ -25,6 +25,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JButton botaoAtualizarTabela;
     private javax.swing.JButton botaoRenomear;
     private javax.swing.JButton botaoMover;
+    private javax.swing.JButton botaoCarregarMidia;
     private javax.swing.JComboBox<String> generoCombo;
     private javax.swing.JComboBox<String> tipoCombo;
     private javax.swing.JScrollPane jScrollPane1;
@@ -74,48 +75,102 @@ public class HomePage extends javax.swing.JFrame {
         painelEsquerdo.setPreferredSize(new Dimension(800, 600));
         painelEsquerdo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel painelSuperior = new JPanel(new GridLayout(5, 2, 8, 8));
-        painelSuperior.setOpaque(false);
+        // Novo layout: Usaremos um container principal para organizar
+        // 1. O painel dos 6 botões de ação
+        // 2. O painel do botão Carregar Mídia
+        // 3. Os filtros
+
+        // Criando um painel específico para os 6 botões (3 linhas x 2 colunas)
+        JPanel painelBotoesAcao = new JPanel(new GridLayout(3, 2, 8, 8));
+        painelBotoesAcao.setOpaque(false);
 
         botaoAdicionarMidia = new javax.swing.JButton("Adicionar Mídia +");
         botaoAdicionarMidia.addActionListener(evt -> abrirSelecaoMidia());
-        painelSuperior.add(botaoAdicionarMidia);
+        painelBotoesAcao.add(botaoAdicionarMidia);
 
         botaoApagarMidia = new javax.swing.JButton("Apagar Mídia -");
         botaoApagarMidia.addActionListener(evt -> botaoDeletarMidiaAcao());
-        painelSuperior.add(botaoApagarMidia);
+        painelBotoesAcao.add(botaoApagarMidia);
 
         botaoAlterarMidia = new javax.swing.JButton("Alterar Mídia");
         botaoAlterarMidia.addActionListener(evt -> botaoAlterarAcao());
-        painelSuperior.add(botaoAlterarMidia);
+        painelBotoesAcao.add(botaoAlterarMidia);
 
         botaoMover = new javax.swing.JButton("Mover Mídia");
         botaoMover.addActionListener(evt -> botaoMoverAcao());
-        painelSuperior.add(botaoMover);
+        painelBotoesAcao.add(botaoMover);
 
         botaoRenomear = new javax.swing.JButton("Renomear Mídia");
         botaoRenomear.addActionListener(evt -> botaoRenomearAcao());
-        painelSuperior.add(botaoRenomear);
+        painelBotoesAcao.add(botaoRenomear);
 
         botaoAtualizarTabela = new javax.swing.JButton("Atualizar Lista");
         botaoAtualizarTabela.addActionListener(evt -> botaoAtualizarTabelaAcao());
-        painelSuperior.add(botaoAtualizarTabela);
+        painelBotoesAcao.add(botaoAtualizarTabela);
 
+
+        botaoCarregarMidia = new javax.swing.JButton("Carregar Mídia");
+        botaoAdicionarMidia.addActionListener(evt -> botaoCarregarMidiaAcao())
+
+        // Painel para centralizar o botão Carregar Mídia em uma linha
+        JPanel painelCentralizado = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        painelCentralizado.setOpaque(false);
+        painelCentralizado.add(botaoCarregarMidia);
+
+        // Painel de Filtros (rótulos e combos)
         labelFiltroGenero = new javax.swing.JLabel("Filtro Gênero");
         labelFiltroTipo = new javax.swing.JLabel("Filtro Tipo Arquivo");
 
         labelFiltroGenero.setVerticalAlignment(SwingConstants.BOTTOM);
         labelFiltroTipo.setVerticalAlignment(SwingConstants.BOTTOM);
 
-        painelSuperior.add(labelFiltroGenero);
-        painelSuperior.add(labelFiltroTipo);
-
         generoCombo = new javax.swing.JComboBox<>();
         tipoCombo = new javax.swing.JComboBox<>();
-        painelSuperior.add(generoCombo);
-        painelSuperior.add(tipoCombo);
 
-        painelEsquerdo.add(painelSuperior, BorderLayout.NORTH);
+        // Usaremos um GridBagLayout para organizar verticalmente
+        JPanel painelAcoesFiltros = new JPanel(new GridBagLayout());
+        painelAcoesFiltros.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(4, 0, 4, 0); // Espaçamento vertical
+
+        // --- Adiciona Painel de 6 Botões ---
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        painelAcoesFiltros.add(painelBotoesAcao, gbc);
+
+        // --- Adiciona Botão Centralizado ---
+        gbc.gridy = 1;
+        gbc.insets = new Insets(8, 0, 15, 0); // Mais espaço após o botão
+        painelAcoesFiltros.add(painelCentralizado, gbc);
+
+        // --- Adiciona Rótulos de Filtro ---
+        gbc.gridy = 2;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill = GridBagConstraints.NONE; // Não preencher horizontalmente
+
+        JPanel pnlLabels = new JPanel(new GridLayout(1, 2, 8, 8));
+        pnlLabels.setOpaque(false);
+        pnlLabels.add(labelFiltroGenero);
+        pnlLabels.add(labelFiltroTipo);
+
+        painelAcoesFiltros.add(pnlLabels, gbc);
+
+        // --- Adiciona ComboBoxes de Filtro ---
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Preencher horizontalmente
+
+        JPanel pnlCombos = new JPanel(new GridLayout(1, 2, 8, 8));
+        pnlCombos.setOpaque(false);
+        pnlCombos.add(generoCombo);
+        pnlCombos.add(tipoCombo);
+
+        painelAcoesFiltros.add(pnlCombos, gbc);
+
+
+        // Substituindo painelSuperior pelo novo painelAcoesFiltros
+        painelEsquerdo.add(painelAcoesFiltros, BorderLayout.NORTH);
 
         jScrollPane1.setViewportView(tabelaMidias);
         painelEsquerdo.add(jScrollPane1, BorderLayout.CENTER);
@@ -127,16 +182,13 @@ public class HomePage extends javax.swing.JFrame {
         add(painelDireito, BorderLayout.CENTER);
     }
 
+    private void botaoCarregarMidiaAcao() {
+
+    }
+
     private void botaoDeletarMidiaAcao() {
         try {
-            List<Midia> listaMidias = salvamento.getMidias();
-
-            int viewIndex = tabelaMidias.getSelectedRow();
-            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
-
-            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
-
-            Midia midiaSelecionada = listaMidias.get(modelIndex);
+            Midia midiaSelecionada = getMidiaSelecionada();
 
             if (explorador.excluirMidia(midiaSelecionada)) {
                 JOptionPaneUtil.mostrarMensagemSucesso("Mídia excluída com sucesso!");
@@ -163,14 +215,7 @@ public class HomePage extends javax.swing.JFrame {
 
     private void botaoRenomearAcao() {
         try {
-            List<Midia> listaMidias = salvamento.getMidias();
-
-            int viewIndex = tabelaMidias.getSelectedRow();
-            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
-
-            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
-
-            Midia midiaSelecionada = listaMidias.get(modelIndex);
+            Midia midiaSelecionada = getMidiaSelecionada();
 
             abrirNoPainelDireito(new RenomearMidia(explorador, midiaSelecionada));
 
@@ -182,14 +227,7 @@ public class HomePage extends javax.swing.JFrame {
 
     private void botaoMoverAcao() {
         try {
-            List<Midia> listaMidias = salvamento.getMidias();
-
-            int viewIndex = tabelaMidias.getSelectedRow();
-            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
-
-            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
-
-            Midia midiaSelecionada = listaMidias.get(modelIndex);
+            Midia midiaSelecionada = getMidiaSelecionada();
 
             abrirNoPainelDireito(new MoverMidia(explorador, midiaSelecionada));
 
@@ -264,14 +302,7 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     public void abrirAlterarMidia() throws ArquivoNaoExisteExcecao{
-        List<Midia> listaMidias = salvamento.getMidias();
-
-        int viewIndex = tabelaMidias.getSelectedRow();
-        if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
-
-        int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
-
-        Midia midiaSelecionada = listaMidias.get(modelIndex);
+        Midia midiaSelecionada = getMidiaSelecionada();
 
         if (midiaSelecionada instanceof Filme) {
             abrirNoPainelDireito(new EditarMidiaFilme(midiaSelecionada, explorador));
@@ -280,6 +311,18 @@ public class HomePage extends javax.swing.JFrame {
         } else if (midiaSelecionada instanceof Livro) {
             abrirNoPainelDireito(new EditarMidiaLivro(midiaSelecionada, explorador));
         }
+    }
+
+    private Midia getMidiaSelecionada() {
+        List<Midia> listaMidias = salvamento.getMidias();
+
+        int viewIndex = tabelaMidias.getSelectedRow();
+        if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+        int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+        Midia midiaSelecionada = listaMidias.get(modelIndex);
+        return midiaSelecionada;
     }
 
     public void abrirNoPainelDireito(JPanel painel) {
