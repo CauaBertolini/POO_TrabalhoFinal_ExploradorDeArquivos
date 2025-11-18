@@ -2,7 +2,7 @@ package modelo;
 
 import enumerador.ETipoGenero;
 import excecao.CampoVazioOuNuloExcecao;
-import excecao.Utilitario;
+import util.ExcecaoUtil;
 
 public class Genero {
     private String nome;
@@ -14,7 +14,7 @@ public class Genero {
     }
 
     public void setNome(String nome) throws CampoVazioOuNuloExcecao {
-        if (!Utilitario.campoEstaVazioOuNulo(nome)) {
+        if (!ExcecaoUtil.campoEstaVazioOuNulo(nome)) {
             this.nome = nome.trim();
         }
     }

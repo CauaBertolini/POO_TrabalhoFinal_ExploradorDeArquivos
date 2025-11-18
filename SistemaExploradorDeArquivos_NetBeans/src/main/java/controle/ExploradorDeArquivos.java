@@ -3,9 +3,12 @@ package controle;
 import enumerador.*;
 import excecao.*;
 import modelo.*;
-import modelo.Midias.Filme;
-import modelo.Midias.*;
-import modelo.Midias.Musica;
+import modelo.midias.Filme;
+import modelo.midias.Livro;
+import modelo.midias.Midia;
+import modelo.midias.Musica;
+import util.ExcecaoUtil;
+import util.JOptionPaneUtil;
 import visao.HomePage;
 
 import javax.swing.*;
@@ -15,32 +18,30 @@ import java.nio.file.*;
 import java.util.*;
 
 public class ExploradorDeArquivos {
-    private Salvamento sv;
+    private Salvamento salvamento;
     private Listas listas = new Listas();
     private HomePage homePage;
     SerializadorTpoo serializadorTpoo = new SerializadorTpoo();
 
-    public ExploradorDeArquivos(HomePage homePage, Salvamento sv) {
+    public ExploradorDeArquivos(HomePage homePage) {
+        salvamento = new Salvamento();
         this.homePage = homePage;
-        this.sv = sv;
     }
     // ==============================================
     // CRIAÇÃO DE MÍDIA — FILME
     // ==============================================
-    public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) {
+    public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
 
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
-        System.out.println("Caminho: " + caminhoCompleto);
-        modelo.Midias.Midia novaMidia = null;
+        modelo.midias.Midia novaMidia = null;
 
-        System.out.println(">>> Caminho recebido: " + caminho);
 
         try {
             novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
         } catch (CampoVazioOuNuloExcecao excecao) {
-            JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
+            JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
         } catch (CampoMenorOuIgualAZeroExcecao excecao) {
-            JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
+            JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
         }
 
         File arquivoNovo = new File(caminhoCompleto);
@@ -51,17 +52,18 @@ public class ExploradorDeArquivos {
                 return false;
             }
 
-            sv.incluirMidia(novaMidia);
+            salvamento.incluirMidia(novaMidia);
+
             try {
                  SerializadorTpoo.salvarMidia(novaMidia);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+            } catch (IOException excecao) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + excecao.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
-            System.out.println(">>> Caminho completo utilizado na mídia: " + novaMidia.getCaminho());
+            homePage.limparPainelDireito();
             homePage.atualizarTabela();//adicionei isso para atualizar a tabela de midias na home page
             return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (Exception excecao) {
+            JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
             return false;
         }
     }
@@ -72,37 +74,39 @@ public class ExploradorDeArquivos {
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo,
                                   Genero genero, String autorOuArtista, boolean eLivro) throws CampoMenorOuIgualAZeroExcecao, CampoVazioOuNuloExcecao {
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
-        modelo.Midias.Midia novaMidia = null;
+        modelo.midias.Midia novaMidia = null;
 
         try {
             novaMidia = eLivro
                     ? new Livro(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, autorOuArtista)
                     : new Musica(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, autorOuArtista);
         } catch (CampoVazioOuNuloExcecao excecao) {
-            JOptionPane.showMessageDialog(null, excecao.getMessage(), "Campo vazio", JOptionPane.WARNING_MESSAGE);
+            JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
         } catch (CampoMenorOuIgualAZeroExcecao excecao) {
-            JOptionPane.showMessageDialog(null, excecao.getMessage(),  "Campo menor ou igual a zero", JOptionPane.WARNING_MESSAGE);
+            JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
         }
 
         File arquivoNovo = new File(caminhoCompleto);
 
         try {
             if (arquivoNovo.exists() && !confirmarSubstituicaoArquivo()) {
-                JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                JOptionPaneUtil.mostrarMensagemErro("Ação cancelada!");
                 return false;
             }
 
-            sv.incluirMidia(novaMidia);
-            homePage.atualizarTabela();
+            salvamento.incluirMidia(novaMidia);
+
             try {
                 SerializadorTpoo.salvarMidia(novaMidia);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar mídia.\n" + e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+            } catch (IOException excecao) {
+                JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
             }
 
+            homePage.limparPainelDireito();
+            homePage.atualizarTabela();
             return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao salvar mídia.\n" + e.getMessage(),  JOptionPane.WARNING_MESSAGE);
+        } catch (Exception excecao) {
+           JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
             return false;
         }
     }
@@ -110,29 +114,31 @@ public class ExploradorDeArquivos {
     // ==============================================
     // ALTERAÇÃO DE MÍDIAS
     // ==============================================
-    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
+    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Genero genero,
                                 ETipoArquivo eTipoArquivo, Idioma idioma)
-            throws ArquivoNaoExisteExcecao {
+            throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
 
         try {
-            if (!Utilitario.arquivoExiste(caminhoArquivo)) {
+            if (!ExcecaoUtil.arquivoExiste(caminhoArquivo)) {
                 throw new ArquivoNaoExisteExcecao();
             }
 
             File arquivo = new File(caminhoArquivo);
-            modelo.Midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
+            modelo.midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
 
             if (!(midiaAlterando instanceof Filme filmeAlterando)) {
                 return false; // não é um filme, ignora
             }
 
+            filmeAlterando.setGenero(genero);
             filmeAlterando.setTamanho(tamanho);
             filmeAlterando.setDuracao(duracao);
             filmeAlterando.setTipoArquivo(eTipoArquivo);
             filmeAlterando.setIdioma(idioma);
 
+            salvamento.atualizarMidia(filmeAlterando);
             SerializadorTpoo.salvarMidia(filmeAlterando);
-            sv.atualizarMidia(filmeAlterando);
+
             homePage.atualizarTabela();
             return true;
 
@@ -142,60 +148,66 @@ public class ExploradorDeArquivos {
     }
 
 
-    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao,
+    public boolean alterarMidia(String caminhoArquivo, float tamanho, double duracao, Genero genero,
                                 ETipoArquivo eTipoArquivo, String autorOuArtista, boolean eLivro)
-            throws ArquivoNaoExisteExcecao {
+            throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
 
         try {
-            if (!Utilitario.arquivoExiste(caminhoArquivo)) {
+            if (!ExcecaoUtil.arquivoExiste(caminhoArquivo)) {
                 throw new ArquivoNaoExisteExcecao();
             }
 
             File arquivo = new File(caminhoArquivo);
-            modelo.Midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
+            modelo.midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
 
             if (eLivro && midiaAlterando instanceof Livro livroAlterando) {
+                livroAlterando.setGenero(genero);
                 livroAlterando.setTamanho(tamanho);
                 livroAlterando.setDuracao(duracao);
                 livroAlterando.setAutor(autorOuArtista);
                 livroAlterando.setTipoArquivo(eTipoArquivo);
 
                 SerializadorTpoo.salvarMidia(livroAlterando);
-                sv.atualizarMidia(livroAlterando);
+                salvamento.atualizarMidia(livroAlterando);
                 homePage.atualizarTabela();
                 return true;
 
-            } else if (!eLivro && midiaAlterando instanceof modelo.Midias.Musica musicaAlterando) {
+            } else if (!eLivro && midiaAlterando instanceof modelo.midias.Musica musicaAlterando) {
+                musicaAlterando.setGenero(genero);
                 musicaAlterando.setTamanho(tamanho);
                 musicaAlterando.setDuracao(duracao);
                 musicaAlterando.setArtista(autorOuArtista);
                 musicaAlterando.setTipoArquivo(eTipoArquivo);
 
                 SerializadorTpoo.salvarMidia(musicaAlterando);
-                sv.atualizarMidia(musicaAlterando);
+                salvamento.atualizarMidia(musicaAlterando);
+
+                homePage.limparPainelDireito();
                 homePage.atualizarTabela();
                 return true;
             }
 
             return false; // tipo incompatível
 
-        } catch (IOException e) {
-            throw new RuntimeException("Erro ao atualizar o arquivo: " + e.getMessage(), e);
+        } catch (IOException excecao) {
+            throw new RuntimeException("Erro ao atualizar o arquivo: " + excecao.getMessage(), excecao);
         }
     }
 
     // ==============================================
     // EXCLUIR
     // ==============================================
-    public boolean excluirMidia(modelo.Midias.Midia midia) {
+    public boolean excluirMidia(Midia midia) {
         try {
             Path caminho = Paths.get(midia.getCaminho());
             Files.deleteIfExists(caminho);
-            sv.removerMidia(midia);
+            salvamento.removerMidia(midia);
+
+            homePage.limparPainelDireito();
             homePage.atualizarTabela();
             return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao tentar excluir mídia:\n" + e.getMessage(), "Erro na exclusão",  JOptionPane.WARNING_MESSAGE);
+        } catch (Exception excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
             return false;
         }
     }
@@ -203,36 +215,47 @@ public class ExploradorDeArquivos {
     // ==============================================
     // RENOMEAR
     // ==============================================
-    public boolean renomearMidia(modelo.Midias.Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
-        if (Utilitario.arquivoExiste(midia.getCaminho())) {
+    public boolean renomearMidia(Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
+        if (!ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
+            return false;
+        }
+        try {
             File arquivo = new File(midia.getCaminho());
             File novoNome = new File(arquivo.getParent(), novoNomeString + ".tpoo");
 
-            if (arquivo.renameTo(novoNome)) {
-                midia.setCaminho(novoNome.getAbsolutePath());
-                homePage.atualizarTabela();
-                return true;
-            }
+            Files.move(arquivo.toPath(), novoNome.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            midia.setCaminho(novoNome.getAbsolutePath());
+            midia.setNome(novoNomeString);
+
+            homePage.limparPainelDireito();
+            homePage.atualizarTabela();
+            return true;
+
+        } catch (IOException e) {
+            return false;
         }
-        return false;
     }
+
 
     // ==============================================
     // MOVER
     // ==============================================
-    public boolean moverMidia(modelo.Midias.Midia midia, String novoCaminhoString)
+    public boolean moverMidia(Midia midia, String novoCaminhoString)
             throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao {
-        if (Utilitario.arquivoExiste(midia.getCaminho())) {
+        if (ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
             File arquivo = new File(midia.getCaminho());
             File novoCaminho = new File(novoCaminhoString, midia.getNome() + ".tpoo");
 
             if (novoCaminho.exists() && !confirmarSubstituicaoArquivo()) {
-                JOptionPane.showMessageDialog(null, "Ação cancelada.");
+                JOptionPaneUtil.mostrarMensagemErro("Ação cancelada!");
                 return false;
             }
 
             arquivo.renameTo(novoCaminho);
             midia.setCaminho(novoCaminho.getAbsolutePath());
+            homePage.limparPainelDireito();
+            homePage.atualizarTabela();
             return true;
         }
         return false;
@@ -243,8 +266,10 @@ public class ExploradorDeArquivos {
     // ==============================================
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
-        modelo.Midias.Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
-        sv.incluirMidia(novaMidia);
+        modelo.midias.Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
+        salvamento.incluirMidia(novaMidia);
+        homePage.limparPainelDireito();
+        homePage.atualizarTabela();
         return false;
     }
 
@@ -291,31 +316,42 @@ public class ExploradorDeArquivos {
     // ===============================================
     // FILTROS DE MÍDIAS
     // ===============================================
-    public List<modelo.Midias.Midia> filtrarMidias (String generoFiltrar, ETipoArquivo eTipoArquivo){
-        List<modelo.Midias.Midia> filtradas = new ArrayList<>();
+    public List<Midia> filtrarMidias(String generoFiltrar, String tipoFiltrar) {
 
-        for (modelo.Midias.Midia m : sv.getMidias()) {
-            if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo() == ETipoArquivo.TODOS) {
-                return sv.getMidias();
-            } else if (m.getGenero().getNome().equalsIgnoreCase(generoFiltrar) && m.getTipoArquivo() == ETipoArquivo.TODOS) {
-                filtradas.add(m);
-            } else if (generoFiltrar.equalsIgnoreCase("TODOS") && m.getTipoArquivo() == eTipoArquivo) {
-                filtradas.add(m);
-            } else if (m.getGenero().getNome().equals(generoFiltrar) && m.getTipoArquivo() == eTipoArquivo) {
+        List<Midia> filtradas = new ArrayList<>();
+
+        for (Midia m : salvamento.getMidias()) {
+
+            boolean generoOK = generoFiltrar.equalsIgnoreCase("TODOS")
+                    || m.getGenero().getNome().equalsIgnoreCase(generoFiltrar);
+
+            boolean tipoOK = tipoFiltrar.equalsIgnoreCase("TODOS")
+                    || m.getTipoArquivo().name().equalsIgnoreCase(tipoFiltrar);
+
+            if (generoOK && tipoOK) {
                 filtradas.add(m);
             }
         }
+
         return filtradas;
     }
 
-    public List<modelo.Midias.Midia> ordenarMidiasPorNome (List <modelo.Midias.Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(modelo.Midias.Midia::getNome));
+    public List<modelo.midias.Midia> ordenarMidiasPorNome (List <modelo.midias.Midia> listaMidias) {
+        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getNome));
         return listaMidias;
     }
 
-    public List<modelo.Midias.Midia> ordenarMidiaPorTamanho (List <modelo.Midias.Midia> listaMidias) {
+    public List<modelo.midias.Midia> ordenarMidiaPorTamanho (List <modelo.midias.Midia> listaMidias) {
         // O comparing chama o getTamanho() e use o valor retornado para comparar
-        listaMidias.sort(Comparator.comparing(modelo.Midias.Midia::getTamanho));
+        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getTamanho));
         return listaMidias;
+    }
+
+    public Salvamento getSalvamento() {
+        return salvamento;
+    }
+
+    public void exploradorLimparPainelDireito() {
+        homePage.limparPainelDireito();
     }
 }
