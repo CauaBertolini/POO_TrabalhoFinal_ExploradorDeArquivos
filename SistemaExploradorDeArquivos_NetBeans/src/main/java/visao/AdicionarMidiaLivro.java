@@ -247,16 +247,4 @@ public class AdicionarMidiaLivro extends JPanel {
         explorador.exploradorLimparPainelDireito();
     }
 
-    // -------------------------
-    // MÉTODOS AUXILIARES
-    // -------------------------
-    private void limparCampos() {
-        campoCaminho.setText("");
-        campoNome.setText("");
-        campoAutor.setText("");
-        campoTamanho.setText("");
-        campoPaginas.setText("");
-        comboBoxGenero.setSelectedItem(null);
-        comboBoxTipoArquivo.setSelectedItem(null);
-    }
 }
