@@ -5,7 +5,6 @@ public enum ETipoArquivo {
     MKV,
     MP3,
     PDF,
-    EPUB,
-    TODOS
+    EPUB
 
 }

@@ -34,6 +34,12 @@ public class Salvamento {
 
     public boolean atualizarMidia(Midia midia) {
         try {
+            for (int i = 0; i < midias.size(); i++) {
+                if (midias.get(i).getCaminho().equalsIgnoreCase(midia.getCaminho())) {
+                    midias.set(i, midia);
+                    return true;
+                }
+            }
             return false;
         } catch (Exception e) {
             return false;

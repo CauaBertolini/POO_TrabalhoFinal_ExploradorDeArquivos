@@ -7,189 +7,260 @@ import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
 import util.ComboUtil;
+import util.JOptionPaneUtil;
 
 import javax.swing.*;
 
-public class AdicionarMidiaMusica extends javax.swing.JPanel {
+public class AdicionarMidiaMusica extends JPanel {
 
     private ExploradorDeArquivos explorador;
     private Listas lista;
     private String caminho;
 
+    private JLabel jLabelTitulo;
+    private JLabel jLabelCaminho;
+    private JLabel jLabelTituloMusica;
+    private JLabel jLabelArtista;
+    private JLabel jLabelTamanho;
+    private JLabel jLabelDuracao;
+    private JLabel jLabelGenero;
+    private JLabel jLabelTipo;
+    private JLabel jLabelIdioma;
+
+    private JTextField campoCaminho;
+    private JTextField campoTitulo;
+    private JTextField campoArtista;
+    private JTextField campoTamanho;
+    private JTextField campoDuracao;
+
+    private JComboBox<Genero> comboBoxGenero;
+    private JComboBox<Idioma> comboBoxIdioma;
+    private JComboBox<ETipoArquivo> comboBoxTipoArquivo;
+
+    private JButton botaoProcurar;
+    private JButton botaoCancelar;
+    private JButton botaoCadastrar;
+
     public AdicionarMidiaMusica(ExploradorDeArquivos explorador) {
         initComponents();
-        this.explorador = explorador ;
-        lista = new Listas();
+        this.explorador = explorador;
+        this.lista = new Listas();
 
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.MUSICAL);
         ComboUtil.carregarTipoArquivoMusica(comboBoxTipoArquivo);
-        ComboUtil.carregarIdioma(comboIdioma);
+        ComboUtil.carregarIdioma(comboBoxIdioma);
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        setBackground(new java.awt.Color(204, 204, 204));
+        // --- Ajustes de Padrão ---
+        setBackground(new java.awt.Color(247, 247, 255));
+        setBorder(BorderFactory.createLineBorder(new java.awt.Color(220, 220, 255)));
 
-        jLabelTitulo = new javax.swing.JLabel("Cadastro de Musica");
-        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18));
-        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo = new JLabel("Cadastro de Música");
+        // Fonte do título padronizada
+        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22));
+        jLabelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        jLabelCaminho = new javax.swing.JLabel("Caminho do Arquivo");
-        jLabelTituloMusica = new javax.swing.JLabel("Título");
-        jLabelArtista = new javax.swing.JLabel("Artista");
-        jLabelTamanho = new javax.swing.JLabel("Tamanho arquivo (MB)");
-        jLabelDuracao = new javax.swing.JLabel("Duração da Música");
-        jLabelGenero = new javax.swing.JLabel("Gênero");
-        jLabelTipo = new javax.swing.JLabel("Tipo Arquivo");
-        jLabelIdioma = new javax.swing.JLabel("Idioma");
+        // --- Nomes dos Rótulos (Labels) ---
+        jLabelCaminho = new JLabel("Caminho do Arquivo:");
+        jLabelTituloMusica = new JLabel("Título:");
+        jLabelArtista = new JLabel("Artista:");
+        jLabelTamanho = new JLabel("Tamanho (MB):");
+        jLabelDuracao = new JLabel("Duração:");
+        jLabelGenero = new JLabel("Gênero:");
+        jLabelTipo = new JLabel("Tipo de Arquivo:");
+        jLabelIdioma = new JLabel("Idioma:");
 
-        campoCaminho = new javax.swing.JTextField();
-        campoTitulo = new javax.swing.JTextField();
-        campoArtista = new javax.swing.JTextField();
-        campoTamanho = new javax.swing.JTextField();
-        campoDuracao = new javax.swing.JTextField();
+        campoCaminho = new JTextField();
+        campoTitulo = new JTextField();
+        campoArtista = new JTextField();
+        campoTamanho = new JTextField();
+        campoDuracao = new JTextField();
 
-        comboBoxGenero = new javax.swing.JComboBox<>();
-        comboIdioma = new javax.swing.JComboBox<>();
-        comboBoxTipoArquivo = new javax.swing.JComboBox<>();
+        comboBoxGenero = new JComboBox<>();
+        comboBoxIdioma = new JComboBox<>();
+        comboBoxTipoArquivo = new JComboBox<>();
 
-        botaoProcurar = new javax.swing.JButton("Procurar");
-        botaoCancelar = new javax.swing.JButton("Cancelar");
-        botaoCadastrar = new javax.swing.JButton("Cadastrar");
+        botaoProcurar = new JButton("Procurar");
+        // Fonte do botão "Procurar" reduzida
+        botaoProcurar.setFont(botaoProcurar.getFont().deriveFont(11f));
+        botaoCancelar = new JButton("Cancelar");
+        botaoCadastrar = new JButton("Cadastrar");
 
+        botaoProcurar.addActionListener(evt -> botaoProcurarAcao());
+        botaoCancelar.addActionListener(evt -> botaoCancelarAcao());
+        botaoCadastrar.addActionListener(evt -> botaoCadastrarAcao());
 
-        botaoProcurar.addActionListener((evt) -> {
-            String selecionado = explorador.abrirSeletorDeDiretorio();
+        // -------------------- LAYOUT REFORMATADO --------------------
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
 
-            if (selecionado != null) {
-                caminho = selecionado;
-                campoCaminho.setText(selecionado);
-            }
-        });
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
 
-
-        botaoCancelar.addActionListener((evt) -> {
-            limparCampos();
-        });
-
-        botaoCadastrar.addActionListener((evt) -> {
-            botaoCadastrarActionPerformed();
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-
+        // --- Layout Horizontal (Com centralização) ---
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                        // Título centralizado
+                        .addComponent(jLabelTitulo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
+                        // Grupo do formulário (centralizado com "molas")
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                // Coluna 1: Rótulos
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabelCaminho)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(campoCaminho, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(botaoProcurar))
                                         .addComponent(jLabelTituloMusica)
-                                        .addComponent(campoTitulo)
                                         .addComponent(jLabelArtista)
-                                        .addComponent(campoArtista)
                                         .addComponent(jLabelTamanho)
-                                        .addComponent(campoTamanho)
                                         .addComponent(jLabelDuracao)
-                                        .addComponent(campoDuracao)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabelGenero)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(comboBoxGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabelTipo)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(comboBoxTipoArquivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabelIdioma)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(comboIdioma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(botaoCancelar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())
-        );
-
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(15)
-                                .addComponent(jLabelTitulo)
-                                .addGap(20)
-                                .addComponent(jLabelCaminho)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(campoCaminho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botaoProcurar))
-                                .addGap(10)
-                                .addComponent(jLabelTituloMusica)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoTitulo)
-                                .addGap(10)
-                                .addComponent(jLabelArtista)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoArtista)
-                                .addGap(10)
-                                .addComponent(jLabelTamanho)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoTamanho)
-                                .addGap(10)
-                                .addComponent(jLabelDuracao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoDuracao)
-                                .addGap(10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelGenero)
-                                        .addComponent(comboBoxGenero))
-                                .addGap(10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelTipo)
-                                        .addComponent(comboBoxTipoArquivo))
-                                .addGap(10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabelIdioma)
-                                        .addComponent(comboIdioma))
-                                .addGap(20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())
+                                )
+                                .addGap(10) // Espaço entre colunas
+                                // Coluna 2: Campos de Entrada
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        // Caso especial: Campo + Botão
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(campoCaminho, 180, 180, 180)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botaoProcurar, 80, 80, 80)
+                                        )
+                                        .addComponent(campoTitulo, 200, 200, 270)
+                                        .addComponent(campoArtista, 200, 200, 270)
+                                        .addComponent(campoTamanho, 200, 200, 270)
+                                        .addComponent(campoDuracao, 200, 200, 270)
+                                        .addComponent(comboBoxGenero, 200, 200, 270)
+                                        .addComponent(comboBoxTipoArquivo, 200, 200, 270)
+                                        .addComponent(comboBoxIdioma, 200, 200, 270)
+                                )
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
+                        )
+
+                        // Grupo dos botões (centralizado com "molas")
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                .addComponent(botaoCancelar, 110, 120, 150)
+                                .addGap(8)
+                                .addComponent(botaoCadastrar, 110, 120, 150)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
+                        )
+        );
+
+        // --- Layout Vertical (Linha por Linha) ---
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addGap(20)
+                        .addComponent(jLabelTitulo)
+                        .addGap(25)
+
+                        // Linha 1: Caminho
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelCaminho)
+                                .addComponent(campoCaminho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 2: Título
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelTituloMusica)
+                                .addComponent(campoTitulo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 3: Artista
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelArtista)
+                                .addComponent(campoArtista, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 4: Tamanho
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelTamanho)
+                                .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 5: Duração
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelDuracao)
+                                .addComponent(campoDuracao, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 6: Gênero
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelGenero)
+                                .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 7: Tipo de Arquivo
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelTipo)
+                                .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
+
+                        // Linha 8: Idioma
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelIdioma)
+                                .addComponent(comboBoxIdioma, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(40) // Espaço antes dos botões
+
+                        // Linha 9: Botões
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botaoCadastrar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(20) // Espaço no final
         );
     }
-    public void botaoCadastrarActionPerformed(){
-        String titulo = campoTitulo.getText();
-        String artista = campoArtista.getText();
 
-        float tamanho = Float.parseFloat(campoTamanho.getText());
-        double duracao = Double.parseDouble(campoDuracao.getText());
-        Genero genero = (Genero) comboBoxGenero.getSelectedItem();
-        ETipoArquivo tipo = (ETipoArquivo) comboBoxTipoArquivo.getSelectedItem();
-
-        explorador.criarNovaMidia(caminho, titulo, tamanho, duracao,tipo, genero, artista, false);
-        JOptionPane.showMessageDialog(this, "Musica cadastrado com sucesso!");
-        limparCampos();
+    // -------------------------
+    // MÉTODOS DE AÇÃO
+    // -------------------------
+    private void botaoProcurarAcao() {
+        String selecionado = explorador.abrirSeletorDeDiretorio();
+        if (selecionado != null) {
+            caminho = selecionado;
+            campoCaminho.setText(selecionado);
+        }
     }
-    private  void limparCampos() {
+
+    private void botaoCadastrarAcao() {
+        try {
+            String titulo = campoTitulo.getText();
+            String artista = campoArtista.getText();
+            float tamanho = Float.parseFloat(campoTamanho.getText());
+            double duracao = Double.parseDouble(campoDuracao.getText());
+            Genero genero = (Genero) comboBoxGenero.getSelectedItem();
+            ETipoArquivo tipo = (ETipoArquivo) comboBoxTipoArquivo.getSelectedItem();
+            Idioma idioma = (Idioma) comboBoxIdioma.getSelectedItem();
+
+            explorador.criarNovaMidia(caminho, titulo, tamanho, duracao, tipo, genero, artista, false);
+
+            JOptionPaneUtil.mostrarMensagemSucesso("Música cadastrada com sucesso!");
+            explorador.exploradorLimparPainelDireito();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar música:\n" + e.getMessage());
+        }
+    }
+
+    private void botaoCancelarAcao() {
+        explorador.exploradorLimparPainelDireito();
+    }
+
+    // -------------------------
+    // MÉTODOS AUXILIARES
+    // -------------------------
+    private void limparCampos() {
         campoCaminho.setText("");
         campoTitulo.setText("");
         campoArtista.setText("");
         campoTamanho.setText("");
         campoDuracao.setText("");
+        comboBoxGenero.setSelectedItem(null);
+        comboBoxTipoArquivo.setSelectedItem(null);
+        comboBoxIdioma.setSelectedItem(null);
     }
-
-    // Variables
-    private javax.swing.JLabel jLabelTitulo, jLabelCaminho, jLabelTituloMusica, jLabelArtista, jLabelTamanho, jLabelDuracao, jLabelGenero, jLabelTipo, jLabelIdioma;
-    private javax.swing.JTextField campoCaminho, campoTitulo, campoArtista, campoTamanho, campoDuracao;
-    private javax.swing.JComboBox<Genero> comboBoxGenero;
-    private javax.swing.JComboBox<Idioma> comboIdioma;
-    private javax.swing.JComboBox<ETipoArquivo> comboBoxTipoArquivo;
-    private javax.swing.JButton botaoProcurar, botaoCancelar, botaoCadastrar;
 }

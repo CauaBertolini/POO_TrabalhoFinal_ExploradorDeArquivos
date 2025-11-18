@@ -1,19 +1,40 @@
 package visao;
 
 import controle.ExploradorDeArquivos;
-import modelo.Salvamento;
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
-import javax.swing.*;
 import modelo.Genero;
 import modelo.Listas;
-import modelo.Midias.Livro;
 import util.ComboUtil;
+
+import javax.swing.*;
 
 public class AdicionarMidiaLivro extends JPanel {
 
     private ExploradorDeArquivos explorador;
     private Listas listas;
+
+    private JLabel jLabelTitulo;
+    private JLabel jLabelCaminho;
+    private JLabel jLabelNome;
+    private JLabel jLabelTamanho;
+    private JLabel jLabelPaginas;
+    private JLabel jLabelAutor;
+    private JLabel jLabelGenero;
+    private JLabel jLabelTipoArquivo;
+
+    private JTextField campoCaminho;
+    private JTextField campoNome;
+    private JTextField campoAutor;
+    private JTextField campoTamanho;
+    private JTextField campoPaginas;
+
+    private JComboBox<Genero> comboBoxGenero;
+    private JComboBox<ETipoArquivo> comboBoxTipoArquivo;
+
+    private JButton botaoCadastrar;
+    private JButton botaoCancelar;
+    private JButton botaoProcurar;
 
     public AdicionarMidiaLivro(ExploradorDeArquivos explorador) {
         initComponents();
@@ -49,12 +70,16 @@ public class AdicionarMidiaLivro extends JPanel {
         botaoCancelar = new JButton();
         botaoProcurar = new JButton();
 
-        setBackground(new java.awt.Color(230, 230, 230));
+        // --- Ajustes de Padrão ---
+        setBackground(new java.awt.Color(247, 247, 255));
+        setBorder(BorderFactory.createLineBorder(new java.awt.Color(220, 220, 255)));
 
-        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        // Fonte do título padronizada
+        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22));
         jLabelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelTitulo.setText("Cadastro de Livro");
 
+        // --- Nomes dos Rótulos (Labels) ---
         jLabelCaminho.setText("Caminho do Arquivo:");
         jLabelNome.setText("Título do Livro:");
         jLabelTamanho.setText("Tamanho (MB):");
@@ -64,116 +89,141 @@ public class AdicionarMidiaLivro extends JPanel {
         jLabelTipoArquivo.setText("Tipo de Arquivo:");
 
         botaoProcurar.setText("Procurar");
-        //botao procurar que serve para preencher o campo do caminho
-        botaoProcurar.addActionListener(evt -> {
-            String caminho = explorador.abrirSeletorDeDiretorio();
-            if (caminho != null) {campoCaminho.setText(caminho);}
-        });
+        // Fonte do botão "Procurar" reduzida
+        botaoProcurar.setFont(botaoProcurar.getFont().deriveFont(11f));
+        botaoProcurar.addActionListener(evt -> botaoProcurarAcao());
 
         botaoCadastrar.setText("Cadastrar");
-        botaoCadastrar.addActionListener(evt -> cadastrarLivro());
+        botaoCadastrar.addActionListener(evt -> botaoCadastrarAcao());
 
         botaoCancelar.setText("Cancelar");
-        botaoCancelar.addActionListener(evt -> limparCampos());
+        botaoCancelar.addActionListener(evt -> botaoCancelarAcao());
 
-
-        // -------------------- GROUPLAYOUT COMPLETO --------------------
+        // -------------------- LAYOUT REFORMATADO --------------------
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
 
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        // --- Layout Horizontal (Com centralização) ---
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                        // Título centralizado
+                        .addComponent(jLabelTitulo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
+                        // Grupo do formulário (centralizado com "molas")
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                // Coluna 1: Rótulos
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelTitulo, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-
                                         .addComponent(jLabelCaminho)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(campoCaminho)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                                        )
-
                                         .addComponent(jLabelNome)
-                                        .addComponent(campoNome)
-
                                         .addComponent(jLabelAutor)
-                                        .addComponent(campoAutor)
-
                                         .addComponent(jLabelTamanho)
-                                        .addComponent(campoTamanho)
-
                                         .addComponent(jLabelPaginas)
-                                        .addComponent(campoPaginas)
-
                                         .addComponent(jLabelGenero)
-                                        .addComponent(comboBoxGenero)
-
                                         .addComponent(jLabelTipoArquivo)
-                                        .addComponent(comboBoxTipoArquivo)
-
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(20, 20, 20)
-                                                .addComponent(botaoCadastrar, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-                                        )
                                 )
-                                .addGap(30, 30, 30)
+                                .addGap(10) // Espaço entre colunas
+                                // Coluna 2: Campos de Entrada
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        // Caso especial: Campo + Botão
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(campoCaminho, 180, 180, 180)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botaoProcurar, 80, 80, 80)
+                                        )
+                                        .addComponent(campoNome, 200, 200, 270)
+                                        .addComponent(campoAutor, 200, 200, 270)
+                                        .addComponent(campoTamanho, 200, 200, 270)
+                                        .addComponent(campoPaginas, 200, 200, 270)
+                                        .addComponent(comboBoxGenero, 200, 200, 270)
+                                        .addComponent(comboBoxTipoArquivo, 200, 200, 270)
+                                )
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
+                        )
+
+                        // Grupo dos botões (centralizado com "molas")
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                .addComponent(botaoCancelar, 110, 120, 150)
+                                .addGap(8)
+                                .addComponent(botaoCadastrar, 110, 120, 150)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
         );
 
+        // --- Layout Vertical (Linha por Linha) ---
         layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabelTitulo)
-                                .addGap(20, 20, 20)
+                layout.createSequentialGroup()
+                        .addGap(20)
+                        .addComponent(jLabelTitulo)
+                        .addGap(25)
 
+                        // Linha 1: Caminho
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelCaminho)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(campoCaminho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                )
-                                .addGap(15, 15, 15)
+                                .addComponent(campoCaminho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
 
+                        // Linha 2: Nome (Título do Livro)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelNome)
-                                .addComponent(campoNome, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
+                                .addComponent(campoNome, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
 
+                        // Linha 3: Autor
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelAutor)
-                                .addComponent(campoAutor, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
+                                .addComponent(campoAutor, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
 
+                        // Linha 4: Tamanho
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelTamanho)
-                                .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
+                                .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
 
+                        // Linha 5: Páginas
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelPaginas)
-                                .addComponent(campoPaginas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
+                                .addComponent(campoPaginas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
 
+                        // Linha 6: Gênero
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelGenero)
-                                .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
+                                .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(10)
 
+                        // Linha 7: Tipo de Arquivo
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelTipoArquivo)
-                                .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
+                                .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(40) // Espaço antes dos botões
 
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botaoCadastrar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                                )
-
-                                .addContainerGap(40, Short.MAX_VALUE)
-                        )
+                        // Linha 8: Botões
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botaoCadastrar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                        .addGap(20) // Espaço no final
         );
     }
 
+    // -------------------------
+    // MÉTODOS DE AÇÃO
+    // -------------------------
+    private void botaoProcurarAcao() {
+        String caminhoSelecionado = explorador.abrirSeletorDeDiretorio();
+        if (caminhoSelecionado != null) {
+            campoCaminho.setText(caminhoSelecionado);
+        }
+    }
 
-    private void cadastrarLivro() {
+    private void botaoCadastrarAcao() {
         try {
             String caminho = campoCaminho.getText();
             String nome = campoNome.getText();
@@ -183,46 +233,30 @@ public class AdicionarMidiaLivro extends JPanel {
             Genero genero = (Genero) comboBoxGenero.getSelectedItem();
             ETipoArquivo tipo = (ETipoArquivo) comboBoxTipoArquivo.getSelectedItem();
 
-            explorador.criarNovaMidia(caminho, nome, tamanho, paginas,tipo, genero, autor, true);
-
+            explorador.criarNovaMidia(caminho, nome, tamanho, paginas, tipo, genero, autor, true);
 
             JOptionPane.showMessageDialog(this, "Livro cadastrado com sucesso!");
-
-            limparCampos();
+            explorador.exploradorLimparPainelDireito();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar livro:\n" + e.getMessage());
         }
     }
 
+    private void botaoCancelarAcao() {
+        explorador.exploradorLimparPainelDireito();
+    }
+
+    // -------------------------
+    // MÉTODOS AUXILIARES
+    // -------------------------
     private void limparCampos() {
         campoCaminho.setText("");
         campoNome.setText("");
         campoAutor.setText("");
         campoTamanho.setText("");
         campoPaginas.setText("");
+        comboBoxGenero.setSelectedItem(null);
+        comboBoxTipoArquivo.setSelectedItem(null);
     }
-
-    // Componentes (iguais ao anterior)
-    private JButton botaoCadastrar;
-    private JButton botaoCancelar;
-    private JButton botaoProcurar;
-
-    private JTextField campoCaminho;
-    private JTextField campoNome;
-    private JTextField campoAutor;
-    private JTextField campoTamanho;
-    private JTextField campoPaginas;
-
-    private JComboBox<Genero> comboBoxGenero;
-    private JComboBox<ETipoArquivo> comboBoxTipoArquivo;
-
-    private JLabel jLabelTitulo;
-    private JLabel jLabelCaminho;
-    private JLabel jLabelNome;
-    private JLabel jLabelTamanho;
-    private JLabel jLabelPaginas;
-    private JLabel jLabelAutor;
-    private JLabel jLabelGenero;
-    private JLabel jLabelTipoArquivo;
 }
