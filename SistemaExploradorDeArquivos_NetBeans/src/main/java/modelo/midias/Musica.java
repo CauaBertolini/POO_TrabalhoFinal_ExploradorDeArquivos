@@ -34,6 +34,17 @@ public class Musica extends modelo.midias.Midia {
             this.artista = artista;
         }
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome da Musica: ").append(getNome()).append("\n");
+        sb.append("Tamanho da Musica: ").append(getTamanho()).append("\n");
+        sb.append("Duração da Musica: ").append(getDuracao()).append("\n");
+        sb.append("Caminho da Musica: ").append(getCaminho()).append("\n");
+        sb.append("Gênero da Musica: ").append(getGenero()).append("\n");
+        sb.append("Tipo do Arquivo Musica: ").append(getTipoArquivo()).append("\n");
+        return sb.toString();
+    }
 
 
 

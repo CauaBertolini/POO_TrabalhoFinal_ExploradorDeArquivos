@@ -35,5 +35,18 @@ public class Filme extends modelo.midias.Midia {
         }
         this.idioma = idioma;
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome do Filme: ").append(getNome()).append("\n");
+        sb.append("Idioma: ").append(getIdioma()).append("\n");
+        sb.append("Tamanho do Filme: ").append(getTamanho()).append("\n");
+        sb.append("Duração do Filme: ").append(getDuracao()).append("\n");
+        sb.append("Caminho do Filme: ").append(getCaminho()).append("\n");
+        sb.append("Gênero do Filme: ").append(getGenero()).append("\n");
+        sb.append("Tipo do Arquivo Filme: ").append(getTipoArquivo()).append("\n");
+        return sb.toString();
+    }
+
 
 }

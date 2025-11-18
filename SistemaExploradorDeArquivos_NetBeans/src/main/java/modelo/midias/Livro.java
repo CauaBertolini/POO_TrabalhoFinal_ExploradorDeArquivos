@@ -36,6 +36,17 @@ public class Livro extends modelo.midias.Midia {
             this.autor = autor;
         }
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome do Livro: ").append(getNome()).append("\n");
+        sb.append("Tamanho do Livro: ").append(getTamanho()).append("\n");
+        sb.append("Duração do Livro: ").append(getDuracao()).append("\n");
+        sb.append("Caminho do Livro: ").append(getCaminho()).append("\n");
+        sb.append("Gênero do Livro: ").append(getGenero()).append("\n");
+        sb.append("Tipo do Arquivo Livro: ").append(getTipoArquivo()).append("\n");
+        return sb.toString();
+    }
 
 
 }
