@@ -47,8 +47,8 @@ public class AdicionarMidiaMusica extends JPanel {
         this.lista = new Listas();
 
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.MUSICAL);
-        ComboUtil.carregarTipoArquivoMusica(comboBoxTipoArquivo);
-        ComboUtil.carregarIdioma(comboBoxIdioma);
+        ComboUtil.carregarTiposArquivosMusica(comboBoxTipoArquivo);
+        ComboUtil.carregarIdiomas(comboBoxIdioma);
     }
 
     @SuppressWarnings("unchecked")

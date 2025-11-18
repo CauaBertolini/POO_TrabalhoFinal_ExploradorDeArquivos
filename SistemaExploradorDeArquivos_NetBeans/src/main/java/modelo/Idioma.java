@@ -8,7 +8,7 @@ import util.ExcecaoUtil;
  * A classe contém apenas o nome do idioma.
  */
 public class Idioma {
-    String nome;
+    private String nome;
 
     /**
      * Cria um novo idioma com o nome informado.

@@ -39,9 +39,9 @@ public class EditarMidiaFilme extends JPanel {
         initComponents();
         this.filme = (Filme) midiaSelecionada;
 
-        ComboUtil.carregarTipoArquivoFilme(comboBoxTipoArquivo);
+        ComboUtil.carregarTiposArquivosFilme(comboBoxTipoArquivo);
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.CINEMA);
-        ComboUtil.carregarIdioma(comboBoxIdioma);
+        ComboUtil.carregarIdiomas(comboBoxIdioma);
         carregarDadosMidia();
     }
 

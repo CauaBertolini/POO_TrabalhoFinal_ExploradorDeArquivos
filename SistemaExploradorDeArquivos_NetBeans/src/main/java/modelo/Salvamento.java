@@ -79,32 +79,6 @@ public class Salvamento {
         }
     }
 
-    /**
-     * Atualiza o caminho de uma mídia já cadastrada, substituindo o caminho antigo
-     * pelo novo caminho informado.
-     * <p>
-     * O método percorre a lista de mídias e procura aquela cujo caminho atual
-     * corresponda ao {@code caminhoAntigo}. Quando encontrada, seu caminho é
-     * atualizado para {@code caminhoNovo}.
-     *
-     * @param caminhoAntigo o caminho atual da mídia que deve ser atualizado.
-     * @param caminhoNovo   o novo caminho que será atribuído à mídia.
-     * @return {@code true} se o caminho foi atualizado com sucesso;
-     * {@code false} se ocorrer algum erro durante o processo.
-     */
-    public boolean atualizarCaminho(String caminhoAntigo, String caminhoNovo) {
-        try {
-            for (Midia m : getMidias()) {
-                if (m.getCaminho().equalsIgnoreCase(caminhoAntigo)) {
-                    m.setCaminho(caminhoNovo);
-                }
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public List<Midia> getMidias() {
         return midias;
     }
