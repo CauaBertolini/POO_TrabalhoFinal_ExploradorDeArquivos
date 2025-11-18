@@ -29,9 +29,10 @@ public class MoverMidia extends JPanel {
 
     private void initComponents() {
 
-        // ---------- COMPONENTES (Sem alteração) ----------
+        // ---------- COMPONENTES (Inicialização) ----------
         lblTitulo = new JLabel("Movendo Mídia");
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        // Ajuste: Tamanho da fonte para 22 (igual ao Renomear)
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
         lblInforme = new JLabel("Informe para onde quer mover");
@@ -48,72 +49,71 @@ public class MoverMidia extends JPanel {
         botaoConfirmar.addActionListener(evt -> botaoConfirmarAcao());
 
 
-        // ---------- 1. PAINEL DE CONTEÚDO (O "CARD" INTERNO) ----------
-        // Este é o novo painel que vai segurar os componentes
-        JPanel pnlConteudo = new JPanel();
-        pnlConteudo.setBackground(new Color(245, 245, 245));
-        pnlConteudo.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 255), 2));
+        // ---------- LAYOUT (Aplicando as cores e bordas diretamente em 'this') ----------
 
-        // ---------- 2. LAYOUT DO PAINEL DE CONTEÚDO (GroupLayout) ----------
-        // Aplicamos o GroupLayout a 'pnlConteudo', não a 'this'
-        GroupLayout layoutConteudo = new GroupLayout(pnlConteudo);
-        pnlConteudo.setLayout(layoutConteudo);
+        // Ajuste: Cor de fundo igual ao Renomear (247, 247, 255)
+        this.setBackground(new Color(247, 247, 255));
+        // Ajuste: Borda igual ao Renomear (cor 220, 220, 255 e espessura 1)
+        this.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 255)));
 
-        layoutConteudo.setAutoCreateGaps(true);
-        layoutConteudo.setAutoCreateContainerGaps(true); // Adiciona padding interno
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
 
-        // --- HORIZONTAL (PAINEL INTERNO) ---
-        layoutConteudo.setHorizontalGroup(
-                layoutConteudo.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        // Definimos um tamanho preferido para o "card" não esticar
-                        .addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblInforme)
-                        .addGroup(layoutConteudo.createSequentialGroup()
-                                .addComponent(campoCaminho, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Deixa o campo crescer
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botaoProcurar)
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        // --- HORIZONTAL (Com "MOLAS" para centralizar) ---
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                        // 1. Título (Ocupa a largura total do card, se expande com as molas)
+                        // A largura mínima e preferencial é 300 (igual ao Renomear)
+                        .addComponent(lblTitulo, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+
+                        // 2. Grupo do Formulário (centralizado com molas)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblInforme)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(campoCaminho, 250, 250, 350) // Tamanho do campo
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botaoProcurar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        )
+                                )
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
-                        .addGroup(GroupLayout.Alignment.TRAILING, layoutConteudo.createSequentialGroup()
-                                .addComponent(botaoCancelar, 90, 90, 90) // Tamanho fixo para botões
+
+                        // 3. Grupo dos Botões (centralizado com molas)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                .addComponent(botaoCancelar, 90, 90, 90)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoConfirmar, 90, 90, 90) // Tamanho fixo para botões
+                                .addComponent(botaoConfirmar, 90, 90, 90)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
         );
 
-        // --- VERTICAL (PAINEL INTERNO) ---
-        layoutConteudo.setVerticalGroup(
-                layoutConteudo.createSequentialGroup()
+        // --- VERTICAL (Linha por linha) ---
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
                         .addComponent(lblTitulo)
-                        .addGap(18)
+                        // Ajuste: Espaçamento de 25 (igual ao Renomear)
+                        .addGap(25)
                         .addComponent(lblInforme)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layoutConteudo.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(campoCaminho, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(botaoProcurar)
                         )
-                        .addGap(30)
-                        .addGroup(layoutConteudo.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        // Ajuste: Espaçamento de 40 (igual ao Renomear)
+                        .addGap(40)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(botaoConfirmar)
                                 .addComponent(botaoCancelar)
                         )
         );
-
-        // ---------- 3. LAYOUT DO PAINEL PRINCIPAL (this) ----------
-        // Este painel (MoverMidia) usará GridBagLayout apenas para centralizar o pnlConteudo
-        // O fazemos transparente para que a cor de fundo do seu explorador apareça
-        this.setOpaque(false);
-        this.setLayout(new GridBagLayout());
-
-        // Configurações do GridBagLayout para centralizar
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER; // Centraliza o componente
-        gbc.fill = GridBagConstraints.NONE;   // Não estica o pnlConteudo
-        gbc.insets = new Insets(20, 20, 20, 20); // Margem externa
-
-        // Adiciona o painel de conteúdo (com seu próprio GroupLayout) ao painel principal
-        this.add(pnlConteudo, gbc);
     }
 
     private void botaoConfirmarAcao() {
