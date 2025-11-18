@@ -1,4 +1,4 @@
-package modelo.Midias;
+package modelo.midias;
 
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
@@ -6,7 +6,7 @@ import excecao.CampoVazioOuNuloExcecao;
 import util.ExcecaoUtil;
 import modelo.Genero;
 
-public class Musica extends modelo.Midias.Midia {
+public class Musica extends modelo.midias.Midia {
 
     private String artista;
 

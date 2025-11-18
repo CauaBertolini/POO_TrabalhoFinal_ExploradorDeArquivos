@@ -3,10 +3,10 @@ package controle;
 import enumerador.*;
 import excecao.*;
 import modelo.*;
-import modelo.Midias.Filme;
-import modelo.Midias.Livro;
-import modelo.Midias.Midia;
-import modelo.Midias.Musica;
+import modelo.midias.Filme;
+import modelo.midias.Livro;
+import modelo.midias.Midia;
+import modelo.midias.Musica;
 import util.ExcecaoUtil;
 import util.JOptionPaneUtil;
 import visao.HomePage;
@@ -33,7 +33,7 @@ public class ExploradorDeArquivos {
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo, Genero genero, Idioma idioma) throws CampoVazioOuNuloExcecao, CampoMenorOuIgualAZeroExcecao {
 
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
-        modelo.Midias.Midia novaMidia = null;
+        modelo.midias.Midia novaMidia = null;
 
 
         try {
@@ -74,7 +74,7 @@ public class ExploradorDeArquivos {
     public boolean criarNovaMidia(String caminho, String nome, float tamanho, double duracao, ETipoArquivo tipoArquivo,
                                   Genero genero, String autorOuArtista, boolean eLivro) throws CampoMenorOuIgualAZeroExcecao, CampoVazioOuNuloExcecao {
         String caminhoCompleto = Paths.get(caminho, nome + ".tpoo").toString();
-        modelo.Midias.Midia novaMidia = null;
+        modelo.midias.Midia novaMidia = null;
 
         try {
             novaMidia = eLivro
@@ -124,7 +124,7 @@ public class ExploradorDeArquivos {
             }
 
             File arquivo = new File(caminhoArquivo);
-            modelo.Midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
+            modelo.midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
 
             if (!(midiaAlterando instanceof Filme filmeAlterando)) {
                 return false; // não é um filme, ignora
@@ -158,7 +158,7 @@ public class ExploradorDeArquivos {
             }
 
             File arquivo = new File(caminhoArquivo);
-            modelo.Midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
+            modelo.midias.Midia midiaAlterando = SerializadorTpoo.carregarMidia(arquivo);
 
             if (eLivro && midiaAlterando instanceof Livro livroAlterando) {
                 livroAlterando.setGenero(genero);
@@ -172,7 +172,7 @@ public class ExploradorDeArquivos {
                 homePage.atualizarTabela();
                 return true;
 
-            } else if (!eLivro && midiaAlterando instanceof modelo.Midias.Musica musicaAlterando) {
+            } else if (!eLivro && midiaAlterando instanceof modelo.midias.Musica musicaAlterando) {
                 musicaAlterando.setGenero(genero);
                 musicaAlterando.setTamanho(tamanho);
                 musicaAlterando.setDuracao(duracao);
@@ -197,7 +197,7 @@ public class ExploradorDeArquivos {
     // ==============================================
     // EXCLUIR
     // ==============================================
-    public boolean excluirMidia(modelo.Midias.Midia midia) {
+    public boolean excluirMidia(Midia midia) {
         try {
             Path caminho = Paths.get(midia.getCaminho());
             Files.deleteIfExists(caminho);
@@ -215,25 +215,33 @@ public class ExploradorDeArquivos {
     // ==============================================
     // RENOMEAR
     // ==============================================
-    public boolean renomearMidia(modelo.Midias.Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
-        if (ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
+    public boolean renomearMidia(Midia midia, String novoNomeString) throws ArquivoNaoExisteExcecao {
+        if (!ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
+            return false;
+        }
+        try {
             File arquivo = new File(midia.getCaminho());
             File novoNome = new File(arquivo.getParent(), novoNomeString + ".tpoo");
 
-            if (arquivo.renameTo(novoNome)) {
-                midia.setCaminho(novoNome.getAbsolutePath());
-                homePage.limparPainelDireito();
-                homePage.atualizarTabela();
-                return true;
-            }
+            Files.move(arquivo.toPath(), novoNome.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            midia.setCaminho(novoNome.getAbsolutePath());
+            midia.setNome(novoNomeString);
+
+            homePage.limparPainelDireito();
+            homePage.atualizarTabela();
+            return true;
+
+        } catch (IOException e) {
+            return false;
         }
-        return false;
     }
+
 
     // ==============================================
     // MOVER
     // ==============================================
-    public boolean moverMidia(modelo.Midias.Midia midia, String novoCaminhoString)
+    public boolean moverMidia(Midia midia, String novoCaminhoString)
             throws ArquivoNaoExisteExcecao, CampoVazioOuNuloExcecao {
         if (ExcecaoUtil.arquivoExiste(midia.getCaminho())) {
             File arquivo = new File(midia.getCaminho());
@@ -258,7 +266,7 @@ public class ExploradorDeArquivos {
     // ==============================================
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
-        modelo.Midias.Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
+        modelo.midias.Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
         salvamento.incluirMidia(novaMidia);
         homePage.limparPainelDireito();
         homePage.atualizarTabela();
@@ -328,14 +336,14 @@ public class ExploradorDeArquivos {
         return filtradas;
     }
 
-    public List<modelo.Midias.Midia> ordenarMidiasPorNome (List <modelo.Midias.Midia> listaMidias) {
-        listaMidias.sort(Comparator.comparing(modelo.Midias.Midia::getNome));
+    public List<modelo.midias.Midia> ordenarMidiasPorNome (List <modelo.midias.Midia> listaMidias) {
+        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getNome));
         return listaMidias;
     }
 
-    public List<modelo.Midias.Midia> ordenarMidiaPorTamanho (List <modelo.Midias.Midia> listaMidias) {
+    public List<modelo.midias.Midia> ordenarMidiaPorTamanho (List <modelo.midias.Midia> listaMidias) {
         // O comparing chama o getTamanho() e use o valor retornado para comparar
-        listaMidias.sort(Comparator.comparing(modelo.Midias.Midia::getTamanho));
+        listaMidias.sort(Comparator.comparing(modelo.midias.Midia::getTamanho));
         return listaMidias;
     }
 

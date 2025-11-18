@@ -5,11 +5,12 @@ import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
+import modelo.midias.*;
 import util.ComboUtil;
 import util.JOptionPaneUtil;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class EditarMidiaFilme extends JPanel {
 
@@ -31,12 +32,12 @@ public class EditarMidiaFilme extends JPanel {
     private JButton botaoConfirmar;
 
     private ExploradorDeArquivos explorador;
-    private modelo.Midias.Filme filme;
+    private Filme filme;
 
-    public EditarMidiaFilme(modelo.Midias.Midia midiaSelecionada, ExploradorDeArquivos explorador) {
+    public EditarMidiaFilme(Midia midiaSelecionada, ExploradorDeArquivos explorador) {
         this.explorador = explorador;
         initComponents();
-        this.filme = (modelo.Midias.Filme) midiaSelecionada;
+        this.filme = (Filme) midiaSelecionada;
 
         ComboUtil.carregarTipoArquivoFilme(comboBoxTipoArquivo);
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.CINEMA);
@@ -46,8 +47,9 @@ public class EditarMidiaFilme extends JPanel {
 
     private void initComponents() {
 
+        // ---------- COMPONENTES (Sem alteração) ----------
         lblTitulo = new JLabel("Alterando Filme");
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22));
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22)); // Usando a importação
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
         lblTamanho = new JLabel("Tamanho do Arquivo (MB)");
@@ -71,6 +73,9 @@ public class EditarMidiaFilme extends JPanel {
         botaoConfirmar = new JButton("Confirmar");
         botaoConfirmar.addActionListener(evt -> botaoConfirmarAcao());
 
+        // ---------- LAYOUT (Baseado no seu exemplo) ----------
+
+        // 1. Aplicar o fundo e a borda diretamente no 'this'
         setBackground(new java.awt.Color(247, 247, 255));
         setBorder(BorderFactory.createLineBorder(new java.awt.Color(220, 220, 255)));
 
@@ -80,53 +85,92 @@ public class EditarMidiaFilme extends JPanel {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        // --- HORIZONTAL ---
+        // Exatamente como no seu exemplo, usamos "molas" para centralizar
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(lblTitulo)
-                        .addGroup(
-                                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                        // 1. Título ocupa toda a largura e se auto-centraliza
+                        .addComponent(lblTitulo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
+                        // 2. Grupo do Formulário (centralizado com molas)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+
+                                // Coluna 1: Rótulos
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(lblTamanho)
-                                        .addComponent(campoTamanho, 200, 200, 200)
                                         .addComponent(lblDuracao)
-                                        .addComponent(campoDuracao, 200, 200, 200)
                                         .addComponent(lblIdioma)
-                                        .addComponent(comboBoxIdioma, 200, 200, 200)
                                         .addComponent(lblTipoArquivo)
-                                        .addComponent(comboBoxTipoArquivo, 200, 200, 200)
                                         .addComponent(lblGenero)
-                                        .addComponent(comboBoxGenero, 200, 200, 200)
+                                )
+                                .addGap(10) // Espaço entre colunas
+
+                                // Coluna 2: Campos de Entrada (com tamanho fixo do seu exemplo)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false) // 'false' evita que cresçam com o rótulo
+                                        .addComponent(campoTamanho, 200, 200, 270)
+                                        .addComponent(campoDuracao, 200, 200, 270)
+                                        .addComponent(comboBoxIdioma, 200, 200, 270)
+                                        .addComponent(comboBoxTipoArquivo, 200, 200, 270)
+                                        .addComponent(comboBoxGenero, 200, 200, 270)
+                                )
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
-                        .addGroup(
-                                layout.createSequentialGroup()
-                                        .addComponent(botaoCancelar, 110, 120, 150)
-                                        .addComponent(botaoConfirmar, 110, 120, 150)
+
+                        // 3. Grupo dos Botões (centralizado com molas)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola esquerda
+                                .addComponent(botaoCancelar, 110, 120, 150)
+                                .addGap(8)
+                                .addComponent(botaoConfirmar, 110, 120, 150)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Mola direita
                         )
         );
 
+        // --- VERTICAL ---
+        // Estrutura linha por linha, como no seu exemplo
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addGap(20)
-                        .addComponent(lblTitulo)
+                        .addComponent(lblTitulo) // Título
                         .addGap(25)
-                        .addComponent(lblTamanho)
-                        .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+
+                        // Linha 1: Tamanho
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblTamanho)
+                                .addComponent(campoTamanho, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblDuracao)
-                        .addComponent(campoDuracao, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        // Linha 2: Duração
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblDuracao)
+                                .addComponent(campoDuracao, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblIdioma)
-                        .addComponent(comboBoxIdioma, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        // Linha 3: Idioma
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblIdioma)
+                                .addComponent(comboBoxIdioma, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblTipoArquivo)
-                        .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        // Linha 4: Tipo de Arquivo
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblTipoArquivo)
+                                .addComponent(comboBoxTipoArquivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        )
                         .addGap(10)
-                        .addComponent(lblGenero)
-                        .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                        .addGap(40)
-                        .addGroup(
-                                layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botaoConfirmar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        // Linha 5: Gênero
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblGenero)
+                                .addComponent(comboBoxGenero, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addGap(40) // Espaço maior antes dos botões
+
+                        // Linha 6: Botões
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(botaoCancelar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botaoConfirmar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                         )
                         .addGap(20)
         );

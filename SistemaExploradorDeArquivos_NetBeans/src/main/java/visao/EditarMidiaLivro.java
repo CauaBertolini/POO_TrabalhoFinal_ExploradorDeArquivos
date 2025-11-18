@@ -4,13 +4,11 @@ import controle.ExploradorDeArquivos;
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import modelo.Genero;
-import modelo.Idioma;
-import modelo.Midias.Livro;
+import modelo.midias.Livro;
 import util.ComboUtil;
 import util.JOptionPaneUtil;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public class EditarMidiaLivro extends JPanel {
 
@@ -34,10 +32,10 @@ public class EditarMidiaLivro extends JPanel {
     private ExploradorDeArquivos explorador;
     private Livro livro;
 
-    public EditarMidiaLivro(modelo.Midias.Midia midiaSelecionada, ExploradorDeArquivos explorador) {
+    public EditarMidiaLivro(modelo.midias.Midia midiaSelecionada, ExploradorDeArquivos explorador) {
         this.explorador = explorador;
         initComponents();
-        this.livro = (modelo.Midias.Livro) midiaSelecionada;
+        this.livro = (modelo.midias.Livro) midiaSelecionada;
 
         ComboUtil.carregarTipoArquivoLivro(comboBoxTipoArquivo);
         ComboUtil.carregarGenerosComFiltro(comboBoxGenero, ETipoGenero.LITERARIO);

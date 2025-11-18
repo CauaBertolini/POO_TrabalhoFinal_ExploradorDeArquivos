@@ -4,9 +4,8 @@ import controle.ExploradorDeArquivos;
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
 import modelo.Genero;
-import modelo.Midias.Livro;
-import modelo.Midias.Midia;
-import modelo.Midias.Musica;
+import modelo.midias.Midia;
+import modelo.midias.Musica;
 import util.ComboUtil;
 import util.JOptionPaneUtil;
 

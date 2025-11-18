@@ -3,10 +3,10 @@ package visao;
 import controle.ExploradorDeArquivos;
 import excecao.ArquivoNaoExisteExcecao;
 import modelo.*;
-import modelo.Midias.Filme;
-import modelo.Midias.Musica;
-import modelo.Midias.Livro;
-import modelo.Midias.Midia;
+import modelo.midias.Filme;
+import modelo.midias.Musica;
+import modelo.midias.Livro;
+import modelo.midias.Midia;
 import util.ComboUtil;
 import util.JOptionPaneUtil;
 
@@ -152,7 +152,7 @@ public class HomePage extends javax.swing.JFrame {
     public void botaoAlterarAcao() {
         try {
             abrirAlterarMidia();
-        } catch (ArquivoNaoExisteExcecao e) {
+        } catch (ArquivoNaoExisteExcecao excecao) {
             JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para alterar!");
         }
     }
@@ -162,11 +162,40 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     private void botaoRenomearAcao() {
-        JOptionPaneUtil.mostrarMensagemErro("Função 'Renomear' ainda não implementada.");
+        try {
+            List<Midia> listaMidias = salvamento.getMidias();
+
+            int viewIndex = tabelaMidias.getSelectedRow();
+            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+            Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+            abrirNoPainelDireito(new RenomearMidia(explorador, midiaSelecionada));
+
+        } catch (ArquivoNaoExisteExcecao excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+        }
+
     }
 
     private void botaoMoverAcao() {
-        JOptionPaneUtil.mostrarMensagemErro("Função 'Mover' ainda não implementada.");
+        try {
+            List<Midia> listaMidias = salvamento.getMidias();
+
+            int viewIndex = tabelaMidias.getSelectedRow();
+            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+            Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+            abrirNoPainelDireito(new MoverMidia(explorador, midiaSelecionada));
+
+        } catch (ArquivoNaoExisteExcecao excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+        }
     }
 
     private void configurarTabela() {
@@ -206,7 +235,7 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     private void filtrarTabela() {
-        List<modelo.Midias.Midia> listaFiltrada = explorador.filtrarMidias(
+        List<modelo.midias.Midia> listaFiltrada = explorador.filtrarMidias(
                 generoCombo.getSelectedItem().toString(),
                 tipoCombo.getSelectedItem().toString()
         );
@@ -214,7 +243,7 @@ public class HomePage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
         model.setRowCount(0);
 
-        for (modelo.Midias.Midia midia : listaFiltrada) {
+        for (modelo.midias.Midia midia : listaFiltrada) {
             model.addRow(new Object[]{
                     midia.getNome() + "." + midia.getTipoArquivo().name().toLowerCase(),
                     midia.getTamanho()
