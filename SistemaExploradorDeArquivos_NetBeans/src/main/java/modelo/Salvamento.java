@@ -1,9 +1,7 @@
 package modelo;
 
-import modelo.Midias.Midia;
+import modelo.midias.Midia;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +32,12 @@ public class Salvamento {
 
     public boolean atualizarMidia(Midia midia) {
         try {
+            for (int i = 0; i < midias.size(); i++) {
+                if (midias.get(i).getCaminho().equalsIgnoreCase(midia.getCaminho())) {
+                    midias.set(i, midia);
+                    return true;
+                }
+            }
             return false;
         } catch (Exception e) {
             return false;

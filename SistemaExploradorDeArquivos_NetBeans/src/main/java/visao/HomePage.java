@@ -1,181 +1,254 @@
 package visao;
 
 import controle.ExploradorDeArquivos;
-import enumerador.ETipoArquivo;
-import enumerador.ETipoGenero;
-import modelo.Genero;
-import modelo.Listas;
-import modelo.Midias.Midia;
-import modelo.Salvamento;
+import excecao.ArquivoNaoExisteExcecao;
+import modelo.*;
+import modelo.midias.Filme;
+import modelo.midias.Musica;
+import modelo.midias.Livro;
+import modelo.midias.Midia;
+import util.ComboUtil;
+import util.JOptionPaneUtil;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class HomePage extends javax.swing.JFrame {
+    private javax.swing.JLabel labelFiltroGenero;
+    private javax.swing.JLabel labelFiltroTipo;
+    private javax.swing.JButton botaoAdicionarMidia;
+    private javax.swing.JButton botaoAlterarMidia;
+    private javax.swing.JButton botaoApagarMidia;
+    private javax.swing.JButton botaoAtualizarTabela;
+    private javax.swing.JButton botaoRenomear;
+    private javax.swing.JButton botaoMover;
+    private javax.swing.JComboBox<String> generoCombo;
+    private javax.swing.JComboBox<String> tipoCombo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaMidias;
+    private javax.swing.JPanel painelDireito;
+
     private Listas lista;
-    private ExploradorDeArquivos explorador;
     private Salvamento salvamento;
+    private ExploradorDeArquivos explorador;
 
     public HomePage() {
         initComponents();
-        this.salvamento = new Salvamento();
-        this.explorador = new ExploradorDeArquivos(this, salvamento);
+        this.explorador = new ExploradorDeArquivos(this);
+        this.salvamento = explorador.getSalvamento();
         this.lista = new Listas();
 
         configurarTabela();
+
+        removerListenersFiltros();
+
         configurarFiltros();
+
         adicionarListenersFiltros();
 
+        filtrarTabela();
+
         setVisible(true);
-    }
-    // metodo para iniciar no construtor a minha filtragem no painel das listas
-    private void adicionarListenersFiltros() {
-        tipoCombo.addActionListener(e -> filtrarTabela());
-        generoCombo.addActionListener(e -> filtrarTabela());
+
     }
 
-    // metodo responsavel pela filtragem o qual e chamado pelo metodo acima no listener
-    private void filtrarTabela() {
-        String tipoSelecionado = (String) tipoCombo.getSelectedItem();
-        String generoSelecionado = (String) generoCombo.getSelectedItem();
+    @SuppressWarnings("unchecked")
+    private void initComponents() {
 
-        DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();//pega o modelo da minha tabela ja modificado com os campos que eu quero
-        model.setRowCount(0); // limpar tabela
+        painelDireito = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaMidias = new javax.swing.JTable();
 
-        for (Midia m : salvamento.getMidias()) {//aqui eu tenho o loop responsavel por percorrer a minha lista do salvamento
-            boolean passaFiltroTipo = tipoSelecionado.equals("Todos") ||
-                    m.getTipoArquivo().toString().equals(tipoSelecionado);//verifica se o tipo selecionado no filtro for todos ou se o tipo selecionado no combo for igual ao tipo da midia que ele esta percorrendo
+        setTitle("Sistema de Gerenciamento de Mídias");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(1400, 800);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-            boolean passaFiltroGenero = generoSelecionado.equals("Todos") ||//verifica se o genero selecionado no filtro for todos ou se o tipo selecionado no combo for igual ao tipo da midia que ele esta percorrendo
-                    (m.getGenero() != null &&
-                            m.getGenero().getNome().equals(generoSelecionado));
+        javax.swing.JPanel painelEsquerdo = new javax.swing.JPanel();
+        painelEsquerdo.setBackground(new java.awt.Color(240, 240, 240));
+        painelEsquerdo.setLayout(new BorderLayout(10, 10));
+        painelEsquerdo.setPreferredSize(new Dimension(800, 600));
+        painelEsquerdo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-            if (passaFiltroTipo && passaFiltroGenero) {
-                model.addRow(new Object[]{
-                        m.getNome() + "." + m.getTipoArquivo().name(),
-                        m.getTamanho()
-                });
+        JPanel painelSuperior = new JPanel(new GridLayout(5, 2, 8, 8));
+        painelSuperior.setOpaque(false);
+
+        botaoAdicionarMidia = new javax.swing.JButton("Adicionar Mídia +");
+        botaoAdicionarMidia.addActionListener(evt -> abrirSelecaoMidia());
+        painelSuperior.add(botaoAdicionarMidia);
+
+        botaoApagarMidia = new javax.swing.JButton("Apagar Mídia -");
+        botaoApagarMidia.addActionListener(evt -> botaoDeletarMidiaAcao());
+        painelSuperior.add(botaoApagarMidia);
+
+        botaoAlterarMidia = new javax.swing.JButton("Alterar Mídia");
+        botaoAlterarMidia.addActionListener(evt -> botaoAlterarAcao());
+        painelSuperior.add(botaoAlterarMidia);
+
+        botaoMover = new javax.swing.JButton("Mover Mídia");
+        botaoMover.addActionListener(evt -> botaoMoverAcao());
+        painelSuperior.add(botaoMover);
+
+        botaoRenomear = new javax.swing.JButton("Renomear Mídia");
+        botaoRenomear.addActionListener(evt -> botaoRenomearAcao());
+        painelSuperior.add(botaoRenomear);
+
+        botaoAtualizarTabela = new javax.swing.JButton("Atualizar Lista");
+        botaoAtualizarTabela.addActionListener(evt -> botaoAtualizarTabelaAcao());
+        painelSuperior.add(botaoAtualizarTabela);
+
+        labelFiltroGenero = new javax.swing.JLabel("Filtro Gênero");
+        labelFiltroTipo = new javax.swing.JLabel("Filtro Tipo Arquivo");
+
+        labelFiltroGenero.setVerticalAlignment(SwingConstants.BOTTOM);
+        labelFiltroTipo.setVerticalAlignment(SwingConstants.BOTTOM);
+
+        painelSuperior.add(labelFiltroGenero);
+        painelSuperior.add(labelFiltroTipo);
+
+        generoCombo = new javax.swing.JComboBox<>();
+        tipoCombo = new javax.swing.JComboBox<>();
+        painelSuperior.add(generoCombo);
+        painelSuperior.add(tipoCombo);
+
+        painelEsquerdo.add(painelSuperior, BorderLayout.NORTH);
+
+        jScrollPane1.setViewportView(tabelaMidias);
+        painelEsquerdo.add(jScrollPane1, BorderLayout.CENTER);
+
+        add(painelEsquerdo, BorderLayout.WEST);
+
+        painelDireito.setBackground(new java.awt.Color(247, 247, 255));
+        painelDireito.setLayout(new BorderLayout());
+        add(painelDireito, BorderLayout.CENTER);
+    }
+
+    private void botaoDeletarMidiaAcao() {
+        try {
+            List<Midia> listaMidias = salvamento.getMidias();
+
+            int viewIndex = tabelaMidias.getSelectedRow();
+            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+            Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+            if (explorador.excluirMidia(midiaSelecionada)) {
+                JOptionPaneUtil.mostrarMensagemSucesso("Mídia excluída com sucesso!");
+            } else {
+                JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia.");
             }
+        } catch (ArquivoNaoExisteExcecao excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+        }
+
+    }
+
+    public void botaoAlterarAcao() {
+        try {
+            abrirAlterarMidia();
+        } catch (ArquivoNaoExisteExcecao excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para alterar!");
         }
     }
 
+    private void botaoAtualizarTabelaAcao() {
+        atualizarTabela();
+    }
+
+    private void botaoRenomearAcao() {
+        try {
+            List<Midia> listaMidias = salvamento.getMidias();
+
+            int viewIndex = tabelaMidias.getSelectedRow();
+            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+            Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+            abrirNoPainelDireito(new RenomearMidia(explorador, midiaSelecionada));
+
+        } catch (ArquivoNaoExisteExcecao excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+        }
+
+    }
+
+    private void botaoMoverAcao() {
+        try {
+            List<Midia> listaMidias = salvamento.getMidias();
+
+            int viewIndex = tabelaMidias.getSelectedRow();
+            if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+            int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+            Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+            abrirNoPainelDireito(new MoverMidia(explorador, midiaSelecionada));
+
+        } catch (ArquivoNaoExisteExcecao excecao) {
+            JOptionPaneUtil.mostrarMensagemErro("Selecione um item da tabela para excluir!");
+        }
+    }
 
     private void configurarTabela() {
         DefaultTableModel modelo = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Caminho", "Tamanho (MB)"}
-        );
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tabelaMidias.setModel(modelo);
+    }
+
+    private void removerListenersFiltros() {
+        for (ActionListener al : tipoCombo.getActionListeners()) {
+            tipoCombo.removeActionListener(al);
+        }
+        for (ActionListener al : generoCombo.getActionListeners()) {
+            generoCombo.removeActionListener(al);
+        }
+    }
+
+    private void configurarFiltros() {
+        ComboUtil.carregarTiposArquivoParaFiltro(tipoCombo);
+        ComboUtil.carregarGenerosParaFiltro(generoCombo, lista.getListaGeneros());
+    }
+
+    private void adicionarListenersFiltros() {
+        tipoCombo.addActionListener(e -> filtrarTabela());
+        generoCombo.addActionListener(e -> filtrarTabela());
     }
 
     public void atualizarTabela() {
         filtrarTabela();
     }
 
-    private void configurarFiltros() {
-        // Carregar tipos de arquivo do enum ETipoArquivo
-        carregarTiposArquivo();
+    private void filtrarTabela() {
+        List<modelo.midias.Midia> listaFiltrada = explorador.filtrarMidias(
+                generoCombo.getSelectedItem().toString(),
+                tipoCombo.getSelectedItem().toString()
+        );
 
-        // Carregar gêneros dinamicamente
-        carregarGeneros();
-    }
+        DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
+        model.setRowCount(0);
 
-    private void carregarTiposArquivo() {
-        // Obter todos os valores do enum ETipoArquivo
-        ETipoArquivo[] tipos = ETipoArquivo.values();
-        String[] opcoesTipos = new String[tipos.length + 1];
-        opcoesTipos[0] = "Todos";
-
-        for (int i = 0; i < tipos.length; i++) {
-            opcoesTipos[i + 1] = tipos[i].toString();
+        for (modelo.midias.Midia midia : listaFiltrada) {
+            model.addRow(new Object[]{
+                    midia.getNome() + "." + midia.getTipoArquivo().name().toLowerCase(),
+                    midia.getTamanho()
+            });
         }
-
-        tipoCombo.setModel(new DefaultComboBoxModel<>(opcoesTipos));
-    }
-
-    private void carregarGeneros() {
-        // Primeiro item "Todos"
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        model.addElement("Todos");
-
-        // Usar um Set para evitar gêneros duplicados
-        java.util.Set<String> generosUnicos = new java.util.HashSet<>();
-
-        // Adicionar todos os gêneros únicos
-        for (Genero genero : lista.getListaGeneros()) {
-            generosUnicos.add(genero.getNome());
-        }
-
-        // Adicionar ao modelo
-        for (String genero : generosUnicos) {
-            model.addElement(genero);
-        }
-
-        generoCombo.setModel(model);
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-
-        btnAdicionar = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnListar = new javax.swing.JButton();
-        generoCombo = new javax.swing.JComboBox<>();
-        tipoCombo = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaMidias = new javax.swing.JTable();
-        painelDireito = new javax.swing.JPanel();
-
-        setTitle("Sistema de Gerenciamento de Mídias");
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(1100, 600);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
-
-        // PAINEL ESQUERDO
-        javax.swing.JPanel painelEsquerdo = new javax.swing.JPanel();
-        painelEsquerdo.setBackground(new java.awt.Color(240, 240, 240));
-        painelEsquerdo.setLayout(null);
-        painelEsquerdo.setPreferredSize(new Dimension(380, 600)); // FIXA A LARGURA
-
-        // Botões
-        btnAdicionar.setText("Adicionar Mídia +");
-        btnAdicionar.setBounds(30, 30, 150, 30);
-        btnAdicionar.addActionListener(evt -> abrirSelecaoMidia());
-        painelEsquerdo.add(btnAdicionar);
-
-        btnDeletar.setText("Deletar Mídia -");
-        btnDeletar.setBounds(200, 30, 150, 30);
-        painelEsquerdo.add(btnDeletar);
-
-        btnAlterar.setText("Alterar Mídia");
-        btnAlterar.setBounds(30, 70, 150, 30);
-        painelEsquerdo.add(btnAlterar);
-
-        btnListar.setText("Listar");
-        btnListar.setBounds(200, 70, 150, 30);
-        painelEsquerdo.add(btnListar);
-
-        // Filtros
-        generoCombo.setBounds(30, 130, 150, 25);
-        tipoCombo.setBounds(200, 130, 150, 25);
-        painelEsquerdo.add(generoCombo);
-        painelEsquerdo.add(tipoCombo);
-
-        // Tabela
-        jScrollPane1.setViewportView(tabelaMidias);
-        jScrollPane1.setBounds(30, 170, 320, 330);
-        painelEsquerdo.add(jScrollPane1);
-
-        add(painelEsquerdo, BorderLayout.WEST);
-
-        // PAINEL DIREITO (DESTINO DOS FORMULÁRIOS)
-        painelDireito.setBackground(new java.awt.Color(200, 200, 200));
-        painelDireito.setLayout(new BorderLayout());
-        add(painelDireito, BorderLayout.CENTER);
     }
 
     private void abrirSelecaoMidia() {
@@ -183,22 +256,46 @@ public class HomePage extends javax.swing.JFrame {
         painelDireito.setLayout(new BorderLayout());
 
         painelDireito.add(
-                new SelecioneQualMidiaAdicionar(painelDireito, explorador),
+                new SelecionarMidiaAdicionar(painelDireito, explorador),
                 BorderLayout.CENTER
         );
+        painelDireito.revalidate();
+        painelDireito.repaint();
+    }
+
+    public void abrirAlterarMidia() throws ArquivoNaoExisteExcecao{
+        List<Midia> listaMidias = salvamento.getMidias();
+
+        int viewIndex = tabelaMidias.getSelectedRow();
+        if (viewIndex == -1) throw new ArquivoNaoExisteExcecao();
+
+        int modelIndex = tabelaMidias.convertRowIndexToModel(viewIndex);
+
+        Midia midiaSelecionada = listaMidias.get(modelIndex);
+
+        if (midiaSelecionada instanceof Filme) {
+            abrirNoPainelDireito(new EditarMidiaFilme(midiaSelecionada, explorador));
+        } else if (midiaSelecionada instanceof Musica) {
+            abrirNoPainelDireito(new EditarMidiaMusica(midiaSelecionada, explorador));
+        } else if (midiaSelecionada instanceof Livro) {
+            abrirNoPainelDireito(new EditarMidiaLivro(midiaSelecionada, explorador));
+        }
+    }
+
+    public void abrirNoPainelDireito(JPanel painel) {
+        painelDireito.removeAll();
+        painelDireito.setLayout(new BorderLayout());
+
+        painelDireito.add(painel, BorderLayout.CENTER);
 
         painelDireito.revalidate();
         painelDireito.repaint();
     }
 
-    // Variables
-    private javax.swing.JButton btnAdicionar;
-    private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnListar;
-    private javax.swing.JComboBox<String> generoCombo;
-    private javax.swing.JComboBox<String> tipoCombo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaMidias;
-    private javax.swing.JPanel painelDireito;
+    public void limparPainelDireito() {
+        painelDireito.removeAll();
+        painelDireito.revalidate();
+        painelDireito.repaint();
+    }
+
 }

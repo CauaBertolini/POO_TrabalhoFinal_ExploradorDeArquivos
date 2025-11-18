@@ -1,4 +1,4 @@
-package modelo.Midias;
+package modelo.midias;
 
 import enumerador.ETipoArquivo;
 import enumerador.ETipoGenero;
@@ -6,7 +6,7 @@ import excecao.CampoVazioOuNuloExcecao;
 import modelo.Idioma;
 import modelo.Genero;
 
-public class Filme extends modelo.Midias.Midia {
+public class Filme extends modelo.midias.Midia {
 
     private Idioma idioma;
 

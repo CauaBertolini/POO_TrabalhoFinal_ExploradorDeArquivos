@@ -5,10 +5,10 @@ import enumerador.ETipoGenero;
 import modelo.Genero;
 import modelo.Idioma;
 import modelo.Listas;
-import modelo.Midias.Filme;
-import modelo.Midias.Livro;
-import modelo.Midias.Midia;
-import modelo.Midias.Musica;
+import modelo.midias.Filme;
+import modelo.midias.Livro;
+import modelo.midias.Midia;
+import modelo.midias.Musica;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class SerializadorTpoo {
 
-    static Listas listas = new Listas();
+    private static Listas listas = new Listas();
 
     public static void salvarMidia(Midia midia) throws IOException {
         try (DataOutputStream serializador = new DataOutputStream(new FileOutputStream(new File(midia.getCaminho())))) {

@@ -4,32 +4,37 @@ import controle.ExploradorDeArquivos;
 import modelo.Salvamento;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
+public class SelecionarMidiaAdicionar extends JPanel {
+    private javax.swing.JPanel painelFundo;
+    private javax.swing.JToggleButton btnFilme;
+    private javax.swing.JToggleButton btnMusica;
+    private javax.swing.JToggleButton btnLivro;
+    private javax.swing.JLabel titulo;
 
     private ExploradorDeArquivos explorador;
     private JPanel painelPrincipal;
     private Salvamento salvamento;
 
-    public SelecioneQualMidiaAdicionar(JPanel painelPrincipal, ExploradorDeArquivos explorador) {
+    public SelecionarMidiaAdicionar(JPanel painelPrincipal, ExploradorDeArquivos explorador) {
         initComponents();
         this.painelPrincipal = painelPrincipal;
-        this.explorador = explorador;  // CORRIGIDO!
+        this.explorador = explorador;
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        painelFundo = new javax.swing.JPanel();
-        btnFilme = new javax.swing.JToggleButton();
-        btnMusica = new javax.swing.JToggleButton();
-        btnLivro = new javax.swing.JToggleButton();
-        titulo = new javax.swing.JLabel();
+        painelFundo = new JPanel();
+        btnFilme = new JToggleButton();
+        btnMusica = new JToggleButton();
+        btnLivro = new JToggleButton();
+        titulo = new JLabel();
 
         setLayout(new BorderLayout());
 
-        painelFundo.setBackground(new java.awt.Color(230, 230, 230));
+        painelFundo.setBackground(new java.awt.Color(247, 247, 255));
 
         btnFilme.setText("Filme");
         btnFilme.addActionListener(evt -> abrirPainelFilme());
@@ -40,7 +45,7 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
         btnLivro.setText("Livro");
         btnLivro.addActionListener(evt -> abrirPainelLivro());
 
-        titulo.setFont(new java.awt.Font("Segoe UI", 0, 18));
+        titulo.setFont(new java.awt.Font("Segoe UI", 1, 22));
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Selecione qual mídia deseja adicionar");
 
@@ -50,17 +55,17 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
                 painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                         .addGroup(painelFundoLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(btnFilme, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                         .addComponent(btnLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                         .addComponent(btnMusica, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                                .addContainerGap(50, Short.MAX_VALUE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelFundoLayout.setVerticalGroup(
                 painelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(painelFundoLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(titulo)
                                 .addGap(30, 30, 30)
                                 .addComponent(btnFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -68,7 +73,7 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
                                 .addComponent(btnLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
                                 .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(250, Short.MAX_VALUE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(painelFundo, BorderLayout.CENTER);
@@ -88,7 +93,6 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
         trocarPainel(new AdicionarMidiaLivro(explorador));
     }
 
-
     private void trocarPainel(JPanel novoPainel) {
         painelPrincipal.removeAll();
         painelPrincipal.setLayout(new BorderLayout());
@@ -97,10 +101,4 @@ public class SelecioneQualMidiaAdicionar extends javax.swing.JPanel {
         painelPrincipal.repaint();
     }
 
-    // Variables declaration
-    private javax.swing.JPanel painelFundo;
-    private javax.swing.JToggleButton btnFilme;
-    private javax.swing.JToggleButton btnMusica;
-    private javax.swing.JToggleButton btnLivro;
-    private javax.swing.JLabel titulo;
 }
