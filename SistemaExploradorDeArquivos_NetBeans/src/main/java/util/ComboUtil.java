@@ -9,13 +9,22 @@ import modelo.Listas;
 import javax.swing.*;
 import java.util.List;
 
+/**
+ *
+ */
 public class ComboUtil {
 
     static Listas lista = new Listas();
 
     /**
-     * Preenche o combo com valores do Enum ETipoArquivo + opção "Todos".
-     * O combo deve ser declarado como JComboBox<String>.
+     * Carrega todos os tipos de arquivo disponíveis no enum ETipoArquivo
+     * dentro de um JComboBox, adicionando também a opção "Todos" para uso
+     * em filtros.
+     * <p>
+     * O método cria um novo {@code DefaultComboBoxModel}, insere a opção "Todos"
+     * e depois adiciona cada valor do enum, definindo o modelo resultante no combo.
+     *
+     * @param combo o componente {@code JComboBox} que receberá os tipos de arquivo.
      */
     public static void carregarTiposArquivoParaFiltro(JComboBox<String> combo) {
         ETipoArquivo[] tipos = ETipoArquivo.values();
@@ -31,7 +40,14 @@ public class ComboUtil {
     }
 
     /**
-     * Preenche o combo com nomes dos gêneros (String) + "Todos".
+     * Carrega os gêneros disponíveis em uma lista dentro de um JComboBox,
+     * adicionando também a opção "Todos" para uso em filtros.
+     * <p>
+     * O método garante que nenhum gênero seja repetido, utilizando um
+     * {@code HashSet} para armazenar nomes únicos antes de adicioná-los ao combo.
+     *
+     * @param combo o componente {@code JComboBox} que receberá os gêneros.
+     * @param lista a lista de objetos Genero da qual os nomes serão extraídos.
      */
     public static void carregarGenerosParaFiltro(JComboBox<String> combo, List<Genero> lista) {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -51,8 +67,14 @@ public class ComboUtil {
     }
 
     /**
-     * Preenche o combo com OBJETOS Genero filtrados por ETipoGenero.
-     * Aqui o combo deve ser JComboBox<Genero>.
+     * Carrega os gêneros disponíveis em uma lista dentro de um JComboBox,
+     * adicionando também a opção "Todos" para uso em filtros.
+     * <p>
+     * O método garante que nenhum gênero seja repetido, utilizando um
+     * {@code HashSet} para armazenar nomes únicos antes de adicioná-los ao combo.
+     *
+     * @param combo o componente {@code JComboBox} que receberá os gêneros.
+     * @param lista a lista de objetos Genero da qual os nomes serão extraídos.
      */
     public static void carregarGenerosComFiltro(JComboBox<Genero> combo, ETipoGenero tipo) {
         DefaultComboBoxModel<Genero> model = new DefaultComboBoxModel<>();
@@ -66,6 +88,12 @@ public class ComboUtil {
         combo.setModel(model);
     }
 
+    /**
+     * Carrega os idiomas disponíveis  dentro de um JComboBox,
+     * adicionando também a opção "Todos" para uso em filtros.
+     *
+     * @param combo
+     */
     public static void carregarIdioma(JComboBox<Idioma> combo) {
         combo.removeAllItems();
 
@@ -74,18 +102,32 @@ public class ComboUtil {
         }
     }
 
+    /**
+     * Carrega no ComboBox os tipos de arquivo permitidos para mídias do tipo Filme.
+     *
+     * @param combo o JComboBox<ETipoArquivo> que receberá os tipos de arquivo.
+     */
     public static void carregarTipoArquivoFilme(JComboBox<ETipoArquivo> combo) {
         combo.removeAllItems();
         combo.addItem(ETipoArquivo.MP4);
         combo.addItem(ETipoArquivo.MKV);
     }
 
+    /**
+     * Carrega no ComboBox os tipos de arquivo permitidos para mídias do tipo Musica.
+     *
+     * @param combo o JComboBox<ETipoArquivo> que receberá os tipos de arquivo.
+     */
     public static void carregarTipoArquivoMusica(JComboBox<ETipoArquivo> combo) {
         combo.removeAllItems();
-        combo.addItem(ETipoArquivo.MP4);
         combo.addItem(ETipoArquivo.MP3);
     }
 
+    /**
+     * Carrega no ComboBox os tipos de arquivo permitidos para mídias do tipo Livro.
+     *
+     * @param combo o JComboBox<ETipoArquivo> que receberá os tipos de arquivo.
+     */
     public static void carregarTipoArquivoLivro(JComboBox<ETipoArquivo> combo) {
         combo.removeAllItems();
         combo.addItem(ETipoArquivo.PDF);

@@ -250,17 +250,5 @@ public class AdicionarMidiaMusica extends JPanel {
         explorador.exploradorLimparPainelDireito();
     }
 
-    // -------------------------
-    // MÉTODOS AUXILIARES
-    // -------------------------
-    private void limparCampos() {
-        campoCaminho.setText("");
-        campoTitulo.setText("");
-        campoArtista.setText("");
-        campoTamanho.setText("");
-        campoDuracao.setText("");
-        comboBoxGenero.setSelectedItem(null);
-        comboBoxTipoArquivo.setSelectedItem(null);
-        comboBoxIdioma.setSelectedItem(null);
-    }
+
 }

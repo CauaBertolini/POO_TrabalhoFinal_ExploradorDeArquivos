@@ -284,20 +284,4 @@ public class AdicionarMidiaFilme extends JPanel {
         }
     }
 
-    // -------------------------
-    // MÉTODOS AUXILIARES
-    // -------------------------
-    private void limparCampos() {
-        campoCaminho.setText("");
-        campoTituloFilme.setText("");
-        campoTamanho.setText("");
-        campoDuracao.setText("");
-        comboBoxGenero.setSelectedItem(null);
-        comboBoxIdioma.setSelectedItem(null);
-        comboBoxTipoArquivo.setSelectedItem(null);
-    }
-
-    public void atualizarTabela() {
-        // Implementação futura
-    }
 }
