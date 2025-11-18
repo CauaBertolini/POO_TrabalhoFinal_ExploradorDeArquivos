@@ -174,14 +174,29 @@ public class EditarMidiaLivro extends JPanel {
         );
     }
 
+    /**
+     * Executa a ação do botão Confirmar, chama o método que altera os dados da mídia.
+     */
     private void botaoConfirmarAcao() {
         alterarMidia();
     }
 
+    /**
+     * Executa a ação do botão Cancelar, limpa o painel direito do explorador.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }
 
+    /**
+     * Realiza a alteração dos dados de uma mídia do tipo Livro.
+     * O método coleta os valores informados na interface,
+     * converte os valores numéricos necessários,
+     * identifica os itens selecionados nos componentes gráficos
+     * e solicita ao explorador que atualize a mídia correspondente.
+     * Em caso de sucesso, uma mensagem é exibida ao usuário.
+     * Caso ocorra algum erro, uma exceção é lançada e o processo é interrompido.
+     */
     private void alterarMidia() {
 
         float tamanho = 0;
@@ -206,6 +221,11 @@ public class EditarMidiaLivro extends JPanel {
         }
     }
 
+    /**
+     * Carrega no formulário os valores atuais da mídia exibida para edição.
+     * Preenche os campos de texto e seleciona o tipo de arquivo e o gênero adequados,
+     * permitindo que o usuário visualize e atualize os dados corretamente.
+     */
     private void carregarDadosMidia() {
         campoPaginas.setText(String.valueOf(livro.getDuracao()));
         campoTamanho.setText(String.valueOf(livro.getTamanho()));

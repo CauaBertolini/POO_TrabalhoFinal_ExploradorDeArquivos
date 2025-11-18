@@ -79,20 +79,35 @@ public class SelecionarMidiaAdicionar extends JPanel {
         add(painelFundo, BorderLayout.CENTER);
     }
 
-    // ==== MÉTODOS PARA ABRIR OS PAINÉIS CORRETAMENTE ====
-
+    /**
+     * Abre o painel de cadastro de filmes no painel principal da interface.
+     */
     private void abrirPainelFilme() {
         trocarPainel(new AdicionarMidiaFilme(explorador));
     }
 
+    /**
+     * Abre o painel de cadastro de filmes no painel principal da interface.
+     */
     private void abrirPainelMusica() {
         trocarPainel(new AdicionarMidiaMusica(explorador));
     }
 
+    /**
+     * Abre o painel de cadastro de livros no painel principal da interface.
+     */
     private void abrirPainelLivro() {
         trocarPainel(new AdicionarMidiaLivro(explorador));
     }
 
+
+    /**
+     * Troca o conteúdo do painel principal pelo painel informado.
+     * Remove qualquer conteúdo anterior, define o layout como BorderLayout,
+     * adiciona o novo painel e atualiza a interface.
+     *
+     * @param novoPainel O painel que será exibido no painel principal.
+     */
     private void trocarPainel(JPanel novoPainel) {
         painelPrincipal.removeAll();
         painelPrincipal.setLayout(new BorderLayout());

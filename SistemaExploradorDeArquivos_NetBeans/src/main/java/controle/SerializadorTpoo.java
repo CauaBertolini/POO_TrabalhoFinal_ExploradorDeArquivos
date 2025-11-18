@@ -14,10 +14,24 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+
 public class SerializadorTpoo {
 
     private static Listas listas = new Listas();
 
+    /**
+     * O método salva um objeto do Filme, Musica, Livro em um arquivo
+     * binário personalizado para serialização.
+     * O formato de arquivo binário utilizado inclui o 'tpoo' e
+     * um número de versão para garantir a tipagem e compatibilidade do arquivo.
+     * Ele diferencia entre os subtipos de Midia para serializar seus atributos
+     * específicos.
+     *
+     * @param midia - O objeto Midia a ser serializado e salvo no caminho especificado
+     *              por midia.getCaminho().
+     * @throws IOException Se ocorrer um erro durante a escrita no arquivo (e.g.,
+     *                     permissão negada, caminho inválido).
+     */
     public static void salvarMidia(Midia midia) throws IOException {
         try (DataOutputStream serializador = new DataOutputStream(new FileOutputStream(new File(midia.getCaminho())))) {
             // Rótulo que coloca um celo de tipagem no arquivo
@@ -50,6 +64,12 @@ public class SerializadorTpoo {
 
     }
 
+    /**
+     *
+     * @param arquivo
+     * @return
+     * @throws IOException
+     */
     public static Midia carregarMidia(File arquivo) throws IOException {
         try (DataInputStream descerializador = new DataInputStream(new FileInputStream(arquivo))) {
             byte[] celo = new byte[4];
@@ -104,6 +124,13 @@ public class SerializadorTpoo {
         return null;
     }
 
+    /**
+     *
+     * @param genero
+     * @param tipoGenero
+     * @return
+     * @throws IOException
+     */
     public static Genero encontrarGenero(String genero, ETipoGenero tipoGenero) throws IOException {
         for (Genero gen : listas.getListaGeneros()) {
             if (gen.getETipoGenero().equals(tipoGenero)) {
@@ -115,6 +142,12 @@ public class SerializadorTpoo {
         return null;
     }
 
+    /**
+     *
+     * @param idioma
+     * @return
+     * @throws IOException
+     */
     public static Idioma encontrarIdioma(String idioma) throws IOException {
         for (Idioma idi : listas.getListaIdiomas()) {
             if (idi.getNome().equals(idioma)) {

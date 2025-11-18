@@ -215,9 +215,10 @@ public class AdicionarMidiaMusica extends JPanel {
         );
     }
 
-    // -------------------------
-    // MÉTODOS DE AÇÃO
-    // -------------------------
+    /**
+     * Abre um seletor de diretório e, caso o usuário escolha uma pasta válida,
+     * armazena o caminho selecionado e atualiza o campo de texto correspondente.
+     */
     private void botaoProcurarAcao() {
         String selecionado = explorador.abrirSeletorDeDiretorio();
         if (selecionado != null) {
@@ -226,6 +227,15 @@ public class AdicionarMidiaMusica extends JPanel {
         }
     }
 
+    /**
+     * Realiza o cadastro de uma nova mídia do tipo Música.
+     * <p>
+     * Obtém os valores informados nos campos da tela, converte dados numéricos
+     * quando necessário e delega a criação da mídia ao {@code ExploradorDeArquivos}.
+     * Após o cadastro, exibe mensagem de sucesso e limpa o painel da interface.
+     * Em caso de erro, exibe uma mensagem informativa ao usuário.
+     * </p>
+     */
     private void botaoCadastrarAcao() {
         try {
             String titulo = campoTitulo.getText();
@@ -246,6 +256,9 @@ public class AdicionarMidiaMusica extends JPanel {
         }
     }
 
+    /**
+     * Cancela a operação atual e solicita que o explorador limpe o painel da interface.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }

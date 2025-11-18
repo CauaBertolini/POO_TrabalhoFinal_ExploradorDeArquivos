@@ -116,6 +116,13 @@ public class MoverMidia extends JPanel {
         );
     }
 
+    /**
+     * Confirma a ação de mover uma mídia para um novo caminho.
+     * O método verifica se o campo de caminho não está vazio,
+     * solicita ao explorador que mova a mídia selecionada
+     * e exibe uma mensagem de sucesso caso a operação seja concluída.
+     * Se ocorrer algum erro, exibe uma mensagem de erro ao usuário.
+     */
     private void botaoConfirmarAcao() {
         try {
             if (campoCaminho.getText().isBlank()) {
@@ -132,10 +139,19 @@ public class MoverMidia extends JPanel {
 
     }
 
+    /**
+     * Cancela a ação atual e limpa o painel direito da interface,
+     * restaurando o estado anterior e removendo qualquer conteúdo temporário.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }
 
+
+    /**
+     * Abre um seletor de diretório para o usuário escolher uma pasta.
+     * Se uma pasta for selecionada, o caminho é exibido no campo correspondente.
+     */
     private void botaoProcurarAcao() {
         String caminhoSelecionado = explorador.abrirSeletorDeDiretorio();
         if (caminhoSelecionado != null) {

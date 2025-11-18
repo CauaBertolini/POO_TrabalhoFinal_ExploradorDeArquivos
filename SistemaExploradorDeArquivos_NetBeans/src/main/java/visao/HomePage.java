@@ -127,6 +127,14 @@ public class HomePage extends javax.swing.JFrame {
         add(painelDireito, BorderLayout.CENTER);
     }
 
+    /**
+     * Realiza a exclusão da mídia selecionada na tabela.
+     * Obtém a lista de mídias armazenadas e identifica, a partir da linha selecionada na interface,
+     * qual objeto corresponde no modelo. Em seguida, solicita ao explorador que remova.
+     * Caso a exclusão seja bem-sucedida, uma mensagem de confirmação é exibida.
+     * Se nenhuma mídia estiver selecionado ou ocorrer um problema no processo,
+     * uma mensagem de erro é mostrada.
+     */
     private void botaoDeletarMidiaAcao() {
         try {
             List<Midia> listaMidias = salvamento.getMidias();
@@ -149,6 +157,11 @@ public class HomePage extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Chama o processo de alteração da mídia selecionada na tabela.
+     * Tenta abrir a tela de edição correspondente e, caso nenhum item tenha sido selecionado,
+     * captura a exceção e exibe uma mensagem informando o usuário da necessidade de escolher um arquivo.
+     */
     public void botaoAlterarAcao() {
         try {
             abrirAlterarMidia();
@@ -157,10 +170,20 @@ public class HomePage extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Atualiza o conteúdo exibido na tabela de mídias.
+     * O método chama a operação para a função para recarregar os dados.
+     */
     private void botaoAtualizarTabelaAcao() {
         atualizarTabela();
     }
 
+    /**
+     * Inicia o processo de renomear a mídia selecionada na tabela.
+     * O método verifica se algum item foi escolhido pelo usuário e,
+     * caso houver uma mídia selcionada, abre o painel para renomear.
+     * Se nenhuma mídia estiver selecionada, exibe uma mensagem de erro.
+     */
     private void botaoRenomearAcao() {
         try {
             List<Midia> listaMidias = salvamento.getMidias();
@@ -180,6 +203,12 @@ public class HomePage extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Inicia o processo de mover a mídia selecionada na tabela.
+     * O método verifica se uma mídia foi escolhida pelo usuário e, caso houver um arquivo selecionado,
+     * abre no painel direito a tela por mover a mídia.
+     * Se nenhuma mídia estiver selecionada, uma mensagem de erro é exibida ao usuário.
+     */
     private void botaoMoverAcao() {
         try {
             List<Midia> listaMidias = salvamento.getMidias();
@@ -198,6 +227,11 @@ public class HomePage extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Configura o modelo da tabela exibida na interface.
+     * O método define as colunas que serão mostradas e cria um modelo onde nenhuma
+     * célula pode ser editada. Depois, o modelo é adicionado à tabela.
+     */
     private void configurarTabela() {
         DefaultTableModel modelo = new DefaultTableModel(
                 new Object[][]{},
@@ -211,6 +245,12 @@ public class HomePage extends javax.swing.JFrame {
         tabelaMidias.setModel(modelo);
     }
 
+    /**
+     * Remove todos os listeners dos filtros de tipo e gênero.
+     * O método percorre cada listener registrado nos combos
+     * e os remove para evitar que eventos antigos interfiram
+     * quando os filtros forem atualizados novamente.
+     */
     private void removerListenersFiltros() {
         for (ActionListener al : tipoCombo.getActionListeners()) {
             tipoCombo.removeActionListener(al);
@@ -220,20 +260,41 @@ public class HomePage extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Configura os filtros da tela.
+     * O método carrega no combo de tipos e no combo de gêneros
+     * as opções disponíveis para que o usuário possa filtrar a lista de mídias.
+     */
     private void configurarFiltros() {
         ComboUtil.carregarTiposArquivoParaFiltro(tipoCombo);
         ComboUtil.carregarGenerosParaFiltro(generoCombo, lista.getListaGeneros());
     }
 
+    /**
+     * Adiciona os listeners aos filtros da tela.
+     * Sempre que o usuário alterar o tipo ou o gênero selecionado,
+     * os listeners chamam o método de filtragem da tabela.
+     */
     private void adicionarListenersFiltros() {
         tipoCombo.addActionListener(e -> filtrarTabela());
         generoCombo.addActionListener(e -> filtrarTabela());
     }
 
+    /**
+     * Atualiza o conteúdo exibido na tabela.
+     * O método simplesmente chama a filtragem,
+     * garantindo que os dados mostrados estejam sempre atualizados.
+     */
     public void atualizarTabela() {
         filtrarTabela();
     }
 
+    /**
+     * Atualiza a tabela exibindo somente as mídias que
+     * correspondem aos filtros selecionados. O método obtém
+     * a lista filtrada pelo explorador, limpa a tabela atual
+     * e adiciona novamente somente as mídias que atendem aos filtros.
+     */
     private void filtrarTabela() {
         List<modelo.midias.Midia> listaFiltrada = explorador.filtrarMidias(
                 generoCombo.getSelectedItem().toString(),
@@ -251,6 +312,11 @@ public class HomePage extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Abre no painel direito a interface para selecionar o tipo
+     * de mídia que o usuário deseja adicionar. O método limpa o
+     * painel atual, ajusta o layout e carrega o componente de seleção.
+     */
     private void abrirSelecaoMidia() {
         painelDireito.removeAll();
         painelDireito.setLayout(new BorderLayout());
@@ -263,6 +329,15 @@ public class HomePage extends javax.swing.JFrame {
         painelDireito.repaint();
     }
 
+    /**
+     * Abre no painel direito a tela de edição da mídia selecionada.
+     * O método verifica se alguma linha da tabela está selecionada
+     * e identifica qual tipo de mídia foi escolhido. Em seguida,
+     * abre a tela de edição correspondente. Se nenhuma mídia estiver
+     * selecionada, uma exceção é lançada.
+     *
+     * @throws ArquivoNaoExisteExcecao se nenhum item da tabela estiver selecionado.
+     */
     public void abrirAlterarMidia() throws ArquivoNaoExisteExcecao{
         List<Midia> listaMidias = salvamento.getMidias();
 
@@ -282,6 +357,13 @@ public class HomePage extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Substitui o conteúdo do painel direito pelo novo painel.
+     * O método remove todos os componentes atuais, define o layout
+     * como BorderLayout, adiciona o novo painel ao centro e atualiza a interface.
+     *
+     * @param painel o painel que será exibido no painel direito
+     */
     public void abrirNoPainelDireito(JPanel painel) {
         painelDireito.removeAll();
         painelDireito.setLayout(new BorderLayout());
@@ -292,6 +374,11 @@ public class HomePage extends javax.swing.JFrame {
         painelDireito.repaint();
     }
 
+    /**
+     * Limpa todo o conteúdo do painel direito.
+     * O método remove todos os componentes e atualiza a interface,
+     * deixando o painel pronto para carregar novos componentes.
+     */
     public void limparPainelDireito() {
         painelDireito.removeAll();
         painelDireito.revalidate();

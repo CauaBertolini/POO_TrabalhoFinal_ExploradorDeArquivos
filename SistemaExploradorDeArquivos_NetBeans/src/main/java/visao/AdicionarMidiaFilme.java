@@ -230,9 +230,23 @@ public class AdicionarMidiaFilme extends JPanel {
         // --- FIM DA REFORMATAÇÃO DO LAYOUT ---
     }
 
-    // -------------------------
-    // MÉTODOS DE AÇÃO
-    // -------------------------
+
+    /**
+     * Ação executada ao clicar no botão de cadastrar uma nova mídia do tipo Filme.
+     * <p>
+     * O método valida o caminho do arquivo, recupera os valores informados nos
+     * campos da interface gráfica, converte os dados numéricos e chama o método
+     * {@code criarNovaMidia} do {@code ExploradorDeArquivos}. Em caso de sucesso,
+     * exibe uma mensagem ao usuário e limpa o painel direito do explorador.
+     * </p>
+     *
+     * <p>
+     * O método também trata exceções relacionadas a campos vazios, valores
+     * inválidos e erros de conversão numérica.
+     * </p>
+     *
+     * @param evt o evento de clique acionado pelo botão de cadastro.
+     */
     private void botaoCadastrarAcao(java.awt.event.ActionEvent evt) {
 
         if (caminho == null || caminho.isEmpty()) {
@@ -271,10 +285,29 @@ public class AdicionarMidiaFilme extends JPanel {
         }
     }
 
+    /**
+     * Ação executada ao clicar no botão Cancelar.
+     * <p>
+     * Este método limpa o painel direito da interface por meio do
+     * {@code ExploradorDeArquivos}, cancelando a operação atual.
+     * </p>
+     *
+     * @param evt - o evento acionado pelo clique no botão Cancelar.
+     */
     private void botaoCancelarAcao(java.awt.event.ActionEvent evt) {
         explorador.exploradorLimparPainelDireito();
     }
 
+    /**
+     * Ação executada ao clicar no botão de procurar um diretório.
+     * <p>
+     * O método abre o seletor de diretório por meio do {@code ExploradorDeArquivos}
+     * e, caso o usuário selecione um caminho válido, atualiza o campo de texto
+     * correspondente e armazena o caminho selecionado.
+     * </p>
+     *
+     * @param evt - o evento de clique acionado pelo botão de procura.
+     */
     private void botaoProcurarAcao(java.awt.event.ActionEvent evt) {
         String selecionado = explorador.abrirSeletorDeDiretorio();
 

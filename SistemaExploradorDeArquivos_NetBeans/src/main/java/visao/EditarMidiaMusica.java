@@ -175,6 +175,15 @@ public class EditarMidiaMusica extends JPanel {
         );
     }
 
+    /**
+     * Realiza a alteração dos dados de uma mídia do tipo Musica.
+     * O método coleta os valores informados na interface,
+     * converte os valores numéricos necessários,
+     * identifica os itens selecionados nos componentes gráficos
+     * e solicita ao explorador que atualize a mídia correspondente.
+     * Em caso de sucesso, uma mensagem é exibida ao usuário.
+     * Caso ocorra algum erro, uma exceção é lançada e o processo é interrompido.
+     */
     private void alterarMidia() {
 
         float tamanho = 0;
@@ -199,14 +208,27 @@ public class EditarMidiaMusica extends JPanel {
         }
     }
 
+    /**
+     * Executa a ação do botão Confirmar, chama o método que altera os dados da mídia.
+     */
     private void botaoConfirmarAcao() {
         alterarMidia();
     }
 
+    /**
+     * Executa a ação do botão Cancelar, limpa o painel direito do explorador.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }
 
+
+    /**
+     * Carrega no formulário os dados da mídia do tipo Música que está sendo editada.
+     * Define nos campos de texto os valores atuais de duração, tamanho e artista.
+     * Seleciona no combo box o tipo de arquivo correspondente.
+     * Percorre a lista de gêneros disponíveis para marcar aquele que coincide com o gênero da música exibida.
+     */
     private void carregarDadosMidia() {
         campoDuracao.setText(String.valueOf(musica.getDuracao()));
         campoTamanho.setText(String.valueOf(musica.getTamanho()));

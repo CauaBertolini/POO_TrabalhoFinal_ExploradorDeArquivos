@@ -110,6 +110,12 @@ public class RenomearMidia extends JPanel {
         );
     }
 
+    /**
+     * Renomeia a mídia selecionada usando o valor informado no campo de texto.
+     * Se o campo estiver vazio, exibe uma mensagem de erro.
+     * Caso a renomeação seja bem-sucedida, exibe uma mensagem de confirmação.
+     * Em caso de falha, exibe uma mensagem de erro ao usuário.
+     */
     private void botaoRenomearAcao() {
         try {
             if (campoNome.getText().isBlank()) {
@@ -124,6 +130,11 @@ public class RenomearMidia extends JPanel {
         }
     }
 
+
+    /**
+     * Cancela a ação atual e limpa o painel direito da interface,
+     * restaurando o estado anterior e removendo qualquer conteúdo temporário.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }

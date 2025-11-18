@@ -176,16 +176,30 @@ public class EditarMidiaFilme extends JPanel {
         );
     }
 
+    /**
+     * Aciona a confirmação da alteração da mídia,
+     * delegando a operação ao método {@code alterarMidia()}.
+     */
     private void botaoConfirmarAcao() {
         alterarMidia();
     }
 
+    /**
+     * Executa a ação do botão Cancelar, limpa o painel direito do explorador.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }
 
 
-
+    /**
+     * Realiza a alteração dos dados da mídia exibida na tela.
+     *
+     * O método valida campos obrigatórios converte valores numéricos
+     * recupera os itens selecionados nos elementos visuais
+     * e solicita ao ExploradorDeArquivos que atualize a mídia correspondente
+     * Exibe mensagens apropriadas conforme o resultado da operação.
+     */
     private void alterarMidia() {
         try {
             if (campoDuracao.getText().isEmpty() || campoDuracao.getText().isEmpty()) {
@@ -211,6 +225,11 @@ public class EditarMidiaFilme extends JPanel {
         }
     }
 
+    /**
+     * Carrega nos campos da interface os valores atuais da mídia que está sendo alterada
+     * Preenche os campos de texto e seleciona corretamente o gênero o idioma
+     * e o tipo de arquivo nos componentes exibidos na tela.
+     */
     private void carregarDadosMidia() {
         campoDuracao.setText(String.valueOf(filme.getDuracao()));
         campoTamanho.setText(String.valueOf(filme.getTamanho()));

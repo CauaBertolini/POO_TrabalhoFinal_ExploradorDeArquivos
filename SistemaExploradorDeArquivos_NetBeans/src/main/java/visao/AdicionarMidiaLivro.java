@@ -213,9 +213,10 @@ public class AdicionarMidiaLivro extends JPanel {
         );
     }
 
-    // -------------------------
-    // MÉTODOS DE AÇÃO
-    // -------------------------
+    /**
+     * Abre um seletor de diretório e, caso o usuário escolha uma pasta,
+     * preenche o campo de caminho com o diretório selecionado.
+     */
     private void botaoProcurarAcao() {
         String caminhoSelecionado = explorador.abrirSeletorDeDiretorio();
         if (caminhoSelecionado != null) {
@@ -223,6 +224,15 @@ public class AdicionarMidiaLivro extends JPanel {
         }
     }
 
+    /**
+     * Realiza a ação de cadastro de um livro.
+     * <p>
+     * Captura os valores preenchidos nos campos da interface, converte
+     * os dados necessários e solicita à classe {@code ExploradorDeArquivos}
+     * a criação de uma nova mídia do tipo Livro. Exibe mensagens de sucesso
+     * ou erro conforme o resultado.
+     * </p>
+     */
     private void botaoCadastrarAcao() {
         try {
             String caminho = campoCaminho.getText();
@@ -243,6 +253,10 @@ public class AdicionarMidiaLivro extends JPanel {
         }
     }
 
+
+    /**
+     * Cancela a operação atual e limpa o painel direito da interface.
+     */
     private void botaoCancelarAcao() {
         explorador.exploradorLimparPainelDireito();
     }
