@@ -33,4 +33,7 @@ public class Genero {
         }
         this.eTipoGenero = eTipoGenero;
     }
+    public String toString() {
+        return nome;
+    }
 }
