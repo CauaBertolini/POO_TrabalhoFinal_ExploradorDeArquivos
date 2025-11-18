@@ -6,11 +6,24 @@ import excecao.CampoVazioOuNuloExcecao;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável por armazenar e gerenciar listas pré-definidas de gêneros e idiomas
+ * <p>
+ * Esta classe centraliza dados fixos utilizados no sistema, como:
+ * - Lista de gêneros
+ * - Lista de idiomas
+ * <p>
+ * Também permite adicionar e remover gêneros
+ */
 public class Listas {
 
     private List<Genero> listaGeneros;
     private List<Idioma> listaIdiomas;
 
+    /**
+     * Constrói uma instância de Listas e popula automaticamente as listas
+     * de gêneros e idiomas com valores padrão.
+     */
     public Listas() {
         listaGeneros = new ArrayList<>();
         listaIdiomas = new ArrayList<>();
@@ -40,7 +53,11 @@ public class Listas {
         listaGeneros.remove(genero);
     }
 
-
+    /**
+     * Popula a lista de gêneros com valores padrão
+     * <p>
+     * Este método é automaticamente chamado no construtor
+     */
     public void gerarGeneros() {
 
         listaGeneros.add(new Genero("Ação", ETipoGenero.CINEMA));
@@ -89,6 +106,11 @@ public class Listas {
 
     }
 
+    /**
+     * Popula a lista de idiomas com valores padrão
+     * <p>
+     * Este método é automaticamente chamado no construtor
+     */
     public void gerarIdiomas() {
         listaIdiomas.add(new Idioma("Português (BR)"));
         listaIdiomas.add(new Idioma("Português (PT)"));
@@ -110,7 +132,6 @@ public class Listas {
         listaIdiomas.add(new Idioma("Turco (TR)"));
         listaIdiomas.add(new Idioma("Holandês (NL)"));
     }
-
 
 
 }
