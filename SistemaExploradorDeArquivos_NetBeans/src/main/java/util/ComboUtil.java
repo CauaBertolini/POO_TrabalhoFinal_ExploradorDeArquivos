@@ -82,7 +82,6 @@ public class ComboUtil {
 
     public static void carregarTipoArquivoMusica(JComboBox<ETipoArquivo> combo) {
         combo.removeAllItems();
-        combo.addItem(ETipoArquivo.MP4);
         combo.addItem(ETipoArquivo.MP3);
     }
 
@@ -91,4 +90,20 @@ public class ComboUtil {
         combo.addItem(ETipoArquivo.PDF);
         combo.addItem(ETipoArquivo.EPUB);
     }
+    public static void carregarInstanciasParaFiltro(JComboBox<String> combo) {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        model.addElement("Todos");
+        model.addElement("Filme");
+        model.addElement("Musica");
+        model.addElement("Livro");
+        combo.setModel(model);
+    }
+    public static void carregarOrdenacoes(JComboBox<String> combo) {
+        combo.addItem("Nenhum");
+        combo.addItem("Nome A-Z");
+        combo.addItem("Duração Crescente");
+        combo.addItem("Duração Decrescente");
+    }
+
+
 }

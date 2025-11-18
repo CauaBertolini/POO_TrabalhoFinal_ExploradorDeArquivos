@@ -6,7 +6,7 @@ import modelo.*;
 import modelo.midias.Filme;
 import modelo.midias.Musica;
 import modelo.midias.Livro;
-import modelo.midias.Midia;
+import modelo.midias.*;
 import util.ComboUtil;
 import util.JOptionPaneUtil;
 
@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 public class HomePage extends javax.swing.JFrame {
     private javax.swing.JLabel labelFiltroGenero;
     private javax.swing.JLabel labelFiltroTipo;
+    private javax.swing.JLabel labelFiltroInstancia;
+    private javax.swing.JLabel labelOrdenar;
     private javax.swing.JButton botaoAdicionarMidia;
     private javax.swing.JButton botaoAlterarMidia;
     private javax.swing.JButton botaoApagarMidia;
@@ -27,6 +29,8 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JButton botaoMover;
     private javax.swing.JComboBox<String> generoCombo;
     private javax.swing.JComboBox<String> tipoCombo;
+    private javax.swing.JComboBox<String> instanciaCombo;
+    private javax.swing.JComboBox<String> ordenarCombo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaMidias;
     private javax.swing.JPanel painelDireito;
@@ -103,17 +107,27 @@ public class HomePage extends javax.swing.JFrame {
 
         labelFiltroGenero = new javax.swing.JLabel("Filtro Gênero");
         labelFiltroTipo = new javax.swing.JLabel("Filtro Tipo Arquivo");
+        labelFiltroInstancia = new javax.swing.JLabel("Filtro por Instância");
+        labelOrdenar = new javax.swing.JLabel("Ordenar");
 
         labelFiltroGenero.setVerticalAlignment(SwingConstants.BOTTOM);
         labelFiltroTipo.setVerticalAlignment(SwingConstants.BOTTOM);
+        labelFiltroInstancia.setVerticalAlignment(SwingConstants.BOTTOM);
+        labelOrdenar.setVerticalAlignment(SwingConstants.BOTTOM);
 
+        painelSuperior.add(labelOrdenar);
+        painelSuperior.add(labelFiltroInstancia);
         painelSuperior.add(labelFiltroGenero);
         painelSuperior.add(labelFiltroTipo);
 
+        ordenarCombo = new javax.swing.JComboBox<>();
+        instanciaCombo = new javax.swing.JComboBox<>();
         generoCombo = new javax.swing.JComboBox<>();
         tipoCombo = new javax.swing.JComboBox<>();
         painelSuperior.add(generoCombo);
         painelSuperior.add(tipoCombo);
+        painelSuperior.add(instanciaCombo);
+        painelSuperior.add(ordenarCombo);
 
         painelEsquerdo.add(painelSuperior, BorderLayout.NORTH);
 
@@ -223,11 +237,15 @@ public class HomePage extends javax.swing.JFrame {
     private void configurarFiltros() {
         ComboUtil.carregarTiposArquivoParaFiltro(tipoCombo);
         ComboUtil.carregarGenerosParaFiltro(generoCombo, lista.getListaGeneros());
+        ComboUtil.carregarInstanciasParaFiltro(instanciaCombo);
+        ComboUtil.carregarOrdenacoes(ordenarCombo);
     }
 
     private void adicionarListenersFiltros() {
         tipoCombo.addActionListener(e -> filtrarTabela());
         generoCombo.addActionListener(e -> filtrarTabela());
+        instanciaCombo.addActionListener(e -> filtrarTabela());
+        ordenarCombo.addActionListener(evt-> filtrarTabela());// NOVO!
     }
 
     public void atualizarTabela() {
@@ -235,15 +253,18 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     private void filtrarTabela() {
-        List<modelo.midias.Midia> listaFiltrada = explorador.filtrarMidias(
+        List<Midia> listaFiltrada = explorador.filtrarMidias(
                 generoCombo.getSelectedItem().toString(),
-                tipoCombo.getSelectedItem().toString()
+                tipoCombo.getSelectedItem().toString(),
+                instanciaCombo.getSelectedItem().toString() // NOVO!
         );
+
+        explorador.ordenarMidias(listaFiltrada, ordenarCombo.getSelectedItem().toString());
 
         DefaultTableModel model = (DefaultTableModel) tabelaMidias.getModel();
         model.setRowCount(0);
 
-        for (modelo.midias.Midia midia : listaFiltrada) {
+        for (Midia midia : listaFiltrada) {
             model.addRow(new Object[]{
                     midia.getNome() + "." + midia.getTipoArquivo().name().toLowerCase(),
                     midia.getTamanho()
