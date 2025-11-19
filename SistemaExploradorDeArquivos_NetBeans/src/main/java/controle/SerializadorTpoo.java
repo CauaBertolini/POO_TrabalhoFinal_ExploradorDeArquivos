@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class SerializadorTpoo {
 
-    private static Listas listas = new Listas();
+    static Listas listas = new Listas();
 
     /**
      * O método salva um objeto do Filme, Musica, Livro em um arquivo

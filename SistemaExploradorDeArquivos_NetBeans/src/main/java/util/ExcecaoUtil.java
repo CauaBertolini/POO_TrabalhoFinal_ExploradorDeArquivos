@@ -20,7 +20,7 @@ public class ExcecaoUtil {
      * @throws CampoVazioOuNuloExcecao se o campo for nulo ou estiver vazio.
      */
     public static boolean campoEstaVazioOuNulo(String campo) throws CampoVazioOuNuloExcecao {
-        if (campo.isEmpty() || campo == null) {
+        if (campo == null || campo.isEmpty() ) {
             throw new CampoVazioOuNuloExcecao();
         } else {
             return false;
