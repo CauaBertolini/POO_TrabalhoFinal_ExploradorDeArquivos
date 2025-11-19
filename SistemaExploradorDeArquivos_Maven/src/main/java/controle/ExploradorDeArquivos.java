@@ -37,6 +37,17 @@ public class ExploradorDeArquivos {
         this.paginaPrincipal = paginaPrincipal;
     }
 
+    /**
+     * Carrega todas as mídias listadas no arquivo CSV.
+     * <p>
+     * O método obtém do CSV os caminhos registrados das mídias serializadas,
+     * valida a lista retornada e, para cada caminho, aciona o processo de
+     * carregamento individual. Em caso de falha na leitura do CSV, a exceção é
+     * encapsulada e propagada como {@code RuntimeException}.
+     *
+     * @return Não possui retorno. Finaliza silenciosamente caso a lista esteja vazia.
+     * @throws RuntimeException Lançada quando ocorre erro ao ler o CSV contendo os caminhos das mídias.
+     */
     public void carregarMidiasDoCSV() {
         try {
             List<String> caminhosMidiasCSV = GerenciadorCSV.carregarCaminhos();
@@ -55,7 +66,17 @@ public class ExploradorDeArquivos {
     }
 
     /**
+     * Carrega uma mídia a partir de um arquivo existente.
+     * <p>
+     * O método verifica a existência e validade do arquivo informado, utiliza o
+     * serializador para reconstruir o objeto de mídia, inclui a mídia carregada
+     * no sistema, atualiza o CSV e sincroniza a interface gráfica com os novos
+     * dados.
      *
+     * @param caminho Caminho completo do arquivo .tpoo que contém a mídia serializada.
+     * @return {@code true} se a mídia for carregada com sucesso; {@code false}
+     * caso o arquivo seja inválido, não exista ou ocorra falha no processo.
+     * @throws IOException Lançada quando ocorre erro ao acessar ou ler o arquivo.
      */
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);

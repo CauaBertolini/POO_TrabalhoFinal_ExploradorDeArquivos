@@ -18,6 +18,19 @@ public class SerializadorTpoo {
 
     static Listas listas = new Listas();
 
+    /**
+     * O método salva um objeto do Filme, Musica, Livro em um arquivo
+     * binário personalizado para serialização.
+     * O formato de arquivo binário utilizado inclui o 'tpoo' e
+     * um número de versão para garantir a tipagem e compatibilidade do arquivo.
+     * Ele diferencia entre os subtipos de Midia para serializar seus atributos
+     * específicos.
+     *
+     * @param midia - O objeto Midia a ser serializado e salvo no caminho especificado
+     *              por midia.getCaminho().
+     * @throws IOException Se ocorrer um erro durante a escrita no arquivo (e.g.,
+     *                     permissão negada, caminho inválido).
+     */
     public static void salvarMidia(Midia midia) throws IOException {
         try (DataOutputStream serializador = new DataOutputStream(new FileOutputStream(new File(midia.getCaminho())))) {
             // Rótulo que coloca um celo de tipagem no arquivo
@@ -50,6 +63,12 @@ public class SerializadorTpoo {
 
     }
 
+    /**
+     *
+     * @param arquivo
+     * @return
+     * @throws IOException
+     */
     public static Midia carregarMidia(File arquivo) throws IOException {
         try (DataInputStream descerializador = new DataInputStream(new FileInputStream(arquivo))) {
             byte[] celo = new byte[4];
@@ -104,7 +123,14 @@ public class SerializadorTpoo {
         return null;
     }
 
-    public static Genero encontrarGenero(String genero, ETipoGenero tipoGenero) throws IOException {
+    /**
+     * Método usado para buscar o gênero na lista de Gêneros.
+     *
+     * @param genero - Gênero a ser procurado
+     * @param tipoGenero - O tipo do Gênero.
+     * @return Retorna o genero se encontrado, ou retorna null caso não seja encontrado
+     */
+    public static Genero encontrarGenero(String genero, ETipoGenero tipoGenero)  {
         for (Genero gen : listas.getListaGeneros()) {
             if (gen.getETipoGenero().equals(tipoGenero)) {
                 if (gen.getNome().equals(genero)) {
@@ -115,7 +141,13 @@ public class SerializadorTpoo {
         return null;
     }
 
-    public static Idioma encontrarIdioma(String idioma) throws IOException {
+    /**
+     * Método usado para buscar o idioma na lista de Idiomas
+     *
+     * @param idioma - Idioma a ser procurado.
+     * @return Retorna o idioma caso achado, se não encontrado retorna null
+     */
+    public static Idioma encontrarIdioma(String idioma)  {
         for (Idioma idi : listas.getListaIdiomas()) {
             if (idi.getNome().equals(idioma)) {
                 return idi;
