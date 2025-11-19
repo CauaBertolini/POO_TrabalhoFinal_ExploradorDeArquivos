@@ -41,6 +41,10 @@ public class ExploradorDeArquivos {
         try {
             List<String> caminhosMidiasCSV = GerenciadorCSV.carregarCaminhos();
 
+            if (caminhosMidiasCSV.isEmpty()) {
+                return;
+            }
+
             for (String linha : caminhosMidiasCSV) {
                 carregarArquivo(linha);
             }
@@ -56,17 +60,19 @@ public class ExploradorDeArquivos {
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
 
-        Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
+        if (arquivo.exists() || arquivo.length() > 0) {
+            Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
 
-        if (novaMidia != null) {
-            salvamento.incluirMidia(novaMidia);
+            if (novaMidia != null) {
+                salvamento.incluirMidia(novaMidia);
 
-            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+                GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            paginaPrincipal.limparPainelDireito();
-            paginaPrincipal.atualizarTabela();
+                paginaPrincipal.limparPainelDireito();
+                paginaPrincipal.atualizarTabela();
 
-            return true;
+                return true;
+            }
         }
 
         return false;
