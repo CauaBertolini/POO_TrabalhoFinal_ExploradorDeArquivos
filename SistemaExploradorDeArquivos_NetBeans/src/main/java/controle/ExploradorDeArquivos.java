@@ -55,13 +55,20 @@ public class ExploradorDeArquivos {
      */
     public boolean carregarArquivo(String caminho) throws IOException {
         File arquivo = new File(caminho);
+
         Midia novaMidia = SerializadorTpoo.carregarMidia(arquivo);
-        salvamento.incluirMidia(novaMidia);
 
-        GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+        if (novaMidia != null) {
+            salvamento.incluirMidia(novaMidia);
 
-        paginaPrincipal.limparPainelDireito();
-        paginaPrincipal.atualizarTabela();
+            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
+            paginaPrincipal.limparPainelDireito();
+            paginaPrincipal.atualizarTabela();
+
+            return true;
+        }
+
         return false;
     }
 
@@ -92,6 +99,7 @@ public class ExploradorDeArquivos {
 
         try {
             novaMidia = new Filme(caminhoCompleto, nome, tamanho, duracao, tipoArquivo, genero, idioma);
+
         } catch (CampoVazioOuNuloExcecao excecao) {
             JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
         } catch (CampoMenorOuIgualAZeroExcecao excecao) {
@@ -105,20 +113,23 @@ public class ExploradorDeArquivos {
                 JOptionPane.showMessageDialog(null, "Ação cancelada.");
                 return false;
             }
+            if (novaMidia != null) {
+                try {
+                    SerializadorTpoo.salvarMidia(novaMidia);
+                } catch (IOException excecao) {
+                    JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + excecao.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                }
 
-            salvamento.incluirMidia(novaMidia);
+                salvamento.incluirMidia(novaMidia);
+                GerenciadorCSV.atualizarCSV(salvamento.getMidias());
 
-            try {
-                SerializadorTpoo.salvarMidia(novaMidia);
-            } catch (IOException excecao) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar midia.\n" + excecao.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                paginaPrincipal.limparPainelDireito();
+                paginaPrincipal.atualizarTabela();//adicionei isso para atualizar a tabela de midias na home page
+                return true;
             }
 
-            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+           return false;
 
-            paginaPrincipal.limparPainelDireito();
-            paginaPrincipal.atualizarTabela();//adicionei isso para atualizar a tabela de midias na home page
-            return true;
         } catch (Exception excecao) {
             JOptionPaneUtil.mostrarMensagemErro(excecao.getMessage());
             return false;
@@ -169,19 +180,23 @@ public class ExploradorDeArquivos {
                 return false;
             }
 
-            salvamento.incluirMidia(novaMidia);
+            if (novaMidia != null) {
+                salvamento.incluirMidia(novaMidia);
 
-            try {
-                SerializadorTpoo.salvarMidia(novaMidia);
-            } catch (IOException excecao) {
-                JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
+                try {
+                    SerializadorTpoo.salvarMidia(novaMidia);
+                } catch (IOException excecao) {
+                    JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
+                }
+
+                GerenciadorCSV.atualizarCSV(salvamento.getMidias());
+
+                paginaPrincipal.limparPainelDireito();
+                paginaPrincipal.atualizarTabela();
+                return true;
             }
+        return false;
 
-            GerenciadorCSV.atualizarCSV(salvamento.getMidias());
-
-            paginaPrincipal.limparPainelDireito();
-            paginaPrincipal.atualizarTabela();
-            return true;
         } catch (Exception excecao) {
             JOptionPaneUtil.mostrarMensagemErro("Erro ao tentar excluir mídia:\n" + excecao.getMessage());
             return false;
