@@ -65,6 +65,29 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    public PaginaPrincipal(boolean inicializar) {
+        if (!inicializar) return; // construtor vazio para testes
+
+        // construtor real
+        this.explorador = new ExploradorDeArquivos(this);
+
+        initComponents();
+        this.salvamento = explorador.getSalvamento();
+        this.listas = new Listas();
+
+        configurarTabela();
+        removerListenersFiltros();
+        configurarFiltros();
+
+        explorador.carregarMidiasDoCSV();
+
+        adicionarListenersFiltros();
+        filtrarTabela();
+
+        setVisible(true);
+    }
+
+
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
