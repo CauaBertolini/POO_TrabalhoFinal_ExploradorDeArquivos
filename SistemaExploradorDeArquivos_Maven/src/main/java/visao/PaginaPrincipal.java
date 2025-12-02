@@ -2,7 +2,7 @@ package visao;
 
 import controle.ExploradorDeArquivos;
 import excecao.ArquivoNaoExisteExcecao;
-import modelo.*;
+import modelo.midias.*;
 import modelo.midias.Filme;
 import modelo.midias.Musica;
 import modelo.midias.Livro;
@@ -39,7 +39,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tabelaMidias;
     private javax.swing.JPanel painelDireito;
 
-    private Listas listas;
+    private modelo.Listas listas;
     private Salvamento salvamento;
     private ExploradorDeArquivos explorador;
 
