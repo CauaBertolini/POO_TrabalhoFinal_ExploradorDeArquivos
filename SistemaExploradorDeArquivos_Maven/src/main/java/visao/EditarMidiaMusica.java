@@ -1,4 +1,4 @@
-package visao;
+package controle.java.visao;
 
 import controle.ExploradorDeArquivos;
 import enumerador.ETipoArquivo;
